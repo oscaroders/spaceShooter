@@ -4,7 +4,7 @@ Enemy knut;
 
 void setup()
 {
-	size(1920, 1080);
+	size(500, 500);
 	lars = new Player(width/2, height/2);
 	knut = new Enemy();
 }
