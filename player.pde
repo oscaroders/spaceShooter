@@ -12,11 +12,11 @@ class Player extends Objects
 	void update()
 	{
 
-		float xMovement = getAxsisRaw("Horizontal") * playerSpeed;
+		float xMovement = getAxisRaw("Horizontal") * playerSpeed;
 
 		position.x += xMovement;
 
-		float yMovement = getAxsisRaw("Vertical") * playerSpeed;
+		float yMovement = getAxisRaw("Vertical") * playerSpeed;
 
 		position.y += yMovement;
 

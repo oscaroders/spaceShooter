@@ -102,7 +102,7 @@ void keyReleased()
 	}
 }
 
-float getAxsisRaw(String axis)
+float getAxisRaw(String axis)
 {
 
 	if (axis == "Horizontal")
