@@ -17,12 +17,14 @@ public class spaceShooter extends PApplet {
 
 Player lars;
 Bullet ulf;
+Enemy knut;
 
 public void setup()
 {
 	
 	lars = new Player(width/2, height/2);
 	ulf = new Bullet(width/2, height/2);
+	knut = new Enemy();
 }
 
 public void draw()
@@ -30,6 +32,7 @@ public void draw()
 	background(255);
 	lars.update();
 	ulf.update();
+	knut.update();
 }
 class Bullet extends Objects
 {
@@ -43,8 +46,8 @@ class Bullet extends Objects
 
 	public void update()
 	{
-		position = getPlayerPosition();
 		draw();
+
 	}
 
 	public void draw()
@@ -60,17 +63,55 @@ class Bullet extends Objects
 
 class Enemy extends Objects
 {
+	PVector direction;
+
+
 	public Enemy()
 	{
 		super();
+		direction = new PVector();
+	}
+
+	public void update()
+	{
+		moveToCenter();
+		draw();
+	}
+
+	public void draw()
+	{
+
+		fill(0, 255, 0);
+		ellipseMode(CENTER);
+		ellipse(position.x, position.y, 50, 50);
+
+	}
+
+	public void moveToCenter()
+	{
+		
+        direction.set(lars.getPlayerPosition().x - position.x, lars.getPlayerPosition().y - position.y);
+        direction.normalize();
+        position.add(direction);
+
 	}
 
 }
 
 
 
+class GameManager
+{
 
 
+	public GameManager()
+	{
+
+	}
+
+
+	
+}
 boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
@@ -219,22 +260,22 @@ class Objects
     position = new PVector();
 
     int side2side = (int)random(1, 4.99f);
-    if (side2side == 1) 
+    if (side2side == 1)
     {
     	position.x = random(-50, -5);
     	position.y = random(0, height);
     }
-    if (side2side == 2) 
+    if (side2side == 2)
     {
     	position.x = random(0, width);
     	position.y = random(-50, -5);
     }
-    if (side2side == 3) 
+    if (side2side == 3)
     {
     	position.x = random(width + 5, width + 50);
     	position.y = random(0, height);
     }
-    if (side2side == 4) 
+    if (side2side == 4)
     {
     	position.x = random(0, width);
     	position.y = random(height + 5, height + 50);
