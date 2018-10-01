@@ -41,17 +41,15 @@ class Bullet extends Objects
 
 }
 
-/*class Enemy extends Objects
+class Enemy extends Objects
 {
 
 	public Objects()
 	{
-
 		super();
 	}
 
 }
-*/
 
 
 
@@ -64,45 +62,45 @@ boolean moveDown;
 public void keyPressed()
 {
 
-	if (key == CODED) 
+	if (key == CODED)
 	{
-		if (keyCode == RIGHT) 
+		if (keyCode == RIGHT)
 		{
-			moveRight = true;	
+			moveRight = true;
 		}
-		else if (keyCode == LEFT) 
+		else if (keyCode == LEFT)
 		{
 			moveLeft = true;
 		}
 	}
 
-	if (key == 'd') 
+	if (key == 'd')
 	{
 		moveRight = true;
 	}
-	else if (key == 'a') 
+	else if (key == 'a')
 	{
 		moveLeft = true;
 	}
 
 
-	if (key == CODED) 
+	if (key == CODED)
 	{
-		if (keyCode == UP) 
+		if (keyCode == UP)
 		{
-			moveUp = true;	
+			moveUp = true;
 		}
-		else if (keyCode == DOWN) 
+		else if (keyCode == DOWN)
 		{
 			moveDown = true;
 		}
 	}
 
-	if (key == 'w') 
+	if (key == 'w')
 	{
 		moveUp = true;
 	}
-	else if (key == 's') 
+	else if (key == 's')
 	{
 		moveDown = true;
 	}
@@ -113,23 +111,23 @@ public void keyPressed()
 
 public void keyReleased()
 {
-	if (key == 'd') 
+	if (key == 'd')
 	{
 		moveRight = false;
 	}
-	else if (key == 'a') 
+	else if (key == 'a')
 	{
 		moveLeft = false;
 	}
 
 
-	if (key == CODED) 
+	if (key == CODED)
 	{
-		if (keyCode == RIGHT) 
+		if (keyCode == RIGHT)
 		{
-			moveRight = false;	
+			moveRight = false;
 		}
-		else if (keyCode == LEFT) 
+		else if (keyCode == LEFT)
 		{
 			moveLeft = false;
 		}
@@ -137,23 +135,23 @@ public void keyReleased()
 
 
 
-	if (key == 'w') 
+	if (key == 'w')
 	{
 		moveDown = false;
 	}
-	else if (key == 's') 
+	else if (key == 's')
 	{
 		moveUp = false;
 	}
 
 
-	if (key == CODED) 
+	if (key == CODED)
 	{
-		if (keyCode == UP) 
+		if (keyCode == UP)
 		{
-			moveDown = false;	
+			moveDown = false;
 		}
-		else if (keyCode == DOWN) 
+		else if (keyCode == DOWN)
 		{
 			moveUp = false;
 		}
@@ -163,30 +161,30 @@ public void keyReleased()
 public float getAxisRaw(String axis)
 {
 
-	if (axis == "Horizontal") 
+	if (axis == "Horizontal")
 	{
-		if (moveLeft) 
+		if (moveLeft)
 		{
 			return -1;
 		}
-		if (moveRight) 
+		if (moveRight)
 		{
-				
+
 			return 1;
-		}	
+		}
 	}
 
-	if (axis == "Vertical") 
+	if (axis == "Vertical")
 	{
-		if (moveDown) 
+		if (moveDown)
 		{
 			return 1;
 		}
-		if (moveUp) 
+		if (moveUp)
 		{
-				
+
 			return -1;
-		}	
+		}
 	}
 
 
@@ -229,11 +227,11 @@ class Player extends Objects
 	public void update()
 	{
 
-		float xMovement = getAxsisRaw("Horizontal") * playerSpeed;
+		float xMovement = getAxisRaw("Horizontal") * playerSpeed;
 
 		position.x += xMovement;
 
-		float yMovement = getAxsisRaw("Vertical") * playerSpeed;
+		float yMovement = getAxisRaw("Vertical") * playerSpeed;
 
 		position.y += yMovement;
 
