@@ -11,7 +11,7 @@ class Enemy extends Objects
 
 	void update()
 	{
-		moveToCenter();
+		moveToPlayerPosition();
 		draw();
 	}
 
@@ -24,7 +24,7 @@ class Enemy extends Objects
 
 	}
 
-	void moveToCenter()
+	void moveToPlayerPosition()
 	{
 		
         direction.set(lars.getPlayerPosition().x - position.x, lars.getPlayerPosition().y - position.y);
