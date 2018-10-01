@@ -131,11 +131,6 @@ float getAxisRaw(String axis)
 		}
 	}
 
-
-
-
-
-
 	return 0;
 
 }
