@@ -5,7 +5,20 @@ class Bullet extends Objects
 	{
 
 		super(x,y);
-		
+
+	}
+
+	void update()
+	{
+		draw();
+	}
+
+	void draw()
+	{
+		fill(0, 0, 255);
+		ellipseMode(CENTER);
+		ellipse(position.x, position.y, 5, 5);
+
 	}
 
 

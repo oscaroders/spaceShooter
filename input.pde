@@ -18,11 +18,11 @@ void keyPressed()
 		}
 	}
 
-	if (key == 'd')
+	if (key == 'd' || key == 'D')
 	{
 		moveRight = true;
 	}
-	else if (key == 'a')
+	else if (key == 'a' || key == 'A')
 	{
 		moveLeft = true;
 	}
@@ -40,11 +40,11 @@ void keyPressed()
 		}
 	}
 
-	if (key == 'w')
+	if (key == 'w' || key == 'W')
 	{
 		moveUp = true;
 	}
-	else if (key == 's')
+	else if (key == 's' || key == 'S')
 	{
 		moveDown = true;
 	}
@@ -55,11 +55,11 @@ void keyPressed()
 
 void keyReleased()
 {
-	if (key == 'd')
+	if (key == 'd' || key == 'D')
 	{
 		moveRight = false;
 	}
-	else if (key == 'a')
+	else if (key == 'a' || key == 'A')
 	{
 		moveLeft = false;
 	}
@@ -79,11 +79,11 @@ void keyReleased()
 
 
 
-	if (key == 'w')
+	if (key == 'w' || key == 'W')
 	{
 		moveUp = false;
 	}
-	else if (key == 's')
+	else if(key == 's' || key == 'S')
 	{
 		moveDown = false;
 	}

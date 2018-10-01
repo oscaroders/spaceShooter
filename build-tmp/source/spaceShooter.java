@@ -16,17 +16,20 @@ public class spaceShooter extends PApplet {
 
 
 Player lars;
+Bullet ulf;
 
 public void setup()
 {
 	
 	lars = new Player(width/2, height/2);
+	ulf = new Bullet(width/2, height/2);
 }
 
 public void draw()
 {
 	background(255);
 	lars.update();
+	ulf.update();
 }
 class Bullet extends Objects
 {
@@ -35,7 +38,20 @@ class Bullet extends Objects
 	{
 
 		super(x,y);
-		
+
+	}
+
+	public void update()
+	{
+		draw();
+	}
+
+	public void draw()
+	{
+		fill(0, 0, 255);
+		ellipseMode(CENTER);
+		ellipse(position.x, position.y, 5, 5);
+
 	}
 
 
@@ -74,11 +90,11 @@ public void keyPressed()
 		}
 	}
 
-	if (key == 'd')
+	if (key == 'd' || key == 'D')
 	{
 		moveRight = true;
 	}
-	else if (key == 'a')
+	else if (key == 'a' || key == 'A')
 	{
 		moveLeft = true;
 	}
@@ -96,11 +112,11 @@ public void keyPressed()
 		}
 	}
 
-	if (key == 'w')
+	if (key == 'w' || key == 'W')
 	{
 		moveUp = true;
 	}
-	else if (key == 's')
+	else if (key == 's' || key == 'S')
 	{
 		moveDown = true;
 	}
@@ -111,11 +127,11 @@ public void keyPressed()
 
 public void keyReleased()
 {
-	if (key == 'd')
+	if (key == 'd' || key == 'D')
 	{
 		moveRight = false;
 	}
-	else if (key == 'a')
+	else if (key == 'a' || key == 'A')
 	{
 		moveLeft = false;
 	}
@@ -135,11 +151,11 @@ public void keyReleased()
 
 
 
-	if (key == 'w')
+	if (key == 'w' || key == 'W')
 	{
 		moveUp = false;
 	}
-	else if (key == 's')
+	else if(key == 's' || key == 'S')
 	{
 		moveDown = false;
 	}
@@ -234,6 +250,8 @@ class Objects
 class Player extends Objects
 {
 	float playerSpeed;
+	float xMovement;
+	float yMovement;
 
 	public Player(float x, float y)
 	{
@@ -245,14 +263,15 @@ class Player extends Objects
 	public void update()
 	{
 
-		float xMovement = getAxisRaw("Horizontal") * playerSpeed;
+		xMovement = getAxisRaw("Horizontal") * playerSpeed;
 
 		position.x += xMovement;
 
-		float yMovement = getAxisRaw("Vertical") * playerSpeed;
+		yMovement = getAxisRaw("Vertical") * playerSpeed;
 
 		position.y += yMovement;
 
+		playerRotation();
 		draw();
 	}
 
@@ -264,7 +283,18 @@ class Player extends Objects
 		ellipse(position.x, position.y, 50, 50);
 	}
 
+	public void playerRotation()
+	{
+		rotation.set(xMovement, yMovement);
+		rotation.normalize();
+		position.add(rotation);
+		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
+	}
 
+	public PVector getPlayerPosition()
+	{
+		return position;
+	}
 }
   public void settings() { 	size(1920, 1080); }
   static public void main(String[] passedArgs) {

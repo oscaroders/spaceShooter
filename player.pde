@@ -41,4 +41,9 @@ class Player extends Objects
 		position.add(rotation);
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
+
+	PVector getPlayerPosition()
+	{
+		return position;
+	}
 }
