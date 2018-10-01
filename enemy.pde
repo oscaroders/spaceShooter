@@ -1,4 +1,4 @@
-class Enemy extends Objects
+/*class Enemy extends Objects
 {
 
 	public Objects()
@@ -8,3 +8,4 @@ class Enemy extends Objects
 	}
 
 }
+*/
