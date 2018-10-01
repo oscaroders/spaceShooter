@@ -77,20 +77,33 @@ class Objects
 }
 class Player extends Objects
 {
+	float playerSpeed;
 
 	public Player(float x, float y)
 	{
 		super(x,y);
+		playerSpeed = 5f;
 
 	}
 
 	public void update()
 	{
+
+		float xMovement = getAxsisRaw("Horizontal") * playerSpeed;
+
+		position.x += xMovement;
+
+		float yMovement = getAxsisRaw("Vertical") * playerSpeed;
+
+		position.y += yMovement;
+
 		draw();
 	}
 
 	public void draw()
 	{
+
+
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, 50, 50);
