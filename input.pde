@@ -6,45 +6,45 @@ boolean moveDown;
 void keyPressed()
 {
 
-	if (key == CODED) 
+	if (key == CODED)
 	{
-		if (keyCode == RIGHT) 
+		if (keyCode == RIGHT)
 		{
-			moveRight = true;	
+			moveRight = true;
 		}
-		else if (keyCode == LEFT) 
+		else if (keyCode == LEFT)
 		{
 			moveLeft = true;
 		}
 	}
 
-	if (key == 'd') 
+	if (key == 'd')
 	{
 		moveRight = true;
 	}
-	else if (key == 'a') 
+	else if (key == 'a')
 	{
 		moveLeft = true;
 	}
 
 
-	if (key == CODED) 
+	if (key == CODED)
 	{
-		if (keyCode == UP) 
+		if (keyCode == UP)
 		{
-			moveUp = true;	
+			moveUp = true;
 		}
-		else if (keyCode == DOWN) 
+		else if (keyCode == DOWN)
 		{
 			moveDown = true;
 		}
 	}
 
-	if (key == 'w') 
+	if (key == 'w')
 	{
 		moveUp = true;
 	}
-	else if (key == 's') 
+	else if (key == 's')
 	{
 		moveDown = true;
 	}
@@ -55,23 +55,23 @@ void keyPressed()
 
 void keyReleased()
 {
-	if (key == 'd') 
+	if (key == 'd')
 	{
 		moveRight = false;
 	}
-	else if (key == 'a') 
+	else if (key == 'a')
 	{
 		moveLeft = false;
 	}
 
 
-	if (key == CODED) 
+	if (key == CODED)
 	{
-		if (keyCode == RIGHT) 
+		if (keyCode == RIGHT)
 		{
-			moveRight = false;	
+			moveRight = false;
 		}
-		else if (keyCode == LEFT) 
+		else if (keyCode == LEFT)
 		{
 			moveLeft = false;
 		}
@@ -79,56 +79,56 @@ void keyReleased()
 
 
 
-	if (key == 'w') 
+	if (key == 'w')
 	{
 		moveDown = false;
 	}
-	else if (key == 's') 
+	else if (key == 's')
 	{
 		moveUp = false;
 	}
 
 
-	if (key == CODED) 
+	if (key == CODED)
 	{
-		if (keyCode == UP) 
+		if (keyCode == UP)
 		{
-			moveDown = false;	
+			moveDown = false;
 		}
-		else if (keyCode == DOWN) 
+		else if (keyCode == DOWN)
 		{
 			moveUp = false;
 		}
 	}
 }
 
-float getAxisRaw(String axis)
+float getAxsisRaw(String axis)
 {
 
-	if (axis == "Horizontal") 
+	if (axis == "Horizontal")
 	{
-		if (moveLeft) 
+		if (moveLeft)
 		{
 			return -1;
 		}
-		if (moveRight) 
+		if (moveRight)
 		{
-				
+
 			return 1;
-		}	
+		}
 	}
 
-	if (axis == "Vertical") 
+	if (axis == "Vertical")
 	{
-		if (moveDown) 
+		if (moveDown)
 		{
 			return 1;
 		}
-		if (moveUp) 
+		if (moveUp)
 		{
-				
+
 			return -1;
-		}	
+		}
 	}
 
 
