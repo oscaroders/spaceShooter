@@ -1,6 +1,8 @@
 class Player extends Objects
 {
 	float playerSpeed;
+	float xMovement;
+	float yMovement;
 
 	public Player(float x, float y)
 	{
@@ -12,14 +14,15 @@ class Player extends Objects
 	void update()
 	{
 
-		float xMovement = getAxisRaw("Horizontal") * playerSpeed;
+		xMovement = getAxisRaw("Horizontal") * playerSpeed;
 
 		position.x += xMovement;
 
-		float yMovement = getAxisRaw("Vertical") * playerSpeed;
+		yMovement = getAxisRaw("Vertical") * playerSpeed;
 
 		position.y += yMovement;
 
+		playerRotation();
 		draw();
 	}
 
@@ -33,7 +36,7 @@ class Player extends Objects
 
 	void playerRotation()
 	{
-		rotation.set(xMovement - position.x, yMovement - position.y);
+		rotation.set(xMovement, yMovement);
 		rotation.normalize();
 		position.add(rotation);
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);

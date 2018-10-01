@@ -234,6 +234,8 @@ class Objects
 class Player extends Objects
 {
 	float playerSpeed;
+	float xMovement;
+	float yMovement;
 
 	public Player(float x, float y)
 	{
@@ -245,19 +247,15 @@ class Player extends Objects
 	public void update()
 	{
 
-		float xMovement = getAxisRaw("Horizontal") * playerSpeed;
+		xMovement = getAxisRaw("Horizontal") * playerSpeed;
 
 		position.x += xMovement;
 
-		float yMovement = getAxisRaw("Vertical") * playerSpeed;
+		yMovement = getAxisRaw("Vertical") * playerSpeed;
 
 		position.y += yMovement;
 
-		rotation.set(xMovement - position.x, yMovement - position.y);
-		rotation.normalize();
-		position.add(rotation);
-		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
-
+		playerRotation();
 		draw();
 	}
 
@@ -271,6 +269,10 @@ class Player extends Objects
 
 	public void playerRotation()
 	{
+		rotation.set(xMovement, yMovement);
+		rotation.normalize();
+		position.add(rotation);
+		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
 }
   public void settings() { 	size(1920, 1080); }
