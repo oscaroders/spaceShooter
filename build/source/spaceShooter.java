@@ -44,6 +44,7 @@ class Bullet extends Objects
 	public void update()
 	{
 		draw();
+
 	}
 
 	public void draw()
@@ -68,8 +69,18 @@ class Enemy extends Objects
 
 
 
+class GameManager
+{
 
 
+	public GameManager()
+	{
+
+	}
+
+
+	
+}
 boolean moveLeft;
 boolean moveRight;
 boolean moveUp;

@@ -1,0 +1,32 @@
+---------- spaceShooter --------------
+
+Gameplay -----------------------------
+
+Classic Space Shooter. Fly around in vast space demolishing enemy Aliens!
+Earn points by killing enemies to climb up the leaderboard.
+
+Perspective --------------------------
+
+3rd person perspective in 2D space.
+
+Features -----------------------------
+
+The player has 3 lives.
+There are 3 enemies of different difficulty.
+Random falling astroids to avoid
+
+Controls -----------------------------
+
+UP, DOWN, LEFT, RIGHT to move and SPACE to  fire.
+(possible to use AWSD)
+
+Levels -------------------------------
+
+one level - boring infinity game!!!!!!!!!!!
+
+Objects ------------------------------
+
+Player
+Enemies
+Astroids
+Awesome space lazer bullets.
