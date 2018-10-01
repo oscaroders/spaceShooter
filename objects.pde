@@ -8,8 +8,8 @@ class Objects
   public Objects()
 {
     position = new PVector();
-    // position.x = random(); // ???
-    // position.x = random(); // ????
+     position.x = random(size * 2);
+     position.y = random(size * 2);
   }
 
   public Objects(float x, float y)

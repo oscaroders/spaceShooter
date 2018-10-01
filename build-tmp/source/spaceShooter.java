@@ -186,17 +186,13 @@ public float getAxisRaw(String axis)
 		}
 	}
 
-
-
-
-
-
 	return 0;
 
 }
 class Objects
 {
 
+	PVector rotation;
    	PVector velocity;
    	PVector position;
 
@@ -209,7 +205,8 @@ class Objects
 
   public Objects(float x, float y)
   {
-    position = new PVector(x,y);
+    position = new PVector(x, y);
+    rotation = new PVector(x, y);
   }
 }
 class Player extends Objects
@@ -226,11 +223,11 @@ class Player extends Objects
 	public void update()
 	{
 
-		float xMovement = getAxisRaw("Horizontal") * playerSpeed.normalized;
+		float xMovement = getAxisRaw("Horizontal") * playerSpeed;
 
 		position.x += xMovement;
 
-		float yMovement = getAxisRaw("Vertical") * playerSpeed.normalized;
+		float yMovement = getAxisRaw("Vertical") * playerSpeed;
 
 		position.y += yMovement;
 
