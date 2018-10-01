@@ -41,7 +41,7 @@ class Bullet extends Objects
 
 }
 
-class Enemy extends Objects
+/*class Enemy extends Objects
 {
 
 	public Objects()
@@ -51,6 +51,7 @@ class Enemy extends Objects
 	}
 
 }
+*/
 
 
 
@@ -92,7 +93,7 @@ class Player extends Objects
 	{
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, width/2, height/2);
+		ellipse(position.x, position.y, 50, 50);
 	}
 
 
