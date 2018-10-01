@@ -2,6 +2,7 @@ boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
 boolean moveDown;
+boolean fire;
 
 void keyPressed()
 {
@@ -16,6 +17,7 @@ void keyPressed()
 		{
 			moveLeft = true;
 		}
+
 	}
 
 	if (key == 'd' || key == 'D')
@@ -26,6 +28,11 @@ void keyPressed()
 	{
 		moveLeft = true;
 	}
+
+	if (key == 't') 
+	{
+		fire = true;		
+	}	
 
 
 	if (key == CODED)
@@ -87,6 +94,10 @@ void keyReleased()
 	{
 		moveDown = false;
 	}
+	if (key == 't') 
+	{
+		fire = false;		
+	}	
 
 
 	if (key == CODED)
@@ -99,6 +110,7 @@ void keyReleased()
 		{
 			moveDown = false;
 		}
+
 	}
 }
 
@@ -134,3 +146,5 @@ float getAxisRaw(String axis)
 	return 0;
 
 }
+
+

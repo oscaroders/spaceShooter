@@ -3,6 +3,8 @@ class Player extends Objects
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
+	Bullet[] b = new Bullet[100]; 
+	int bulletCounter = 0;
 
 	public Player(float x, float y)
 	{
@@ -42,8 +44,23 @@ class Player extends Objects
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
 
-	public PVector getPlayerPosition()
+    PVector getPlayerPosition()
 	{
 		return position;
+	}
+
+	void fire()
+	{
+		if (fire) 
+		{
+			b[bulletCounter] = new Bullet(position.x, position.y);
+			bulletCounter++;
+			if (bulletCounter == 99) 
+			{
+				bulletCounter = 0;
+			}
+
+		}
+
 	}
 }

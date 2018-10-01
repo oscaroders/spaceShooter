@@ -3,6 +3,7 @@ class Enemy extends Objects
 	PVector direction;
 
 
+
 	public Enemy()
 	{
 		super();
@@ -32,5 +33,8 @@ class Enemy extends Objects
         position.add(direction);
 
 	}
+
+	
+
 
 }
