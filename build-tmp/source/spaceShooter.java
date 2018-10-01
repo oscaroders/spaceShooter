@@ -25,7 +25,7 @@ public void setup()
 
 public void draw()
 {
-
+	background(255);
 	lars.update();
 }
 class Bullet extends Objects
@@ -43,20 +43,157 @@ class Bullet extends Objects
 
 /*class Enemy extends Objects
 {
-
 	public Objects()
 	{
-
 		super();
 	}
-
 }
 */
 
 
 
 
+boolean moveLeft;
+boolean moveRight;
+boolean moveUp;
+boolean moveDown;
 
+public void keyPressed()
+{
+
+	if (key == CODED)
+	{
+		if (keyCode == RIGHT)
+		{
+			moveRight = true;
+		}
+		else if (keyCode == LEFT)
+		{
+			moveLeft = true;
+		}
+	}
+
+	if (key == 'd')
+	{
+		moveRight = true;
+	}
+	else if (key == 'a')
+	{
+		moveLeft = true;
+	}
+
+
+	if (key == CODED)
+	{
+		if (keyCode == UP)
+		{
+			moveUp = true;
+		}
+		else if (keyCode == DOWN)
+		{
+			moveDown = true;
+		}
+	}
+
+	if (key == 'w')
+	{
+		moveUp = true;
+	}
+	else if (key == 's')
+	{
+		moveDown = true;
+	}
+
+
+
+}
+
+public void keyReleased()
+{
+	if (key == 'd')
+	{
+		moveRight = false;
+	}
+	else if (key == 'a')
+	{
+		moveLeft = false;
+	}
+
+
+	if (key == CODED)
+	{
+		if (keyCode == RIGHT)
+		{
+			moveRight = false;
+		}
+		else if (keyCode == LEFT)
+		{
+			moveLeft = false;
+		}
+	}
+
+
+
+	if (key == 'w')
+	{
+		moveUp = false;
+	}
+	else if (key == 's')
+	{
+		moveDown = false;
+	}
+
+
+	if (key == CODED)
+	{
+		if (keyCode == UP)
+		{
+			moveUp = false;
+		}
+		else if (keyCode == DOWN)
+		{
+			moveDown = false;
+		}
+	}
+}
+
+public float getAxisRaw(String axis)
+{
+
+	if (axis == "Horizontal")
+	{
+		if (moveLeft)
+		{
+			return -1;
+		}
+		if (moveRight)
+		{
+
+			return 1;
+		}
+	}
+
+	if (axis == "Vertical")
+	{
+		if (moveDown)
+		{
+			return 1;
+		}
+		if (moveUp)
+		{
+
+			return -1;
+		}
+	}
+
+
+
+
+
+
+	return 0;
+
+}
 class Objects
 {
 
@@ -89,11 +226,11 @@ class Player extends Objects
 	public void update()
 	{
 
-		float xMovement = getAxsisRaw("Horizontal") * playerSpeed;
+		float xMovement = getAxisRaw("Horizontal") * playerSpeed.normalized;
 
 		position.x += xMovement;
 
-		float yMovement = getAxsisRaw("Vertical") * playerSpeed;
+		float yMovement = getAxisRaw("Vertical") * playerSpeed.normalized;
 
 		position.y += yMovement;
 
@@ -102,7 +239,6 @@ class Player extends Objects
 
 	public void draw()
 	{
-
 
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);

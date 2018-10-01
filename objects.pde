@@ -1,6 +1,7 @@
 class Objects
 {
 
+	PVector rotation;
    	PVector velocity;
    	PVector position;
 

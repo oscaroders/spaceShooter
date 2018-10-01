@@ -26,7 +26,6 @@ class Player extends Objects
 	void draw()
 	{
 
-
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, 50, 50);
