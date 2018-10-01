@@ -41,14 +41,15 @@ class Bullet extends Objects
 
 }
 
-/*class Enemy extends Objects
+class Enemy extends Objects
 {
-	public Objects()
+	public Enemy()
 	{
 		super();
 	}
+
 }
-*/
+
 
 
 
@@ -186,30 +187,48 @@ public float getAxisRaw(String axis)
 		}
 	}
 
-
-
-
-
-
 	return 0;
 
 }
 class Objects
 {
 
+	PVector rotation;
    	PVector velocity;
    	PVector position;
 
   public Objects()
 {
     position = new PVector();
-    // position.x = random(); // ???
-    // position.x = random(); // ????
+
+    int side2side = (int)random(1, 4.99f);
+    if (side2side == 1) 
+    {
+    	position.x = random(-50, -5);
+    	position.y = random(0, height);
+    }
+    if (side2side == 2) 
+    {
+    	position.x = random(0, width);
+    	position.y = random(-50, -5);
+    }
+    if (side2side == 3) 
+    {
+    	position.x = random(width + 5, width + 50);
+    	position.y = random(0, height);
+    }
+    if (side2side == 4) 
+    {
+    	position.x = random(0, width);
+    	position.y = random(height + 5, height + 50);
+    }
+
   }
 
   public Objects(float x, float y)
   {
-    position = new PVector(x,y);
+    position = new PVector(x, y);
+    rotation = new PVector(x, y);
   }
 }
 class Player extends Objects
@@ -234,19 +253,25 @@ class Player extends Objects
 
 		position.y += yMovement;
 
+		rotation.set(xMovement - position.x, yMovement - position.y);
+		rotation.normalize();
+		position.add(rotation);
+		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
+
 		draw();
 	}
 
 	public void draw()
 	{
 
-
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, 50, 50);
 	}
 
-
+	public void playerRotation()
+	{
+	}
 }
   public void settings() { 	size(1920, 1080); }
   static public void main(String[] passedArgs) {
