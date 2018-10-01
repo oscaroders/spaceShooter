@@ -16,14 +16,12 @@ public class spaceShooter extends PApplet {
 
 
 Player lars;
-Bullet ulf;
 Enemy knut;
 
 public void setup()
 {
 	
 	lars = new Player(width/2, height/2);
-	ulf = new Bullet(width/2, height/2);
 	knut = new Enemy();
 }
 
@@ -31,7 +29,6 @@ public void draw()
 {
 	background(255);
 	lars.update();
-	ulf.update();
 	knut.update();
 }
 class Bullet extends Objects
@@ -66,6 +63,7 @@ class Enemy extends Objects
 	PVector direction;
 
 
+
 	public Enemy()
 	{
 		super();
@@ -74,7 +72,7 @@ class Enemy extends Objects
 
 	public void update()
 	{
-		moveToCenter();
+		moveToPlayerPosition();
 		draw();
 	}
 
@@ -87,7 +85,7 @@ class Enemy extends Objects
 
 	}
 
-	public void moveToCenter()
+	public void moveToPlayerPosition()
 	{
 		
         direction.set(lars.getPlayerPosition().x - position.x, lars.getPlayerPosition().y - position.y);
@@ -95,6 +93,9 @@ class Enemy extends Objects
         position.add(direction);
 
 	}
+
+	
+
 
 }
 
@@ -116,6 +117,7 @@ boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
 boolean moveDown;
+boolean fire;
 
 public void keyPressed()
 {
@@ -130,6 +132,7 @@ public void keyPressed()
 		{
 			moveLeft = true;
 		}
+
 	}
 
 	if (key == 'd' || key == 'D')
@@ -140,6 +143,11 @@ public void keyPressed()
 	{
 		moveLeft = true;
 	}
+
+	if (key == 't') 
+	{
+		fire = true;		
+	}	
 
 
 	if (key == CODED)
@@ -201,6 +209,10 @@ public void keyReleased()
 	{
 		moveDown = false;
 	}
+	if (key == 't') 
+	{
+		fire = false;		
+	}	
 
 
 	if (key == CODED)
@@ -213,6 +225,7 @@ public void keyReleased()
 		{
 			moveDown = false;
 		}
+
 	}
 }
 
@@ -248,6 +261,8 @@ public float getAxisRaw(String axis)
 	return 0;
 
 }
+
+
 class Objects
 {
 
@@ -294,6 +309,8 @@ class Player extends Objects
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
+	Bullet[] b = new Bullet[100]; 
+	int bulletCounter = 0;
 
 	public Player(float x, float y)
 	{
@@ -333,9 +350,24 @@ class Player extends Objects
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
 
-	public PVector getPlayerPosition()
+    public PVector getPlayerPosition()
 	{
 		return position;
+	}
+
+	public void fire()
+	{
+		if (fire) 
+		{
+			b[bulletCounter] = new Bullet(position.x, position.y);
+			bulletCounter++;
+			if (bulletCounter == 99) 
+			{
+				bulletCounter = 0;
+			}
+
+		}
+
 	}
 }
   public void settings() { 	size(1920, 1080); }
