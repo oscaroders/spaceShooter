@@ -41,7 +41,7 @@ class Bullet extends Objects
 
 }
 
-class Enemy extends Objects
+/*class Enemy extends Objects
 {
 
 	public Objects()
@@ -51,6 +51,7 @@ class Enemy extends Objects
 	}
 
 }
+*/
 
 
 
@@ -65,8 +66,8 @@ class Objects
   public Objects()
 {
     position = new PVector();
-    position.x = random(); // ???
-    position.x = random(); // ????
+    // position.x = random(); // ???
+    // position.x = random(); // ????
   }
 
   public Objects(float x, float y)
