@@ -1,0 +1,12 @@
+class GameManager
+{
+
+
+	public GameManager()
+	{
+
+	}
+
+
+	
+}

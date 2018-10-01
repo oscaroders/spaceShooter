@@ -43,6 +43,7 @@ class Bullet extends Objects
 
 	public void update()
 	{
+		position = getPlayerPosition();
 		draw();
 	}
 
