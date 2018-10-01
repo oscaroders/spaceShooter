@@ -17,12 +17,14 @@ public class spaceShooter extends PApplet {
 
 Player lars;
 Bullet ulf;
+Enemy knut;
 
 public void setup()
 {
 	
 	lars = new Player(width/2, height/2);
 	ulf = new Bullet(width/2, height/2);
+	knut = new Enemy();
 }
 
 public void draw()
@@ -30,6 +32,7 @@ public void draw()
 	background(255);
 	lars.update();
 	ulf.update();
+	knut.update();
 }
 class Bullet extends Objects
 {
@@ -60,9 +63,37 @@ class Bullet extends Objects
 
 class Enemy extends Objects
 {
+	PVector direction;
+
+
 	public Enemy()
 	{
 		super();
+		direction = new PVector();
+	}
+
+	public void update()
+	{
+		moveToPlayerPosition();
+		draw();
+	}
+
+	public void draw()
+	{
+
+		fill(0, 255, 0);
+		ellipseMode(CENTER);
+		ellipse(position.x, position.y, 50, 50);
+
+	}
+
+	public void moveToPlayerPosition()
+	{
+
+        direction.set(lars.getPlayerPosition().x - position.x, lars.getPlayerPosition().y - position.y);
+        direction.normalize();
+        position.add(direction);
+
 	}
 
 }
