@@ -1,7 +1,8 @@
 class Objects
 {
 
-  PVector position;
+	PVector velocity;
+  	PVector position;
 
   public Objects()
 {
