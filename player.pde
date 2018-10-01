@@ -6,6 +6,7 @@ class Player extends Objects
 		super(x,y);
 
 	}
+
 	
 
 
