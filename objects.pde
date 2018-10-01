@@ -14,6 +14,7 @@ class Objects
 
   public Objects(float x, float y)
   {
-    position = new PVector(x,y);
+    position = new PVector(x, y);
+    rotation = new PVector(x, y);
   }
 }
