@@ -16,17 +16,20 @@ public class spaceShooter extends PApplet {
 
 
 Player lars;
+Bullet ulf;
 
 public void setup()
 {
 	
 	lars = new Player(width/2, height/2);
+	ulf = new Bullet(width/2, height/2);
 }
 
 public void draw()
 {
 	background(255);
 	lars.update();
+	ulf.update();
 }
 class Bullet extends Objects
 {
@@ -35,7 +38,20 @@ class Bullet extends Objects
 	{
 
 		super(x,y);
-		
+
+	}
+
+	public void update()
+	{
+		draw();
+	}
+
+	public void draw()
+	{
+		fill(0, 0, 255);
+		ellipseMode(CENTER);
+		ellipse(position.x, position.y, 5, 5);
+
 	}
 
 
@@ -74,11 +90,11 @@ public void keyPressed()
 		}
 	}
 
-	if (key == 'd')
+	if (key == 'd' || key == 'D')
 	{
 		moveRight = true;
 	}
-	else if (key == 'a')
+	else if (key == 'a' || key == 'A')
 	{
 		moveLeft = true;
 	}
@@ -96,11 +112,11 @@ public void keyPressed()
 		}
 	}
 
-	if (key == 'w')
+	if (key == 'w' || key == 'W')
 	{
 		moveUp = true;
 	}
-	else if (key == 's')
+	else if (key == 's' || key == 'S')
 	{
 		moveDown = true;
 	}
@@ -111,11 +127,11 @@ public void keyPressed()
 
 public void keyReleased()
 {
-	if (key == 'd')
+	if (key == 'd' || key == 'D')
 	{
 		moveRight = false;
 	}
-	else if (key == 'a')
+	else if (key == 'a' || key == 'A')
 	{
 		moveLeft = false;
 	}
@@ -135,11 +151,11 @@ public void keyReleased()
 
 
 
-	if (key == 'w')
+	if (key == 'w' || key == 'W')
 	{
 		moveUp = false;
 	}
-	else if (key == 's')
+	else if(key == 's' || key == 'S')
 	{
 		moveDown = false;
 	}
@@ -202,22 +218,22 @@ class Objects
     position = new PVector();
 
     int side2side = (int)random(1, 4.99f);
-    if (side2side == 1) 
+    if (side2side == 1)
     {
     	position.x = random(-50, -5);
     	position.y = random(0, height);
     }
-    if (side2side == 2) 
+    if (side2side == 2)
     {
     	position.x = random(0, width);
     	position.y = random(-50, -5);
     }
-    if (side2side == 3) 
+    if (side2side == 3)
     {
     	position.x = random(width + 5, width + 50);
     	position.y = random(0, height);
     }
-    if (side2side == 4) 
+    if (side2side == 4)
     {
     	position.x = random(0, width);
     	position.y = random(height + 5, height + 50);
@@ -273,6 +289,11 @@ class Player extends Objects
 		rotation.normalize();
 		position.add(rotation);
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
+	}
+
+	public PVector getPlayerPosition()
+	{
+		return position;
 	}
 }
   public void settings() { 	size(1920, 1080); }
