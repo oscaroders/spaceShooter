@@ -1,8 +1,9 @@
-/*class Enemy extends Objects
+class Enemy extends Objects
 {
-	public Objects()
+	public Enemy()
 	{
 		super();
 	}
+
 }
-*/
+
