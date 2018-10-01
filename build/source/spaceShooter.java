@@ -25,7 +25,7 @@ public void setup()
 
 public void draw()
 {
-
+	background(255);
 	lars.update();
 }
 class Bullet extends Objects
@@ -41,15 +41,14 @@ class Bullet extends Objects
 
 }
 
-class Enemy extends Objects
+/*class Enemy extends Objects
 {
-
 	public Objects()
 	{
 		super();
 	}
-
 }
+*/
 
 
 
@@ -137,11 +136,11 @@ public void keyReleased()
 
 	if (key == 'w')
 	{
-		moveDown = false;
+		moveUp = false;
 	}
 	else if (key == 's')
 	{
-		moveUp = false;
+		moveDown = false;
 	}
 
 
@@ -149,11 +148,11 @@ public void keyReleased()
 	{
 		if (keyCode == UP)
 		{
-			moveDown = false;
+			moveUp = false;
 		}
 		else if (keyCode == DOWN)
 		{
-			moveUp = false;
+			moveDown = false;
 		}
 	}
 }

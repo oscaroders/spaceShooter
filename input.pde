@@ -81,11 +81,11 @@ void keyReleased()
 
 	if (key == 'w')
 	{
-		moveDown = false;
+		moveUp = false;
 	}
 	else if (key == 's')
 	{
-		moveUp = false;
+		moveDown = false;
 	}
 
 
@@ -93,11 +93,11 @@ void keyReleased()
 	{
 		if (keyCode == UP)
 		{
-			moveDown = false;
+			moveUp = false;
 		}
 		else if (keyCode == DOWN)
 		{
-			moveUp = false;
+			moveDown = false;
 		}
 	}
 }
