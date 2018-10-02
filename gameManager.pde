@@ -23,15 +23,16 @@ class GameManager
 
 	void checkCollision()
 	{
-
+		for (int i = 0; i < maxNumberOfEnemies; ++i) 
+		{
+			collision(lars.position.x, lars.position.y, size, size)	
+		}
+		
 		boolean collider = collision();
 
 		if (collider)
 		{
-	  		if ()
-     		{
-
-			}
+	  		
 		}
 
 	}
