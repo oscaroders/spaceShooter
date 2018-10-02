@@ -3,9 +3,7 @@ class GameManager
 	Player lars;
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
-	int actualNumberOfEnemies = 0;
 	boolean firstItt;
-	// int enemyCounter;
 
 
 	public GameManager()
@@ -35,7 +33,7 @@ class GameManager
 				gameOver();
 			}
 
-			for (int j = 0; j < enemies[i].length; ++j)
+			for (int j = 0; j < 100; ++j)
 			{
 				 if (collision(lars.position.x, lars.position.y, lars.size,enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
 				 {
@@ -43,6 +41,9 @@ class GameManager
 				 }
 
 			}
+
+	}
+}
 
 	void spawnEnemy()
 	{
@@ -85,16 +86,6 @@ class GameManager
 			{
 				enemies[maxNumberOfEnemies - 1] = new EnemyHard();
 			}
-
-
-		enemies[] = new Enemy();
-		enemies[actualNumberOfEnemies].update();
-
-		if (actualNumberOfEnemies >= maxNumberOfEnemies)
-		{
-
-		}
-
 
 
 	}
