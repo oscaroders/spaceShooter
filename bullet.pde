@@ -1,26 +1,38 @@
 class Bullet extends Objects
 {
+	boolean firstItt;
+	float directionX;
+	float directionY;
+	float speed = 20;
+	float size = 5;
 
 	public Bullet(float x,float y)
 	{
 
 		super(x,y);
-
+		firstItt = true;
 	}
 
 	void update()
 	{
-		
-		draw();
+		setBulletDirection();
+		position.set(position.x + directionX * speed, position.y + directionY * speed);
+		if(!(directionX == 0 && directionY == 0))
+			draw();
 	}
 
 	void draw()
 	{
 		fill(0, 0, 255);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 20, 20);
-
+		ellipse(position.x, position.y, size, size);
 	}
 
-
+	void setBulletDirection(){
+		if(firstItt){
+			directionX += lars.getRotation().x;
+			directionY += lars.getRotation().y;
+			firstItt = false;
+		}
+	}
 }
