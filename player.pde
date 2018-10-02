@@ -3,14 +3,10 @@ class Player extends Objects
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
-<<<<<<< HEAD
-	Bullet[] b = new Bullet[100]; 
-	int bulletCounter = 0;
-	Bullet bullet;
-=======
+
 	Bullet[] b;
 	int bulletCounter;
->>>>>>> 67ac07a37edccb298f5df014aa412710daf5fef2
+
 
 	public Player(float x, float y)
 	{

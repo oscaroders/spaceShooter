@@ -144,7 +144,7 @@ public void keyPressed()
 		moveLeft = true;
 	}
 
-	if (key == 38)
+	if (key == 't')
 	{
 		fire = true;
 	}
@@ -209,7 +209,7 @@ public void keyReleased()
 	{
 		moveDown = false;
 	}
-	if (key == 38)
+	if (key == 't')
 	{
 		fire = false;
 	}
@@ -307,8 +307,10 @@ class Player extends Objects
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
+
 	Bullet[] b;
 	int bulletCounter;
+
 
 	public Player(float x, float y)
 	{
@@ -332,6 +334,7 @@ class Player extends Objects
 		fire();
 		playerRotation();
 		draw();
+		fire();
 	}
 
 	public void draw()
@@ -367,6 +370,10 @@ class Player extends Objects
 				bulletCounter = 0;
 			}
 
+		}
+		else
+		{
+			println("ERROR!");
 		}
 
 	}
