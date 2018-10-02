@@ -38,4 +38,8 @@ class Objects
     position = new PVector(x, y);
     rotation = new PVector(x, y);
   }
+
+  PVector getRotation(){
+    return rotation;
+  }
 }
