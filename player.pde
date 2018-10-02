@@ -65,12 +65,6 @@ class Player extends Objects
 			{
 				bulletCounter = 0;
 			}
-
 		}
-		else
-		{
-			println("ERROR!");
-		}
-
 	}
 }

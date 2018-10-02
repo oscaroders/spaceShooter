@@ -369,13 +369,7 @@ class Player extends Objects
 			{
 				bulletCounter = 0;
 			}
-
 		}
-		else
-		{
-			println("ERROR!");
-		}
-
 	}
 }
   public void settings() { 	size(500, 500); }
