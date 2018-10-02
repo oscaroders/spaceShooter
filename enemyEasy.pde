@@ -5,10 +5,6 @@ class EnemyEasy extends Enemy{
     size = 25;
   }
 
-  void update(){
-    super();
-  }
-
   void draw()
   {
 

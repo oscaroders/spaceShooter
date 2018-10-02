@@ -4,7 +4,7 @@ class Enemy extends Objects
 	float size;
 	Bullet[] b;
 	int bulletCounter;
-	int maxBullet = 100; 
+	int maxBullet = 100;
 
 
 	public Enemy()
@@ -18,8 +18,8 @@ class Enemy extends Objects
 	{
 		moveToPlayerPosition();
 
-		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height)) 
-		{		
+		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height))
+		{
 			enemyfire();
 		}
 

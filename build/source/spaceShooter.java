@@ -14,22 +14,26 @@ import java.io.IOException;
 
 public class spaceShooter extends PApplet {
 
+GameManager gameManager;
 
-Player lars;
-Enemy knut;
+float deltaTime;
+long currentTime;
+float time;
 
 public void setup()
 {
 	
-	lars = new Player(width/2, height/2);
-	knut = new Enemy();
+	gameManager = new GameManager();
 }
 
 public void draw()
 {
-	background(255);
-	lars.update();
-	knut.update();
+	currentTime = millis();
+	deltaTime = (currentTime - time) * 0.001f;
+
+	gameManager.update();
+
+	time = currentTime;
 }
 class Bullet extends Objects
 {
@@ -63,15 +67,15 @@ class Bullet extends Objects
 
 	public void setBulletDirection(){
 		if(firstItt){
-			directionX += lars.getRotation().x;
-			directionY += lars.getRotation().y;
+			directionX += gameManager.lars.getRotation().x;
+			directionY += gameManager.lars.getRotation().y;
 			firstItt = false;
 		}
 	}
 }
-public boolean collision(float x1, float y1, int size1, float x2, float y2, int size2)
+public boolean collision(float x1, float y1, float size1, float x2, float y2, float size2)
 {
-	int maxDistance = size1 + size2;
+	float maxDistance = size1 + size2;
 
 	if(abs(x1 - x2) > maxDistance || abs(y1 - y2) > maxDistance)
 	{
@@ -90,18 +94,29 @@ public boolean collision(float x1, float y1, int size1, float x2, float y2, int 
 class Enemy extends Objects
 {
 	PVector direction;
-
+	float size;
+	Bullet[] b;
+	int bulletCounter;
+	int maxBullet = 100;
 
 
 	public Enemy()
 	{
 		super();
 		direction = new PVector();
+		size = 50;
 	}
 
 	public void update()
 	{
 		moveToPlayerPosition();
+
+		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height))
+		{
+			enemyfire();
+		}
+
+		bulletDraw();
 		draw();
 	}
 
@@ -110,85 +125,276 @@ class Enemy extends Objects
 
 		fill(0, 255, 0);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 50, 50);
+		ellipse(position.x, position.y, size, size);
 
 	}
 
 	public void moveToPlayerPosition()
 	{
 
-        direction.set(lars.getPlayerPosition().x - position.x, lars.getPlayerPosition().y - position.y);
+        direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
         direction.normalize();
         position.add(direction);
 
 	}
 
+	public void enemyfire()
+	{
+		if (millis()% 1000 == 0)
+		{
+			b[bulletCounter] = new Bullet(position.x, position.y);
+			bulletCounter++;
+			if (bulletCounter == maxBullet - 1)
+			{
+				bulletCounter = 0;
+			}
+		}
+	}
+
+	public void bulletDraw()
+	{
+
+		for(int i = 0; i < maxBullet; i++)
+		{
+			if(b[i] instanceof Bullet)
+			{
+				b[i].update();
+			}
+
+		}
+	}
+
+
 
 
 
 }
-class EnemyEasy extends enemy{
+class EnemyEasy extends Enemy{
 
   EnemyEasy(){
     super();
+    size = 25;
+  }
+
+  public void update(){
+    super;
+  }
+
+  public void draw()
+  {
+
+    fill(255, 255, 0);
+    ellipseMode(CENTER);
+    ellipse(position.x, position.y, size, size);
+
+  }
+
+  public void moveToPlayerPosition()
+  {
+
+        direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
+        direction.normalize();
+        direction.mult(2);
+        position.add(direction);
+
   }
 }
-class EnemyHard extends enemy{
+class EnemyHard extends Enemy{
 
   EnemyHard(){
     super();
   }
+
+  public void update(){
+    super;
+    size = 100;
+  }
+
+  public void draw()
+  {
+
+    fill(255, 255, 0);
+    ellipseMode(CENTER);
+    ellipse(position.x, position.y, size, size);
+
+  }
+
+  public void moveToPlayerPosition()
+  {
+
+        direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
+        direction.normalize();
+        direction.mult(1);
+        position.add(direction);
+
+  }
 }
-class EnemyMedium extends enemy{
+class EnemyMedium extends Enemy{
 
   EnemyMedium(){
     super();
   }
+
+  public void update(){
+    super;
+    size = 50;
+  }
+
+  public void draw()
+  {
+
+    fill(255, 255, 0);
+    ellipseMode(CENTER);
+    ellipse(position.x, position.y, size, size);
+
+  }
+
+  public void moveToPlayerPosition()
+  {
+
+        direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
+        direction.normalize();
+        direction.mult(1.5f);
+        position.add(direction);
+
+  }
 }
 class GameManager
 {
-
+	Player lars;
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
-	int actualNumberOfEnemies = 0;
+	boolean firstItt;
+	int numberOfStars = 500;
+	PVector starPos;
+
 
 	public GameManager()
 	{
-		enemies = new Enemy[3];
+		enemies = new Enemy[maxNumberOfEnemies];
+		lars = new Player(width/2, height/2);
+		firstItt = true;
+		starPos = new PVector(numberOfStars);
+	}
+
+	public void update()
+	{
+		drawBackground();
+		spawnEnemy();
+		checkCollision();
+		lars.update();
+
 	}
 
 
-
-	public void collision()
+	public void checkCollision()
 	{
-
-		boolean collider = collision(Enemy.position.x, Enemy.position.y);
-
-		if (collider)
+		for (int i = 0; i < maxNumberOfEnemies; ++i)
 		{
-	  		if (Enemy)
-     		{
+			boolean colider = collision(lars.position.x, lars.position.y, lars.size, enemies[i].position.x, enemies[i].position.y, enemies[i].size);
+			if (colider)
+			{
+				gameOver();
+			}
 
+			for (int j = 0; j < 100; ++j)
+			{
+				 if (collision(lars.position.x, lars.position.y, lars.size,enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
+				 {
+				 	gameOver();
+				 }
+
+			}
+
+	}
+}
+
+	public void spawnEnemy()
+	{
+		if(firstItt){
+			for (int i = 0; i < maxNumberOfEnemies; i++)
+			{
+				if (i < 6)
+				{
+					enemies[i] = new EnemyEasy();
+				}
+				if (i > 5 && i < 9)
+				{
+					enemies[i] = new EnemyMedium();
+				}
+				if (i > 8)
+				{
+					enemies[i] = new EnemyHard();
+				}
+			}
+			firstItt = false;
+		}
+
+		for (int i = 0; i < 6; ++i)
+		{
+			if (!(enemies[i] instanceof Enemy))
+			{
+				enemies[i] = new EnmeyEasy();
 			}
 		}
 
-	}
-	public void spawnEnemy()
-	{
-
-
-		enemies[maxNumberOfEnemies] = new Enemy();
-		enemies[actualNumberOfEnemies].update(); 
-
-		if (actualNumberOfEnemies >= maxNumberOfEnemies) 
+		for (int i = 6; i < 9; ++i)
 		{
-		  	
+			if (!(enemies[i] instanceof Enemy))
+			{
+				enemies[i] = new EnemyMedium();
+			}
 		}
 
+		if (!(enemies[maxNumberOfEnemies - 1] instanceof Enemy))
+			{
+				enemies[maxNumberOfEnemies - 1] = new EnemyHard();
+			}
 
 
 	}
-	
+
+	public void gameOver()
+	{
+
+		currentTime = millis() / 1000;
+
+		textSize(50);
+		textAlign(CENTER);
+		fill(255, 255, 255);
+		text("Game Over", width/2, height/2);
+
+		textAlign(CENTER);
+		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
+	}
+
+	public void drawBackground(){
+  background(spaceBlue);
+
+  if(firstItt){
+    generateBackground();
+  }
+
+  for(int i = 0; i < numberOfStars; i++){
+    if(backgcount % (int)random(7, 23) == 0){
+      stroke(lightYellow);
+      strokeWeight(random(2, 5));
+    } else {
+      stroke(yellow);
+      strokeWeight(2);
+    }
+    point(starPos[i].x, starPos[i].y);
+    backgcount++;
+  }
+}
+
+public void generateBackground(){
+  for(int i = 0; i < numberOfStars; i++){
+    starPos[i] = new PVector(random(0, width),
+                             random(0, height));
+  }
+}
+
 }
 boolean moveLeft;
 boolean moveRight;
@@ -392,14 +598,14 @@ class Player extends Objects
 	Bullet[] b;
 	int bulletCounter;
 	int maxBullet = 100;
-
+	float size;
 
 	public Player(float x, float y)
 	{
 		super(x,y);
 		playerSpeed = 5f;
 		b = new Bullet[maxBullet];
-
+		size = 50;
 	}
 
 	public void update()
@@ -426,7 +632,7 @@ class Player extends Objects
 
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 50, 50);
+		ellipse(position.x, position.y, size, size);
 	}
 
 	public void playerRotation()
@@ -464,7 +670,7 @@ class Player extends Objects
 		}
 	}
 }
-  public void settings() { 	size(500, 500); }
+  public void settings() { 	size(1920, 1080); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "spaceShooter" };
     if (passedArgs != null) {

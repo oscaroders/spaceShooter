@@ -2,10 +2,6 @@ class EnemyMedium extends Enemy{
 
   EnemyMedium(){
     super();
-  }
-
-  void update(){
-    super();
     size = 50;
   }
 

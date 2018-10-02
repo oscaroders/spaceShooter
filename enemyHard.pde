@@ -2,10 +2,6 @@ class EnemyHard extends Enemy{
 
   EnemyHard(){
     super();
-  }
-
-  void update(){
-    super();
     size = 100;
   }
 
