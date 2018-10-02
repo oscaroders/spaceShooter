@@ -30,8 +30,8 @@ class Bullet extends Objects
 
 	void setBulletDirection(){
 		if(firstItt){
-			directionX += lars.getRotation().x;
-			directionY += lars.getRotation().y;
+			directionX += gameManager.lars.getRotation().x;
+			directionY += gameManager.lars.getRotation().y;
 			firstItt = false;
 		}
 	}

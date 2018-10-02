@@ -29,7 +29,7 @@ class Enemy extends Objects
 	void moveToPlayerPosition()
 	{
 
-        direction.set(lars.getPlayerPosition().x - position.x, lars.getPlayerPosition().y - position.y);
+        direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
         direction.normalize();
         position.add(direction);
 

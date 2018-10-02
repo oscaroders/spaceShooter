@@ -14,60 +14,97 @@ import java.io.IOException;
 
 public class spaceShooter extends PApplet {
 
+GameManager gameManager;
 
-Player lars;
-Enemy knut;
+float deltaTime;
+long currentTime;
+float time;
 
 public void setup()
 {
 	
-	lars = new Player(width/2, height/2);
-	knut = new Enemy();
+	gameManager = new GameManager();
 }
 
 public void draw()
 {
+	currentTime = millis();
+	deltaTime = (currentTime - time) * 0.001f;
 	background(255);
-	lars.update();
-	knut.update();
+	gameManager.update();
+	time = currentTime;
 }
+
+
+
+
 class Bullet extends Objects
 {
+	boolean firstItt;
+	float directionX;
+	float directionY;
+	float speed = 20;
+	float size = 5;
 
 	public Bullet(float x,float y)
 	{
 
 		super(x,y);
-
+		firstItt = true;
 	}
 
 	public void update()
 	{
-		draw();
-
+		setBulletDirection();
+		position.set(position.x + directionX * speed, position.y + directionY * speed);
+		if(!(directionX == 0 && directionY == 0))
+			draw();
 	}
 
 	public void draw()
 	{
 		fill(0, 0, 255);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 5, 5);
-
+		ellipse(position.x, position.y, size, size);
 	}
 
+	public void setBulletDirection(){
+		if(firstItt){
+			directionX += gameManager.lars.getRotation().x;
+			directionY += gameManager.lars.getRotation().y;
+			firstItt = false;
+		}
+	}
+}
+public boolean collision(float x1, float y1, float size1, float x2, float y2, float size2)
+{
+	float maxDistance = size1 + size2;
+
+	if(abs(x1 - x2) > maxDistance || abs(y1 - y2) > maxDistance)
+	{
+		return false;
+	}
+	else if (dist(x1, y1, x2, y2) > maxDistance)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 
 }
-
 class Enemy extends Objects
 {
 	PVector direction;
-
+	float size;
 
 
 	public Enemy()
 	{
 		super();
 		direction = new PVector();
+		size = 50;
 	}
 
 	public void update()
@@ -81,36 +118,106 @@ class Enemy extends Objects
 
 		fill(0, 255, 0);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 50, 50);
+		ellipse(position.x, position.y, size, size);
 
 	}
 
 	public void moveToPlayerPosition()
 	{
-		
-        direction.set(lars.getPlayerPosition().x - position.x, lars.getPlayerPosition().y - position.y);
+
+        direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
         direction.normalize();
         position.add(direction);
 
 	}
 
-	
+
 
 
 }
+class EnemyEasy extends Enemy{
 
+  EnemyEasy(){
+    super();
+  }
+}
+class EnemyHard extends Enemy{
 
+  EnemyHard(){
+    super();
+  }
+}
+class EnemyMedium extends Enemy{
 
+  EnemyMedium(){
+    super();
+  }
+}
 class GameManager
 {
+	Player lars;
+	Enemy[] enemies;
+	int maxNumberOfEnemies = 10;
+	int actualNumberOfEnemies = 0;
 
 
 	public GameManager()
 	{
+		enemies = new Enemy[3];
+		lars = new Player(width/2, height/2);
+	}
+
+	public void update()
+	{
+
+
+		checkCollision();
+		lars.update();
 
 	}
 
 
+	public void checkCollision()
+	{
+		for (int i = 0; i < maxNumberOfEnemies; ++i) 
+		{
+			boolean colider = collision(lars.position.x, lars.position.y, lars.size, enemies[i].position.x, enemies[i].position.y, enemies[i].size);	
+			if (colider) 
+			{
+				gameOver();
+			}
+		}
+		
+	}
+	public void spawnEnemy()
+	{
+
+
+		enemies[maxNumberOfEnemies] = new Enemy();
+		enemies[actualNumberOfEnemies].update(); 
+
+		if (actualNumberOfEnemies >= maxNumberOfEnemies) 
+		{
+		  	
+		}
+
+
+
+	}
+
+	public void gameOver()
+	{
+
+		currentTime = millis() / 1000;
+
+		textSize(50);
+		textAlign(CENTER);
+		fill(255, 255, 255);
+		text("Game Over", width/2, height/2);
+
+		textAlign(CENTER);
+		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
+	}
 	
 }
 boolean moveLeft;
@@ -144,10 +251,10 @@ public void keyPressed()
 		moveLeft = true;
 	}
 
-	if (key == 't') 
+	if (key == 't')
 	{
-		fire = true;		
-	}	
+		fire = true;
+	}
 
 
 	if (key == CODED)
@@ -209,10 +316,10 @@ public void keyReleased()
 	{
 		moveDown = false;
 	}
-	if (key == 't') 
+	if (key == 't')
 	{
-		fire = false;		
-	}	
+		fire = false;
+	}
 
 
 	if (key == CODED)
@@ -261,8 +368,6 @@ public float getAxisRaw(String axis)
 	return 0;
 
 }
-
-
 class Objects
 {
 
@@ -303,21 +408,28 @@ class Objects
     position = new PVector(x, y);
     rotation = new PVector(x, y);
   }
+
+  public PVector getRotation(){
+    return rotation;
+  }
 }
 class Player extends Objects
 {
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
-	Bullet[] b = new Bullet[100]; 
-	int bulletCounter = 0;
-	Bullet bullet;
+
+	Bullet[] b;
+	int bulletCounter;
+	int maxBullet = 100;
+	float size;
 
 	public Player(float x, float y)
 	{
 		super(x,y);
 		playerSpeed = 5f;
-
+		b = new Bullet[maxBullet];
+		size = 50;
 	}
 
 	public void update()
@@ -331,9 +443,12 @@ class Player extends Objects
 
 		position.y += yMovement;
 
+
 		playerRotation();
-		draw();
 		fire();
+		bulletDraw();
+		draw();
+
 	}
 
 	public void draw()
@@ -341,7 +456,7 @@ class Player extends Objects
 
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 50, 50);
+		ellipse(position.x, position.y, size, size);
 	}
 
 	public void playerRotation()
@@ -359,24 +474,27 @@ class Player extends Objects
 
 	public void fire()
 	{
-		if (fire) 
+		if (fire)
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
 			bulletCounter++;
-			if (bulletCounter == 99) 
+			if (bulletCounter == maxBullet - 1)
 			{
 				bulletCounter = 0;
 			}
-
 		}
-		else
-		{
-			println("ERROR!");
-		}
+	}
 
+	public void bulletDraw(){
+
+		for(int i = 0; i < maxBullet; i++){
+			if(b[i] instanceof Bullet){
+				b[i].update();
+			}
+		}
 	}
 }
-  public void settings() { 	size(1920, 1080); }
+  public void settings() { 	size(500, 500); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "spaceShooter" };
     if (passedArgs != null) {

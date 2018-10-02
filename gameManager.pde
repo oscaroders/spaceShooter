@@ -5,6 +5,7 @@ class GameManager
 	int maxNumberOfEnemies = 10;
 	int actualNumberOfEnemies = 0;
 
+
 	public GameManager()
 	{
 		enemies = new Enemy[3];
@@ -25,16 +26,13 @@ class GameManager
 	{
 		for (int i = 0; i < maxNumberOfEnemies; ++i) 
 		{
-			collision(lars.position.x, lars.position.y, size, size)	
+			boolean colider = collision(lars.position.x, lars.position.y, lars.size, enemies[i].position.x, enemies[i].position.y, enemies[i].size);	
+			if (colider) 
+			{
+				gameOver();
+			}
 		}
 		
-		boolean collider = collision();
-
-		if (collider)
-		{
-	  		
-		}
-
 	}
 	void spawnEnemy()
 	{
@@ -50,6 +48,20 @@ class GameManager
 
 
 
+	}
+
+	void gameOver()
+	{
+
+		currentTime = millis() / 1000;
+
+		textSize(50);
+		textAlign(CENTER);
+		fill(255, 255, 255);
+		text("Game Over", width/2, height/2);
+
+		textAlign(CENTER);
+		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
 	}
 	
 }
