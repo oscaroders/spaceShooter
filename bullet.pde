@@ -25,7 +25,7 @@ class Bullet extends Objects
 	{
 		fill(0, 0, 255);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, size, size);
+		ellipse(position.x, position.y, size / 2, size / 2);
 	}
 
 	void setBulletDirection(PVector direction){
