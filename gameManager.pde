@@ -16,7 +16,7 @@ class GameManager
 	void update()
 	{
 
-
+		spawnEnemy();
 		checkCollision();
 		lars.update();
 
