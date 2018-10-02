@@ -4,11 +4,12 @@ class GameManager
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
 	int actualNumberOfEnemies = 0;
+	// int enemyCounter;
 
 
 	public GameManager()
 	{
-		enemies = new Enemy[3];
+		enemies = new Enemy[maxNumberOfEnemies];
 		lars = new Player(width/2, height/2);
 	}
 
@@ -31,14 +32,36 @@ class GameManager
 			{
 				gameOver();
 			}
-		}
+
+			for (int j = 0; j < enemies[i].length; ++j) 
+			{
+				 if (collision(lars.position.x, lars.position.y, lars.size,enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size)) 
+				 {
+				 	gameOver();	
+				 }
 		
-	}
+			}
+
 	void spawnEnemy()
 	{
 
+		for (int i = 0; i < maxNumberOfEnemies; i++) 
+		{
+			if (i < 6) 
+			{
+				enemies[i] = new EnemyEasy();
+			}
+			if (i > 5 && i < 9)
+			{
+				enemies[i] = new EnemyMedium();
+			}
+			if (i > 8) 
+			{
+				enemies[i] = new EnemyHard();
+			}
+		}
 
-		enemies[maxNumberOfEnemies] = new Enemy();
+		enemies[] = new Enemy();
 		enemies[actualNumberOfEnemies].update(); 
 
 		if (actualNumberOfEnemies >= maxNumberOfEnemies) 
