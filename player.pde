@@ -12,7 +12,7 @@ class Player extends Objects
 	public Player(float x, float y)
 	{
 		super(x,y);
-		playerSpeed = 5f;
+		playerSpeed = 3f;
 		b = new Bullet[maxBullet];
 		size = 50;
 	}
