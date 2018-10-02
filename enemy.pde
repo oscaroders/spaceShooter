@@ -49,7 +49,7 @@ class Enemy extends Objects
 
 	void enemyfire()
 	{
-		if (false) //shootCounter % 100 == 0
+		if (shootCounter % 100 == 0) 
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
 			bulletCounter++;
