@@ -6,13 +6,14 @@ class Player extends Objects
 
 	Bullet[] b;
 	int bulletCounter;
+	int maxBullet = 100;
 
 
 	public Player(float x, float y)
 	{
 		super(x,y);
 		playerSpeed = 5f;
-		b = new Bullet[100];
+		b = new Bullet[maxBullet];
 
 	}
 
@@ -27,7 +28,7 @@ class Player extends Objects
 
 		position.y += yMovement;
 
-		fire();
+
 		playerRotation();
 		draw();
 		fire();
@@ -59,12 +60,20 @@ class Player extends Objects
 		if (fire)
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
-			b[bulletCounter].update(); // make into a for loop that draws all balls in a function.
+			bulletDraw();
 			bulletCounter++;
-			if (bulletCounter == 99)
+			if (bulletCounter == maxBullet - 1)
 			{
 				bulletCounter = 0;
 			}
+		}
+	}
+
+	void bulletDraw(){
+
+		for(int i = 0; i < maxBullet; i++){
+			if(b[i] intanceOf Bullet)
+				b[i].update();
 		}
 	}
 }

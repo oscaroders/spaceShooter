@@ -10,8 +10,8 @@ class Bullet extends Objects
 
 	void update()
 	{
+		
 		draw();
-
 	}
 
 	void draw()
