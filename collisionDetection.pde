@@ -14,10 +14,7 @@ boolean collision(float x1, float y1, int size1, float x2, float y2, int size2)
 	{
 		return true;
 	}
-<<<<<<< HEAD
 
 }
 
-=======
-}
->>>>>>> d39a45b3dddd302b480c4f2d9321bb2ee0a1118f
+
