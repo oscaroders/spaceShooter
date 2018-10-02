@@ -112,17 +112,6 @@ class Enemy extends Objects
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, 50, 50);
 
-		
-		boolean collider = collision(Enemy.position.x, Enemy.position.y);
-
-		if (collider)
-		{
-			if (Enemy)
-			{
-
-			}
-		}
-
 	}
 
 	public void moveToPlayerPosition()
@@ -170,11 +159,20 @@ class GameManager
 
 
 
-	public void update(){
+	public void collision()
+	{
+
+		boolean collider = collision(Enemy.position.x, Enemy.position.y);
+
+		if (collider)
+		{
+	  		if (Enemy)
+     		{
+
+			}
+		}
 
 	}
-
-
 	public void spawnEnemy()
 	{
 

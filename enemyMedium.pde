@@ -1,4 +1,4 @@
-class EnemyMedium extends enemy{
+class EnemyMedium extends Enemy{
 
   EnemyMedium(){
     super();
