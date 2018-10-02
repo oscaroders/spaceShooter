@@ -2,6 +2,9 @@ class Enemy extends Objects
 {
 	PVector direction;
 	float size;
+	Bullet[] b;
+	int bulletCounter;
+	int maxBullet = 100; 
 
 
 	public Enemy()
@@ -14,6 +17,13 @@ class Enemy extends Objects
 	void update()
 	{
 		moveToPlayerPosition();
+
+		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height)) 
+		{		
+			enemyfire();
+		}
+
+		bulletDraw();
 		draw();
 	}
 
@@ -34,6 +44,33 @@ class Enemy extends Objects
         position.add(direction);
 
 	}
+
+	void enemyfire()
+	{
+		if (millis()% 1000 == 0)
+		{
+			b[bulletCounter] = new Bullet(position.x, position.y);
+			bulletCounter++;
+			if (bulletCounter == maxBullet - 1)
+			{
+				bulletCounter = 0;
+			}
+		}
+	}
+
+	void bulletDraw()
+	{
+
+		for(int i = 0; i < maxBullet; i++)
+		{
+			if(b[i] instanceof Bullet)
+			{
+				b[i].update();
+			}
+
+		}
+	}
+
 
 
 
