@@ -22,7 +22,7 @@ class GameManager
 	{
 		drawBackground();
 		spawnEnemy();
-		checkCollision();
+		checkPlayerCollision();
 
 		for(int i = 0; i < maxNumberOfEnemies; i++){
 			enemies[i].update();
@@ -33,7 +33,7 @@ class GameManager
 	}
 
 
-	void checkCollision()
+	void checkPlayerCollision()
 	{
 		for (int i = 0; i < maxNumberOfEnemies; i++)
 		{
@@ -51,9 +51,21 @@ class GameManager
 				 	gameOver();
 				 }
 			 }
+			}
 		}
 	}
-}
+
+	void checkEnemyCollision(){
+		for(int i = 0; i < maxNumberOfEnemies; i++){
+			if(enemies[i] instanceof Enemy){
+				for(int j = 0; j < maxNumberOfEnemies; j++){
+					if(enemies[j] instanceof Enemy){
+						
+					}
+				}
+			}
+		}
+	}
 
 	void spawnEnemy()
 	{
