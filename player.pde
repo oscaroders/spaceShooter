@@ -5,6 +5,7 @@ class Player extends Objects
 	float yMovement;
 	Bullet[] b = new Bullet[100]; 
 	int bulletCounter = 0;
+	Bullet bullet;
 
 	public Player(float x, float y)
 	{
@@ -26,6 +27,7 @@ class Player extends Objects
 
 		playerRotation();
 		draw();
+		fire();
 	}
 
 	void draw()
@@ -60,6 +62,10 @@ class Player extends Objects
 				bulletCounter = 0;
 			}
 
+		}
+		else
+		{
+			println("ERROR!");
 		}
 
 	}
