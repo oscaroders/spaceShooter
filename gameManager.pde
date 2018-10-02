@@ -65,6 +65,28 @@ class GameManager
 			firstItt = false;
 		}
 
+		for (int i = 0; i < 6; ++i) 
+		{
+			if (!(enemies[i] instanceof Enemy)) 
+			{
+				enemies[i] = new EnmeyEasy();
+			}
+		}
+
+		for (int i = 6; i < 9; ++i) 
+		{
+			if (!(enemies[i] instanceof Enemy)) 
+			{
+				enemies[i] = new EnemyMedium();
+			}
+		}
+
+		if (!(enemies[maxNumberOfEnemies - 1] instanceof Enemy)) 
+			{
+				enemies[maxNumberOfEnemies - 1] = new EnemyHard();
+			}
+
+
 		enemies[] = new Enemy();
 		enemies[actualNumberOfEnemies].update();
 
