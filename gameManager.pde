@@ -4,6 +4,8 @@ class GameManager
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
 	boolean firstItt;
+	int numberOfStars = 500;
+	PVector starPos;
 
 
 	public GameManager()
@@ -11,11 +13,12 @@ class GameManager
 		enemies = new Enemy[maxNumberOfEnemies];
 		lars = new Player(width/2, height/2);
 		firstItt = true;
+		starPos = new PVector(numberOfStars);
 	}
 
 	void update()
 	{
-
+		drawBackground();
 		spawnEnemy();
 		checkCollision();
 		lars.update();
@@ -66,23 +69,23 @@ class GameManager
 			firstItt = false;
 		}
 
-		for (int i = 0; i < 6; ++i) 
+		for (int i = 0; i < 6; ++i)
 		{
-			if (!(enemies[i] instanceof Enemy)) 
+			if (!(enemies[i] instanceof Enemy))
 			{
 				enemies[i] = new EnmeyEasy();
 			}
 		}
 
-		for (int i = 6; i < 9; ++i) 
+		for (int i = 6; i < 9; ++i)
 		{
-			if (!(enemies[i] instanceof Enemy)) 
+			if (!(enemies[i] instanceof Enemy))
 			{
 				enemies[i] = new EnemyMedium();
 			}
 		}
 
-		if (!(enemies[maxNumberOfEnemies - 1] instanceof Enemy)) 
+		if (!(enemies[maxNumberOfEnemies - 1] instanceof Enemy))
 			{
 				enemies[maxNumberOfEnemies - 1] = new EnemyHard();
 			}
@@ -103,5 +106,32 @@ class GameManager
 		textAlign(CENTER);
 		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
 	}
+
+	void drawBackground(){
+  background(spaceBlue);
+
+  if(firstItt){
+    generateBackground();
+  }
+
+  for(int i = 0; i < numberOfStars; i++){
+    if(backgcount % (int)random(7, 23) == 0){
+      stroke(lightYellow);
+      strokeWeight(random(2, 5));
+    } else {
+      stroke(yellow);
+      strokeWeight(2);
+    }
+    point(starPos[i].x, starPos[i].y);
+    backgcount++;
+  }
+}
+
+void generateBackground(){
+  for(int i = 0; i < numberOfStars; i++){
+    starPos[i] = new PVector(random(0, width),
+                             random(0, height));
+  }
+}
 
 }

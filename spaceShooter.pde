@@ -14,11 +14,8 @@ void draw()
 {
 	currentTime = millis();
 	deltaTime = (currentTime - time) * 0.001f;
-	background(255);
+
 	gameManager.update();
+
 	time = currentTime;
 }
-
-
-
-
