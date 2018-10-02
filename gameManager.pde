@@ -12,11 +12,6 @@ class GameManager
 
 
 
-	void update(){
-
-	}
-
-
 	void collision()
 	{
 
@@ -26,7 +21,7 @@ class GameManager
 		{
 	  		if (Enemy)
      		{
-     			
+
 			}
 		}
 
