@@ -144,7 +144,7 @@ public void keyPressed()
 		moveLeft = true;
 	}
 
-	if (key == 't')
+	if (key == 38)
 	{
 		fire = true;
 	}
@@ -209,7 +209,7 @@ public void keyReleased()
 	{
 		moveDown = false;
 	}
-	if (key == 't')
+	if (key == 38)
 	{
 		fire = false;
 	}
@@ -367,8 +367,6 @@ class Player extends Objects
 				bulletCounter = 0;
 			}
 
-			println(b[bulletCounter]);
-			println(bulletCounter);
 		}
 
 	}
