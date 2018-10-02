@@ -23,15 +23,15 @@ class Enemy extends Objects
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, 50, 50);
 
-
+		
 		boolean collider = collision(Enemy.position.x, Enemy.position.y);
 
-		if (collider) 
+		if (collider)
 		{
-			if (Enemy) 
+			if (Enemy)
 			{
-					
-			}	
+
+			}
 		}
 
 	}

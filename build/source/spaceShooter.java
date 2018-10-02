@@ -33,31 +33,68 @@ public void draw()
 }
 class Bullet extends Objects
 {
+	boolean firstItt;
+	float directionX;
+	float directionY;
+	float speed = 20;
+	float size = 5;
 
 	public Bullet(float x,float y)
 	{
 
 		super(x,y);
-
+		firstItt = true;
 	}
 
 	public void update()
 	{
-		draw();
-
+		setBulletDirection();
+		position.set(position.x + directionX * speed, position.y + directionY * speed);
+		if(!(directionX == 0 && directionY == 0))
+			draw();
 	}
 
 	public void draw()
 	{
 		fill(0, 0, 255);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 20, 20);
-
+		ellipse(position.x, position.y, size, size);
 	}
 
-
+	public void setBulletDirection(){
+		if(firstItt){
+			directionX += lars.getRotation().x;
+			directionY += lars.getRotation().y;
+			firstItt = false;
+		}
+	}
 }
-
+// boolean collision(float x1, float y1, int size1, float x2, float y2, int size2)
+// {
+// 	int maxDistance = size1 + size2;
+//
+// 	if(abs(x1 - x2) > maxDistance || abs(y1 - y2) > maxDistance)
+// 	{
+//
+// 		return false;
+//
+// 	}
+// 	else if (dist(x1, y1, x2, y2) > maxDistance)
+// 	{
+// 		return false;
+// 	}
+// 	else
+// 	{
+// 		return true;
+// 	}
+//
+//
+// 	if (size1 + size2 <= maxDistance)
+// 	{
+// 		return true;
+// 	}
+//
+// }
 class Enemy extends Objects
 {
 	PVector direction;
@@ -82,6 +119,17 @@ class Enemy extends Objects
 		fill(0, 255, 0);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, 50, 50);
+
+		// 
+		// boolean collider = collision(Enemy.position.x, Enemy.position.y);
+		//
+		// if (collider)
+		// {
+		// 	if (Enemy)
+		// 	{
+		//
+		// 	}
+		// }
 
 	}
 
@@ -301,6 +349,10 @@ class Objects
     position = new PVector(x, y);
     rotation = new PVector(x, y);
   }
+
+  public PVector getRotation(){
+    return rotation;
+  }
 }
 class Player extends Objects
 {
@@ -310,13 +362,14 @@ class Player extends Objects
 
 	Bullet[] b;
 	int bulletCounter;
+	int maxBullet = 100;
 
 
 	public Player(float x, float y)
 	{
 		super(x,y);
 		playerSpeed = 5f;
-		b = new Bullet[100];
+		b = new Bullet[maxBullet];
 
 	}
 
@@ -331,10 +384,12 @@ class Player extends Objects
 
 		position.y += yMovement;
 
-		fire();
+
 		playerRotation();
-		draw();
 		fire();
+		bulletDraw();
+		draw();
+
 	}
 
 	public void draw()
@@ -363,11 +418,19 @@ class Player extends Objects
 		if (fire)
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
-			b[bulletCounter].update(); // make into a for loop that draws all balls in a function.
 			bulletCounter++;
-			if (bulletCounter == 99)
+			if (bulletCounter == maxBullet - 1)
 			{
 				bulletCounter = 0;
+			}
+		}
+	}
+
+	public void bulletDraw(){
+
+		for(int i = 0; i < maxBullet; i++){
+			if(b[i] instanceof Bullet){
+				b[i].update();
 			}
 		}
 	}
