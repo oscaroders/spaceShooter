@@ -1,4 +1,4 @@
-boolean collision(float x1, float y1, int size1, float x2, float y2, int size2)
+boolean collision(float x1, float y1, float size1, float x2, float y2, float size2)
 {
 	int maxDistance = size1 + size2;
 

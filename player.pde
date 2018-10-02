@@ -7,14 +7,14 @@ class Player extends Objects
 	Bullet[] b;
 	int bulletCounter;
 	int maxBullet = 100;
-
+	float size;
 
 	public Player(float x, float y)
 	{
 		super(x,y);
 		playerSpeed = 5f;
 		b = new Bullet[maxBullet];
-
+		size = 50;
 	}
 
 	void update()
@@ -41,7 +41,7 @@ class Player extends Objects
 
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 50, 50);
+		ellipse(position.x, position.y, size, size);
 	}
 
 	void playerRotation()
