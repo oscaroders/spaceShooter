@@ -1,6 +1,6 @@
 class GameManager
 {
-
+	Player lars;
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
 	int actualNumberOfEnemies = 0;
@@ -8,18 +8,27 @@ class GameManager
 	public GameManager()
 	{
 		enemies = new Enemy[3];
+		lars = new Player(width/2, height/2);
+	}
+
+	void update()
+	{
+
+
+		checkCollision();
+		lars.update();
+
 	}
 
 
-
-	void collision()
+	void checkCollision()
 	{
 
-		boolean collider = collision(Enemy.position.x, Enemy.position.y);
+		boolean collider = collision();
 
 		if (collider)
 		{
-	  		if (Enemy)
+	  		if ()
      		{
 
 			}

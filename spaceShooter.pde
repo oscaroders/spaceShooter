@@ -1,17 +1,14 @@
-
-Player lars;
-Enemy knut;
+GameManager gameManager;
 
 void setup()
 {
 	size(500, 500);
-	lars = new Player(width/2, height/2);
-	knut = new Enemy();
+	gameManager = new GameManager();
 }
 
 void draw()
 {
 	background(255);
-	lars.update();
-	knut.update();
+	gameManager.update();
+
 }
