@@ -17,6 +17,20 @@ class GameManager
 	}
 
 
+	void collision()
+	{
+
+		boolean collider = collision(Enemy.position.x, Enemy.position.y);
+
+		if (collider)
+		{
+	  		if (Enemy)
+     		{
+     			
+			}
+		}
+
+	}
 	void spawnEnemy()
 	{
 
