@@ -69,32 +69,30 @@ class Bullet extends Objects
 		}
 	}
 }
-// boolean collision(float x1, float y1, int size1, float x2, float y2, int size2)
-// {
-// 	int maxDistance = size1 + size2;
-//
-// 	if(abs(x1 - x2) > maxDistance || abs(y1 - y2) > maxDistance)
-// 	{
-//
-// 		return false;
-//
-// 	}
-// 	else if (dist(x1, y1, x2, y2) > maxDistance)
-// 	{
-// 		return false;
-// 	}
-// 	else
-// 	{
-// 		return true;
-// 	}
-//
-//
-// 	if (size1 + size2 <= maxDistance)
-// 	{
-// 		return true;
-// 	}
-//
-// }
+public boolean collision(float x1, float y1, int size1, float x2, float y2, int size2)
+{
+	int maxDistance = size1 + size2;
+
+	if(abs(x1 - x2) > maxDistance || abs(y1 - y2) > maxDistance)
+	{
+
+		return false;
+
+	}
+	else if (dist(x1, y1, x2, y2) > maxDistance)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+
+	if (size1 + size2 <= maxDistance)
+	{
+		return true;
+	}
+}
 class Enemy extends Objects
 {
 	PVector direction;
@@ -120,16 +118,16 @@ class Enemy extends Objects
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, 50, 50);
 
-		// 
-		// boolean collider = collision(Enemy.position.x, Enemy.position.y);
-		//
-		// if (collider)
-		// {
-		// 	if (Enemy)
-		// 	{
-		//
-		// 	}
-		// }
+		
+		boolean collider = collision(Enemy.position.x, Enemy.position.y);
+
+		if (collider)
+		{
+			if (Enemy)
+			{
+
+			}
+		}
 
 	}
 
@@ -146,19 +144,58 @@ class Enemy extends Objects
 
 
 }
+class EnemyEasy extends enemy{
 
+  EnemyEasy(){
+    super();
+  }
+}
+class EnemyHard extends enemy{
 
+  EnemyHard(){
+    super();
+  }
+}
+class EnemyMedium extends enemy{
 
+  EnemyMedium(){
+    super();
+  }
+}
 class GameManager
 {
 
+	Enemy[] enemies;
+	int maxNumberOfEnemies = 10;
+	int actualNumberOfEnemies = 0;
 
 	public GameManager()
 	{
+		enemies = new Enemy[3];
+	}
+
+
+
+	public void update(){
 
 	}
 
 
+	public void spawnEnemy()
+	{
+
+
+		enemies[maxNumberOfEnemies] = new Enemy();
+		enemies[actualNumberOfEnemies].update(); 
+
+		if (actualNumberOfEnemies >= maxNumberOfEnemies) 
+		{
+		  	
+		}
+
+
+
+	}
 	
 }
 boolean moveLeft;
