@@ -24,6 +24,10 @@ class GameManager
 		spawnEnemy();
 		checkCollision();
 
+		for(int i = 0; i < maxNumberOfEnemies; i++){
+			enemies[i].update();
+		}
+
 		lars.update();
 
 	}
