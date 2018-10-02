@@ -12,6 +12,7 @@ class Enemy extends Objects
 		super();
 		direction = new PVector();
 		size = 50;
+		b = new Bullet[maxBullet];
 	}
 
 	void update()

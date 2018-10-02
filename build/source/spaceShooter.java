@@ -91,6 +91,12 @@ public boolean collision(float x1, float y1, float size1, float x2, float y2, fl
 	}
 
 }
+int yellow = color(255, 255, 102);
+int lightYellow = color(255, 255, 204);
+int spaceBlue = color(12, 36, 39);
+int spaceDotPurple = color(102, 0, 102);
+int spaceAppleRed = color(255, 77, 77);
+int scoreTextGreen = color(0, 102, 0);
 class Enemy extends Objects
 {
 	PVector direction;
@@ -105,6 +111,7 @@ class Enemy extends Objects
 		super();
 		direction = new PVector();
 		size = 50;
+		b = new Bullet[maxBullet];
 	}
 
 	public void update()
@@ -176,10 +183,6 @@ class EnemyEasy extends Enemy{
     size = 25;
   }
 
-  public void update(){
-    super;
-  }
-
   public void draw()
   {
 
@@ -203,10 +206,6 @@ class EnemyHard extends Enemy{
 
   EnemyHard(){
     super();
-  }
-
-  public void update(){
-    super;
     size = 100;
   }
 
@@ -233,10 +232,6 @@ class EnemyMedium extends Enemy{
 
   EnemyMedium(){
     super();
-  }
-
-  public void update(){
-    super;
     size = 50;
   }
 
@@ -265,8 +260,9 @@ class GameManager
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
 	boolean firstItt;
-	int numberOfStars = 500;
-	PVector starPos;
+	int numberOfStars;
+	PVector[] starPos;
+	int backgcount = 0;
 
 
 	public GameManager()
@@ -274,7 +270,8 @@ class GameManager
 		enemies = new Enemy[maxNumberOfEnemies];
 		lars = new Player(width/2, height/2);
 		firstItt = true;
-		starPos = new PVector(numberOfStars);
+		numberOfStars = 500;
+		starPos = new PVector[numberOfStars];
 	}
 
 	public void update()
@@ -282,6 +279,7 @@ class GameManager
 		drawBackground();
 		spawnEnemy();
 		checkCollision();
+
 		lars.update();
 
 	}
@@ -289,7 +287,7 @@ class GameManager
 
 	public void checkCollision()
 	{
-		for (int i = 0; i < maxNumberOfEnemies; ++i)
+		for (int i = 0; i < maxNumberOfEnemies; i++)
 		{
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size, enemies[i].position.x, enemies[i].position.y, enemies[i].size);
 			if (colider)
@@ -297,15 +295,15 @@ class GameManager
 				gameOver();
 			}
 
-			for (int j = 0; j < 100; ++j)
+			for (int j = 0; j < 100; j++)
 			{
-				 if (collision(lars.position.x, lars.position.y, lars.size,enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
+				if(enemies[i].b[j] instanceof Bullet){
+				 if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
 				 {
 				 	gameOver();
 				 }
-
-			}
-
+			 }
+		}
 	}
 }
 
@@ -334,7 +332,7 @@ class GameManager
 		{
 			if (!(enemies[i] instanceof Enemy))
 			{
-				enemies[i] = new EnmeyEasy();
+				enemies[i] = new EnemyEasy();
 			}
 		}
 
