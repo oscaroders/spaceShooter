@@ -17,11 +17,7 @@ boolean collision(float x1, float y1, int size1, float x2, float y2, int size2)
 		return true;
 	}
 
-<<<<<<< HEAD
-
 }
-=======
->>>>>>> 1b2a5ba585150f8120bed17918c9db01f5248b97
 
 	if (size1 + size2 <= maxDistance)
 	{
