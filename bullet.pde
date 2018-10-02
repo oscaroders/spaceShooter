@@ -15,7 +15,7 @@ class Bullet extends Objects
 
 	void update()
 	{
-		setBulletDirection();
+		//setBulletDirection();
 		position.set(position.x + directionX * speed, position.y + directionY * speed);
 		if(!(directionX == 0 && directionY == 0))
 			draw();
@@ -28,10 +28,10 @@ class Bullet extends Objects
 		ellipse(position.x, position.y, size, size);
 	}
 
-	void setBulletDirection(){
+	void setBulletDirection(PVector direction){
 		if(firstItt){
-			directionX += gameManager.lars.getRotation().x;
-			directionY += gameManager.lars.getRotation().y;
+			directionX += direction.x;
+			directionY += direction.y;
 			firstItt = false;
 		}
 	}

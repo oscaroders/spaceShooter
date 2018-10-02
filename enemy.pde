@@ -5,6 +5,7 @@ class Enemy extends Objects
 	Bullet[] b;
 	int bulletCounter;
 	int maxBullet = 100;
+	int shootCounter;
 
 
 	public Enemy()
@@ -48,15 +49,17 @@ class Enemy extends Objects
 
 	void enemyfire()
 	{
-		if (millis()% 1000 == 0)
+		if (shootCounter % 100 == 0)
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
 			bulletCounter++;
+
 			if (bulletCounter == maxBullet - 1)
 			{
 				bulletCounter = 0;
 			}
 		}
+		shootCounter++;
 	}
 
 	void bulletDraw()
@@ -64,11 +67,17 @@ class Enemy extends Objects
 
 		for(int i = 0; i < maxBullet; i++)
 		{
+
 			if(b[i] instanceof Bullet)
 			{
+				b[i].setBulletDirection(direction);
 				b[i].update();
 			}
 
 		}
+	}
+
+	PVector getDirection(){
+		return direction;
 	}
 }

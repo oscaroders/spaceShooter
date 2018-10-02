@@ -74,6 +74,7 @@ class Player extends Objects
 
 		for(int i = 0; i < maxBullet; i++){
 			if(b[i] instanceof Bullet){
+				b[i].setBulletDirection(rotation);
 				b[i].update();
 			}
 		}

@@ -52,7 +52,7 @@ class Bullet extends Objects
 
 	public void update()
 	{
-		setBulletDirection();
+		//setBulletDirection();
 		position.set(position.x + directionX * speed, position.y + directionY * speed);
 		if(!(directionX == 0 && directionY == 0))
 			draw();
@@ -65,13 +65,29 @@ class Bullet extends Objects
 		ellipse(position.x, position.y, size, size);
 	}
 
-	public void setBulletDirection(){
+	public void setBulletDirection(PVector direction){
 		if(firstItt){
-			directionX += gameManager.lars.getRotation().x;
-			directionY += gameManager.lars.getRotation().y;
+			directionX += direction.x;
+			directionY += direction.y;
 			firstItt = false;
 		}
 	}
+}
+class BulletEnemy extends Bullet{
+
+  float speed = 5;
+
+  public BulletEnemy(float x, float y){
+    super(x, y);
+  }
+
+  public void setBulletDirection(PVector direction){
+    if(firstItt){
+      directionX += direction.x;
+      directionY += direction.y;
+      firstItt = false;
+    }
+  }
 }
 public boolean collision(float x1, float y1, float size1, float x2, float y2, float size2)
 {
@@ -104,6 +120,7 @@ class Enemy extends Objects
 	Bullet[] b;
 	int bulletCounter;
 	int maxBullet = 100;
+	int shootCounter;
 
 
 	public Enemy()
@@ -147,15 +164,17 @@ class Enemy extends Objects
 
 	public void enemyfire()
 	{
-		if (millis()% 1000 == 0)
+		if (shootCounter % 100 == 0)
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
 			bulletCounter++;
+
 			if (bulletCounter == maxBullet - 1)
 			{
 				bulletCounter = 0;
 			}
 		}
+		shootCounter++;
 	}
 
 	public void bulletDraw()
@@ -163,18 +182,19 @@ class Enemy extends Objects
 
 		for(int i = 0; i < maxBullet; i++)
 		{
+
 			if(b[i] instanceof Bullet)
 			{
+				b[i].setBulletDirection(direction);
 				b[i].update();
 			}
 
 		}
 	}
 
-
-
-
-
+	public PVector getDirection(){
+		return direction;
+	}
 }
 class EnemyEasy extends Enemy{
 
@@ -667,6 +687,7 @@ class Player extends Objects
 
 		for(int i = 0; i < maxBullet; i++){
 			if(b[i] instanceof Bullet){
+				b[i].setBulletDirection(rotation);
 				b[i].update();
 			}
 		}
