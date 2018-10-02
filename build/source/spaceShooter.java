@@ -94,7 +94,7 @@ class Enemy extends Objects
 
 	}
 
-	
+
 
 
 }
@@ -144,10 +144,10 @@ public void keyPressed()
 		moveLeft = true;
 	}
 
-	if (key == 't') 
+	if (key == 't')
 	{
-		fire = true;		
-	}	
+		fire = true;
+	}
 
 
 	if (key == CODED)
@@ -209,10 +209,10 @@ public void keyReleased()
 	{
 		moveDown = false;
 	}
-	if (key == 't') 
+	if (key == 't')
 	{
-		fire = false;		
-	}	
+		fire = false;
+	}
 
 
 	if (key == CODED)
@@ -261,8 +261,6 @@ public float getAxisRaw(String axis)
 	return 0;
 
 }
-
-
 class Objects
 {
 
@@ -362,7 +360,7 @@ class Player extends Objects
 		if (fire)
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
-			b[bulletCounter].update();
+			b[bulletCounter].update(); // make into a for loop that draws all balls in a function.
 			bulletCounter++;
 			if (bulletCounter == 99)
 			{

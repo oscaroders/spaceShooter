@@ -34,7 +34,7 @@ class Enemy extends Objects
 
 	}
 
-	
+
 
 
 }

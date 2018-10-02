@@ -63,8 +63,6 @@ class Player extends Objects
 				bulletCounter = 0;
 			}
 
-			println(b[bulletCounter]);
-			println(bulletCounter);
 		}
 
 	}
