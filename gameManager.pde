@@ -37,7 +37,7 @@ class GameManager
 	{
 		for (int i = 0; i < maxNumberOfEnemies; i++)
 		{
-			boolean colider = collision(lars.position.x, lars.position.y, lars.size, enemies[i].position.x, enemies[i].position.y, enemies[i].size);
+			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
 				gameOver();

@@ -62,7 +62,7 @@ class Bullet extends Objects
 	{
 		fill(0, 0, 255);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, size, size);
+		ellipse(position.x, position.y, size / 2, size / 2);
 	}
 
 	public void setBulletDirection(PVector direction){
@@ -148,7 +148,7 @@ class Enemy extends Objects
 	{
 
 		fill(0, 255, 0);
-		ellipseMode(CENTER);
+		//ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
 
 	}
@@ -164,7 +164,7 @@ class Enemy extends Objects
 
 	public void enemyfire()
 	{
-		if (shootCounter % 100 == 0)
+		if (false) //shootCounter % 100 == 0
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
 			bulletCounter++;
@@ -208,7 +208,7 @@ class EnemyEasy extends Enemy{
 
     fill(255, 255, 0);
     ellipseMode(CENTER);
-    ellipse(position.x, position.y, size, size);
+    ellipse(position.x, position.y, size / 2, size / 2);
 
   }
 
@@ -313,7 +313,7 @@ class GameManager
 	{
 		for (int i = 0; i < maxNumberOfEnemies; i++)
 		{
-			boolean colider = collision(lars.position.x, lars.position.y, lars.size, enemies[i].position.x, enemies[i].position.y, enemies[i].size);
+			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
 				gameOver();
@@ -625,7 +625,7 @@ class Player extends Objects
 	public Player(float x, float y)
 	{
 		super(x,y);
-		playerSpeed = 5f;
+		playerSpeed = 3f;
 		b = new Bullet[maxBullet];
 		size = 50;
 	}

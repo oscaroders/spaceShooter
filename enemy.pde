@@ -33,7 +33,7 @@ class Enemy extends Objects
 	{
 
 		fill(0, 255, 0);
-		ellipseMode(CENTER);
+		//ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
 
 	}
@@ -49,7 +49,7 @@ class Enemy extends Objects
 
 	void enemyfire()
 	{
-		if (shootCounter % 100 == 0)
+		if (false) //shootCounter % 100 == 0
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
 			bulletCounter++;

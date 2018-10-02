@@ -10,7 +10,7 @@ class EnemyEasy extends Enemy{
 
     fill(255, 255, 0);
     ellipseMode(CENTER);
-    ellipse(position.x, position.y, size, size);
+    ellipse(position.x, position.y, size / 2, size / 2);
 
   }
 
