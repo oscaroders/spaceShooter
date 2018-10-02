@@ -29,10 +29,10 @@ void keyPressed()
 		moveLeft = true;
 	}
 
-	if (key == 't') 
+	if (key == 't')
 	{
-		fire = true;		
-	}	
+		fire = true;
+	}
 
 
 	if (key == CODED)
@@ -94,10 +94,10 @@ void keyReleased()
 	{
 		moveDown = false;
 	}
-	if (key == 't') 
+	if (key == 't')
 	{
-		fire = false;		
-	}	
+		fire = false;
+	}
 
 
 	if (key == CODED)
@@ -146,5 +146,3 @@ float getAxisRaw(String axis)
 	return 0;
 
 }
-
-

@@ -18,7 +18,7 @@ class Bullet extends Objects
 	{
 		fill(0, 0, 255);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 5, 5);
+		ellipse(position.x, position.y, 20, 20);
 
 	}
 

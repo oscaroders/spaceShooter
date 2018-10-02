@@ -16,20 +16,20 @@ public class spaceShooter extends PApplet {
 
 
 Player lars;
-Bullet ulf;
+Enemy knut;
 
 public void setup()
 {
 	
 	lars = new Player(width/2, height/2);
-	ulf = new Bullet(width/2, height/2);
+	knut = new Enemy();
 }
 
 public void draw()
 {
 	background(255);
 	lars.update();
-	ulf.update();
+	knut.update();
 }
 class Bullet extends Objects
 {
@@ -51,7 +51,7 @@ class Bullet extends Objects
 	{
 		fill(0, 0, 255);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, 5, 5);
+		ellipse(position.x, position.y, 20, 20);
 
 	}
 
@@ -60,10 +60,42 @@ class Bullet extends Objects
 
 class Enemy extends Objects
 {
+	PVector direction;
+
+
+
 	public Enemy()
 	{
 		super();
+		direction = new PVector();
 	}
+
+	public void update()
+	{
+		moveToPlayerPosition();
+		draw();
+	}
+
+	public void draw()
+	{
+
+		fill(0, 255, 0);
+		ellipseMode(CENTER);
+		ellipse(position.x, position.y, 50, 50);
+
+	}
+
+	public void moveToPlayerPosition()
+	{
+
+        direction.set(lars.getPlayerPosition().x - position.x, lars.getPlayerPosition().y - position.y);
+        direction.normalize();
+        position.add(direction);
+
+	}
+
+
+
 
 }
 
@@ -85,6 +117,7 @@ boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
 boolean moveDown;
+boolean fire;
 
 public void keyPressed()
 {
@@ -99,6 +132,7 @@ public void keyPressed()
 		{
 			moveLeft = true;
 		}
+
 	}
 
 	if (key == 'd' || key == 'D')
@@ -108,6 +142,11 @@ public void keyPressed()
 	else if (key == 'a' || key == 'A')
 	{
 		moveLeft = true;
+	}
+
+	if (key == 38)
+	{
+		fire = true;
 	}
 
 
@@ -170,6 +209,10 @@ public void keyReleased()
 	{
 		moveDown = false;
 	}
+	if (key == 38)
+	{
+		fire = false;
+	}
 
 
 	if (key == CODED)
@@ -182,6 +225,7 @@ public void keyReleased()
 		{
 			moveDown = false;
 		}
+
 	}
 }
 
@@ -263,11 +307,14 @@ class Player extends Objects
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
+	Bullet[] b;
+	int bulletCounter;
 
 	public Player(float x, float y)
 	{
 		super(x,y);
 		playerSpeed = 5f;
+		b = new Bullet[100];
 
 	}
 
@@ -282,6 +329,7 @@ class Player extends Objects
 
 		position.y += yMovement;
 
+		fire();
 		playerRotation();
 		draw();
 	}
@@ -302,12 +350,28 @@ class Player extends Objects
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
 
-	public PVector getPlayerPosition()
+    public PVector getPlayerPosition()
 	{
 		return position;
 	}
+
+	public void fire()
+	{
+		if (fire)
+		{
+			b[bulletCounter] = new Bullet(position.x, position.y);
+			b[bulletCounter].update(); // make into a for loop that draws all balls in a function.
+			bulletCounter++;
+			if (bulletCounter == 99)
+			{
+				bulletCounter = 0;
+			}
+
+		}
+
+	}
 }
-  public void settings() { 	size(1920, 1080); }
+  public void settings() { 	size(500, 500); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "spaceShooter" };
     if (passedArgs != null) {
