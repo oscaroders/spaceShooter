@@ -283,8 +283,10 @@ class GameManager
 	int numberOfStars;
 	PVector[] starPos;
 	int backgcount = 0;
- 	static final long FPS = 10;
- 		Long sleep;
+	boolean gameOverScreen = false;
+	float endTime;
+	int gameOverCounter = 0;
+	boolean firstSpawn = true;
 
 
 	public GameManager()
@@ -298,19 +300,41 @@ class GameManager
 
 	public void update()
 	{
+
 		drawBackground();
-		if(firstItt){
-			spawnEnemy(10);
-			firstItt = false;
-		}
-		checkPlayerCollision();
-		checkEnemyCollision();
 
-		for(int i = 0; i < maxNumberOfEnemies; i++){
-			enemies[i].update();
+		if (gameOverScreen == false) 
+		{
+			if (millis() > 5000) 
+			{
+						
+				if(firstSpawn)
+				{
+					spawnEnemy(10);
+					firstSpawn = false;
+				}
+
+			
+
+				checkPlayerCollision();
+				checkEnemyCollision();
+
+				for(int i = 0; i < maxNumberOfEnemies; i++)
+				{
+					enemies[i].update();
+				}
+
+				
+			}
+
+			lars.update();
 		}
 
-		lars.update();
+		if (gameOverScreen == true)
+		{
+			gameOver();
+		}
+
 
 	}
 
@@ -322,17 +346,19 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				gameOver();
+				gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
 			{
-				if(enemies[i].b[j] instanceof Bullet){
-				 if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
-				 {
-				 	gameOver();
-				 }
-			 }
+				if(enemies[i].b[j] instanceof Bullet)
+				{
+
+				 	if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
+				 	{
+				 		gameOverScreen = true;
+				 	}
+				}
 			}
 		}
 	}
@@ -398,11 +424,14 @@ class GameManager
 
 	public void gameOver()
 	{
-		long ticksPS = 1000 / FPS;
-		long startTime;
-		long sleepTime;
+
+		gameOverScreen = true;
 		currentTime = millis() / 1000;
-		startTime = System.currentTimeMillis();
+
+		if (gameOverCounter == 0) 
+		{
+		 	endTime = currentTime;	
+		}
 
 		textSize(50);
 		textAlign(CENTER);
@@ -410,18 +439,10 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
-		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
-		sleepTime = ticksPS-(System.currentTimeMillis() - startTime);
-
-		if (sleepTime > 0)
-		{
-        	sleep(sleepTime);
-		}
-		else
-		{
-			sleep(10);
-		}
-                              
+		text("Time: " + endTime + " seconds", width/2, height/2 + height/10); 
+		gameOverCounter++;
+		
+		          
 	}
 
 	public void drawBackground(){
@@ -429,6 +450,7 @@ class GameManager
 
   if(firstItt){
     generateBackground();
+    firstItt = false;
   }
 
   for(int i = 0; i < numberOfStars; i++){
