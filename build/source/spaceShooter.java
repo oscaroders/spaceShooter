@@ -640,10 +640,14 @@ class Player extends Objects
 	int maxBullet = 100;
 	float size;
 
+	float direction;
+	float dY;
+	float dX;
+
 	public Player(float x, float y)
 	{
 		super(x,y);
-		playerSpeed = 3f;
+		playerSpeed = 6f;
 		b = new Bullet[maxBullet];
 		size = 50;
 	}
@@ -651,16 +655,24 @@ class Player extends Objects
 	public void update()
 	{
 
-		xMovement = getAxisRaw("Horizontal") * playerSpeed;
-
-		position.x += xMovement;
-
-		yMovement = getAxisRaw("Vertical") * playerSpeed;
-
-		position.y += yMovement;
-
-
+		// xMovement = getAxisRaw("Horizontal") * playerSpeed;
+		//
+		// position.x += xMovement;
+		//
+		// yMovement = getAxisRaw("Vertical") * playerSpeed;
+		//
+		// position.y += yMovement;
 		playerRotation();
+
+		if(keyPressed && (key == 'a' || key == 'd')){
+			dX = cos(direction) * playerSpeed;
+			dY = sin(direction) * playerSpeed;
+			direction += 0.05f * getAxisRaw("Horizontal");
+		}
+
+			position.x += dX;
+			position.y += dY;
+
 		fire();
 		bulletDraw();
 		draw();
@@ -677,11 +689,9 @@ class Player extends Objects
 
 	public void playerRotation()
 	{
-
-		rotation.set(xMovement, yMovement);
+		rotation.set(dX, dY);
 		rotation.normalize();
 		position.add(rotation);
-
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
 

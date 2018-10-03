@@ -163,10 +163,14 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
+<<<<<<< HEAD
 		text("Time: " + endTime + " seconds", width/2, height/2 + height/10); 
 		gameOverCounter++;
 		
 		          
+=======
+		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
+>>>>>>> 3b425ede2bae6d676a2368a1d4c1ecd0461bd1a7
 	}
 
 	void drawBackground(){
