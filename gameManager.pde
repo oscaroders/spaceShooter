@@ -129,7 +129,7 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
-		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);           
+		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
 	}
 
 	void drawBackground(){

@@ -405,7 +405,7 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
-		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);           
+		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
 	}
 
 	public void drawBackground(){
@@ -672,9 +672,6 @@ class Player extends Objects
 
 			position.x += dX;
 			position.y += dY;
-
-
-
 
 		fire();
 		bulletDraw();
