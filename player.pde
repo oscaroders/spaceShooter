@@ -34,16 +34,13 @@ class Player extends Objects
 		playerRotation();
 
 		if(keyPressed && (key == 'a' || key == 'd')){
-			dX = cos(direction * getAxisRaw("Horizontal")) * playerSpeed;
-			dY = sin(direction * getAxisRaw("Horizontal")) * playerSpeed;
-			direction += 0.05f;
+			dX = cos(direction) * playerSpeed;
+			dY = sin(direction) * playerSpeed;
+			direction += 0.05f * getAxisRaw("Horizontal");
 		}
 
 			position.x += dX;
 			position.y += dY;
-
-
-
 
 		fire();
 		bulletDraw();

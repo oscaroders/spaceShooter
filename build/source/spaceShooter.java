@@ -405,7 +405,7 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
-		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
+		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);           
 	}
 
 	public void drawBackground(){
@@ -665,9 +665,9 @@ class Player extends Objects
 		playerRotation();
 
 		if(keyPressed && (key == 'a' || key == 'd')){
-			dX = cos(direction * getAxisRaw("Horizontal")) * playerSpeed;
-			dY = sin(direction * getAxisRaw("Horizontal")) * playerSpeed;
-			direction += 0.05f;
+			dX = cos(direction) * playerSpeed;
+			dY = sin(direction) * playerSpeed;
+			direction += 0.05f * getAxisRaw("Horizontal");
 		}
 
 			position.x += dX;
