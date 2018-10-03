@@ -21,7 +21,10 @@ class GameManager
 	void update()
 	{
 		drawBackground();
-		spawnEnemy();
+		if(firstItt){
+			spawnEnemy(10);
+			firstItt = false;
+		}
 		checkPlayerCollision();
 		checkEnemyCollision();
 
@@ -59,10 +62,10 @@ class GameManager
 	void checkEnemyCollision(){
 		for(int i = 0; i < maxNumberOfEnemies; i++){
 			if(enemies[i] instanceof Enemy){
-				for(int j = 0; j < maxNumberOfEnemies; j++){
+				for(int j = 0; j < 100; j++){
 					if(lars.b[j] instanceof Bullet){
 						if(collision(enemies[i].position.x, enemies[i].position.y, enemies[i].size, lars.b[j].position.x, lars.b[j].position.y, lars.b[j].size)){
-							// how to remove enemies?
+							spawnEnemy(i);
 						}
 					}
 				}
@@ -70,9 +73,9 @@ class GameManager
 		}
 	}
 
-	void spawnEnemy()
+	void spawnEnemy(int w)
 	{
-		if(firstItt){
+		if(w == 10){
 			for (int i = 0; i < maxNumberOfEnemies; i++)
 			{
 				if (i < 6)
@@ -88,31 +91,31 @@ class GameManager
 					enemies[i] = new EnemyHard();
 				}
 			}
-			firstItt = false;
 		}
 
-		for (int i = 0; i < 6; ++i)
+		if(w < 7)
 		{
-			if (!(enemies[i] instanceof Enemy))
+			if ((enemies[w] instanceof Enemy))
 			{
-				enemies[i] = new EnemyEasy();
+				enemies[w] = new EnemyEasy();
 			}
 		}
 
-		for (int i = 6; i < 9; ++i)
+		if(w > 5 && w < 9)
 		{
-			if (!(enemies[i] instanceof Enemy))
+			if ((enemies[w] instanceof Enemy))
 			{
-				enemies[i] = new EnemyMedium();
+				enemies[w] = new EnemyMedium();
 			}
 		}
 
-		if (!(enemies[maxNumberOfEnemies - 1] instanceof Enemy))
-			{
-				enemies[maxNumberOfEnemies - 1] = new EnemyHard();
-			}
-
-
+		if(w > 8)
+		{
+				if ((enemies[maxNumberOfEnemies - 1] instanceof Enemy))
+				{
+					enemies[maxNumberOfEnemies - 1] = new EnemyHard();
+				}
+		}
 	}
 
 	void gameOver()
