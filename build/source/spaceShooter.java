@@ -446,7 +446,6 @@ class GameManager
 	public void gameOver()
 	{
 
-		//gameOverScreen = true;
 		currentTime = millis() / 1000;
 
 		if (gameOverCounter == 0)
@@ -722,7 +721,7 @@ class Player extends Objects
  		if(keyPressed && (key == 'w' || key == 's')){
 			if(playerSpeed > 3)
 				playerSpeed += getAxisRaw("Vertical") * 0.1f;
-			if(playerSpeed < 3)
+			if(playerSpeed <= 3)
 				playerSpeed = 3.1f;
 		}
 
