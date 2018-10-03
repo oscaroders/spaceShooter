@@ -3,19 +3,19 @@ class Bullet extends Objects
 	boolean firstItt;
 	float directionX;
 	float directionY;
-	float speed = 20;
-	float size = 5;
+	float speed;
+	float size;
 
 	public Bullet(float x,float y)
 	{
-
 		super(x,y);
 		firstItt = true;
+		speed = 20;
+		size = 5;
 	}
 
 	void update()
 	{
-		//setBulletDirection();
 		position.set(position.x + directionX * speed, position.y + directionY * speed);
 		if(!(directionX == 0 && directionY == 0))
 			draw();

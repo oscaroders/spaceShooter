@@ -40,19 +40,19 @@ class Bullet extends Objects
 	boolean firstItt;
 	float directionX;
 	float directionY;
-	float speed = 20;
-	float size = 5;
+	float speed;
+	float size;
 
 	public Bullet(float x,float y)
 	{
-
 		super(x,y);
 		firstItt = true;
+		speed = 20;
+		size = 5;
 	}
 
 	public void update()
 	{
-		//setBulletDirection();
 		position.set(position.x + directionX * speed, position.y + directionY * speed);
 		if(!(directionX == 0 && directionY == 0))
 			draw();
@@ -75,12 +75,21 @@ class Bullet extends Objects
 }
 class BulletEnemy extends Bullet{
 
-  float speed = 2;
-  float size = 10;
+  float speed;
+  float size;
 
   public BulletEnemy(float x, float y){
     super(x, y);
+    speed = 2;
+    size = 10;
   }
+
+  public void update()
+	{
+		position.set(position.x + directionX * speed, position.y + directionY * speed);
+		if(!(directionX == 0 && directionY == 0))
+			draw();
+	}
 
   public void setBulletDirection(PVector direction){
     if(firstItt){
@@ -329,6 +338,7 @@ class GameManager
 			}
 
 			lars.update();
+			checkAndWriteScore();
 		}
 
 		if (gameOverScreen == true)
@@ -403,6 +413,7 @@ class GameManager
 			if ((enemies[w] instanceof Enemy))
 			{
 				enemies[w] = new EnemyEasy();
+				score++;
 			}
 		}
 
@@ -411,14 +422,16 @@ class GameManager
 			if ((enemies[w] instanceof Enemy))
 			{
 				enemies[w] = new EnemyMedium();
+				score += 2;
 			}
 		}
 
-		if(w > 8)
+		if(w == 9)
 		{
 				if ((enemies[maxNumberOfEnemies - 1] instanceof Enemy))
 				{
 					enemies[maxNumberOfEnemies - 1] = new EnemyHard();
+					score += 3;
 				}
 		}
 	}
@@ -440,8 +453,12 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
+
 		text("Time: " + endTime + " seconds", width/2, height/2 + height/10);
 		gameOverCounter++;
+
+		textAlign(CENTER);
+		text("Score: " + score, width/2, height/2 + height/20);
 
 
 	}
@@ -778,6 +795,18 @@ class Player extends Objects
 		}
 	}
 }
+int score;
+
+	public void checkAndWriteScore()
+	{
+
+		textSize(20);
+		textAlign(LEFT);
+		fill(255, 255, 255);
+		text("Score: " + score, 100, 100);
+
+	}
+
   public void settings() { 	size(1920, 1080); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "spaceShooter" };
