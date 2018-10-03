@@ -91,6 +91,13 @@ class BulletEnemy extends Bullet{
 			draw();
 	}
 
+  public void draw()
+  {
+    fill(0, 0, 255);
+    ellipseMode(CENTER);
+    ellipse(position.x, position.y, size / 2, size / 2);
+  }
+
   public void setBulletDirection(PVector direction){
     if(firstItt){
       directionX += direction.x;
@@ -357,7 +364,7 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				//gameOverScreen = true;
+				gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
@@ -367,7 +374,7 @@ class GameManager
 
 				 	if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
 				 	{
-				 		//gameOverScreen = true;
+				 		gameOverScreen = true;
 				 	}
 				}
 			}
@@ -439,7 +446,7 @@ class GameManager
 	public void gameOver()
 	{
 
-		//gameOverScreen = true;
+
 		currentTime = millis() / 1000;
 
 		if (gameOverCounter == 0)
@@ -715,7 +722,7 @@ class Player extends Objects
  		if(keyPressed && (key == 'w' || key == 's')){
 			if(playerSpeed > 3)
 				playerSpeed += getAxisRaw("Vertical") * 0.1f;
-			if(playerSpeed < 3)
+			if(playerSpeed <= 3)
 				playerSpeed = 3.1f;
 		}
 
