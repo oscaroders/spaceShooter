@@ -2,13 +2,13 @@ class EnemyMedium extends Enemy{
 
   EnemyMedium(){
     super();
-    size = 50;
+    size = 60;
   }
 
   void draw()
   {
 
-    fill(255, 255, 0);
+    fill(0, 255, 0);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
 
