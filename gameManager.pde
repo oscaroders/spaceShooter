@@ -23,6 +23,7 @@ class GameManager
 		drawBackground();
 		spawnEnemy();
 		checkPlayerCollision();
+		checkEnemyCollision();
 
 		for(int i = 0; i < maxNumberOfEnemies; i++){
 			enemies[i].update();
@@ -59,8 +60,10 @@ class GameManager
 		for(int i = 0; i < maxNumberOfEnemies; i++){
 			if(enemies[i] instanceof Enemy){
 				for(int j = 0; j < maxNumberOfEnemies; j++){
-					if(enemies[j] instanceof Enemy){
-						
+					if(lars.b[j] instanceof Bullet){
+						if(collision(enemies[i].position.x, enemies[i].position.y, enemies[i].size, lars.b[j].position.x, lars.b[j].position.y, lars.b[j].size)){
+							// how to remove enemies?
+						}
 					}
 				}
 			}
@@ -154,4 +157,3 @@ void generateBackground(){
 }
 
 }
-

@@ -164,7 +164,7 @@ class Enemy extends Objects
 
 	public void enemyfire()
 	{
-		if (false) //shootCounter % 100 == 0
+		if (shootCounter % 100 == 0)
 		{
 			b[bulletCounter] = new Bullet(position.x, position.y);
 			bulletCounter++;
@@ -298,7 +298,8 @@ class GameManager
 	{
 		drawBackground();
 		spawnEnemy();
-		checkCollision();
+		checkPlayerCollision();
+		checkEnemyCollision();
 
 		for(int i = 0; i < maxNumberOfEnemies; i++){
 			enemies[i].update();
@@ -309,7 +310,7 @@ class GameManager
 	}
 
 
-	public void checkCollision()
+	public void checkPlayerCollision()
 	{
 		for (int i = 0; i < maxNumberOfEnemies; i++)
 		{
@@ -327,9 +328,23 @@ class GameManager
 				 	gameOver();
 				 }
 			 }
+			}
 		}
 	}
-}
+
+	public void checkEnemyCollision(){
+		for(int i = 0; i < maxNumberOfEnemies; i++){
+			if(enemies[i] instanceof Enemy){
+				for(int j = 0; j < maxNumberOfEnemies; j++){
+					if(lars.b[j] instanceof Bullet){
+						if(collision(enemies[i].position.x, enemies[i].position.y, enemies[i].size, lars.b[j].position.x, lars.b[j].position.y, lars.b[j].size)){
+							spawnEnemy();
+						}
+					}
+				}
+			}
+		}
+	}
 
 	public void spawnEnemy()
 	{
@@ -569,7 +584,7 @@ public float getAxisRaw(String axis)
 class Objects
 {
 
-	PVector rotation;
+	  PVector rotation;
    	PVector velocity;
    	PVector position;
 
@@ -659,9 +674,11 @@ class Player extends Objects
 
 	public void playerRotation()
 	{
+
 		rotation.set(xMovement, yMovement);
 		rotation.normalize();
 		position.add(rotation);
+
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
 
