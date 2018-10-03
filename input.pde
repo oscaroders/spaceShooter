@@ -134,12 +134,12 @@ float getAxisRaw(String axis)
 	{
 		if (moveDown)
 		{
-			return 1;
+			return -1;
 		}
 		if (moveUp)
 		{
 
-			return -1;
+			return 1;
 		}
 	}
 

@@ -75,7 +75,8 @@ class Bullet extends Objects
 }
 class BulletEnemy extends Bullet{
 
-  float speed = 5;
+  float speed = 2;
+  float size = 10;
 
   public BulletEnemy(float x, float y){
     super(x, y);
@@ -166,7 +167,7 @@ class Enemy extends Objects
 	{
 		if (shootCounter % 100 == 0)
 		{
-			b[bulletCounter] = new Bullet(position.x, position.y);
+			b[bulletCounter] = new BulletEnemy(position.x, position.y);
 			bulletCounter++;
 
 			if (bulletCounter == maxBullet - 1)
@@ -283,6 +284,10 @@ class GameManager
 	int numberOfStars;
 	PVector[] starPos;
 	int backgcount = 0;
+	boolean gameOverScreen = false;
+	float endTime;
+	int gameOverCounter = 0;
+	boolean firstSpawn = true;
 
 
 	public GameManager()
@@ -296,19 +301,41 @@ class GameManager
 
 	public void update()
 	{
+
 		drawBackground();
-		if(firstItt){
-			spawnEnemy(10);
-			firstItt = false;
-		}
-		checkPlayerCollision();
-		checkEnemyCollision();
 
-		for(int i = 0; i < maxNumberOfEnemies; i++){
-			enemies[i].update();
+		if (gameOverScreen == false)
+		{
+			if (millis() > 5000)
+			{
+
+				if(firstSpawn)
+				{
+					spawnEnemy(10);
+					firstSpawn = false;
+				}
+
+
+
+				checkPlayerCollision();
+				checkEnemyCollision();
+
+				for(int i = 0; i < maxNumberOfEnemies; i++)
+				{
+					enemies[i].update();
+				}
+
+
+			}
+
+			lars.update();
 		}
 
-		lars.update();
+		if (gameOverScreen == true)
+		{
+			gameOver();
+		}
+
 
 	}
 
@@ -320,17 +347,19 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				gameOver();
+				//gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
 			{
-				if(enemies[i].b[j] instanceof Bullet){
-				 if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
-				 {
-				 	gameOver();
-				 }
-			 }
+				if(enemies[i].b[j] instanceof Bullet)
+				{
+
+				 	if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
+				 	{
+				 		//gameOverScreen = true;
+				 	}
+				}
 			}
 		}
 	}
@@ -397,7 +426,13 @@ class GameManager
 	public void gameOver()
 	{
 
+		//gameOverScreen = true;
 		currentTime = millis() / 1000;
+
+		if (gameOverCounter == 0)
+		{
+		 	endTime = currentTime;
+		}
 
 		textSize(50);
 		textAlign(CENTER);
@@ -405,7 +440,10 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
-		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
+		text("Time: " + endTime + " seconds", width/2, height/2 + height/10);
+		gameOverCounter++;
+
+
 	}
 
 	public void drawBackground(){
@@ -413,6 +451,7 @@ class GameManager
 
   if(firstItt){
     generateBackground();
+    firstItt = false;
   }
 
   for(int i = 0; i < numberOfStars; i++){
@@ -572,12 +611,12 @@ public float getAxisRaw(String axis)
 	{
 		if (moveDown)
 		{
-			return 1;
+			return -1;
 		}
 		if (moveUp)
 		{
 
-			return -1;
+			return 1;
 		}
 	}
 
@@ -655,26 +694,27 @@ class Player extends Objects
 	public void update()
 	{
 
-		// xMovement = getAxisRaw("Horizontal") * playerSpeed;
-		//
-		// position.x += xMovement;
-		//
-		// yMovement = getAxisRaw("Vertical") * playerSpeed;
-		//
-		// position.y += yMovement;
 		playerRotation();
+ 		if(keyPressed && (key == 'w' || key == 's')){
+			if(playerSpeed > 3)
+				playerSpeed += getAxisRaw("Vertical") * 0.1f;
+			if(playerSpeed < 3)
+				playerSpeed = 3.1f;
+		}
 
+   // fix so you can start turn while shooting!!!!
 		if(keyPressed && (key == 'a' || key == 'd')){
 			dX = cos(direction) * playerSpeed;
 			dY = sin(direction) * playerSpeed;
 			direction += 0.05f * getAxisRaw("Horizontal");
 		}
 
-			position.x += dX;
-			position.y += dY;
+		position.x += dX;
+		position.y += dY;
 
 		fire();
 		bulletDraw();
+		bounderies();
 		draw();
 
 	}
@@ -720,6 +760,21 @@ class Player extends Objects
 				b[i].setBulletDirection(rotation);
 				b[i].update();
 			}
+		}
+	}
+
+	public void bounderies(){
+		if(position.x < 0 - size / 2){
+			position.x = width;
+		}
+		if(position.x > width + size / 2){
+			position.x = 0;
+		}
+		if(position.y < 0 - size / 2){
+			position.y = height;
+		}
+		if(position.y > height + size / 2){
+			position.y = 0;
 		}
 	}
 }

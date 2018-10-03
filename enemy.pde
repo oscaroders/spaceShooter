@@ -51,7 +51,7 @@ class Enemy extends Objects
 	{
 		if (shootCounter % 100 == 0)
 		{
-			b[bulletCounter] = new Bullet(position.x, position.y);
+			b[bulletCounter] = new BulletEnemy(position.x, position.y);
 			bulletCounter++;
 
 			if (bulletCounter == maxBullet - 1)

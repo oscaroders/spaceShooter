@@ -27,18 +27,18 @@ class GameManager
 
 		drawBackground();
 
-		if (gameOverScreen == false) 
+		if (gameOverScreen == false)
 		{
-			if (millis() > 5000) 
+			if (millis() > 5000)
 			{
-						
+
 				if(firstSpawn)
 				{
 					spawnEnemy(10);
 					firstSpawn = false;
 				}
 
-			
+
 
 				checkPlayerCollision();
 				checkEnemyCollision();
@@ -48,7 +48,7 @@ class GameManager
 					enemies[i].update();
 				}
 
-				
+
 			}
 
 			lars.update();
@@ -70,7 +70,7 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				gameOverScreen = true;
+				//gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
@@ -80,7 +80,7 @@ class GameManager
 
 				 	if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
 				 	{
-				 		gameOverScreen = true;
+				 		//gameOverScreen = true;
 				 	}
 				}
 			}
@@ -149,12 +149,12 @@ class GameManager
 	void gameOver()
 	{
 
-		gameOverScreen = true;
+		//gameOverScreen = true;
 		currentTime = millis() / 1000;
 
-		if (gameOverCounter == 0) 
+		if (gameOverCounter == 0)
 		{
-		 	endTime = currentTime;	
+		 	endTime = currentTime;
 		}
 
 		textSize(50);
@@ -163,9 +163,9 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
-		text("Time: " + endTime + " seconds", width/2, height/2 + height/10); 
-		gameOverCounter++;		
-		         
+		text("Time: " + endTime + " seconds", width/2, height/2 + height/10);
+		gameOverCounter++;
+
 
 	}
 

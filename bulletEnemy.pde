@@ -1,6 +1,7 @@
 class BulletEnemy extends Bullet{
 
-  float speed = 5;
+  float speed = 2;
+  float size = 10;
 
   public BulletEnemy(float x, float y){
     super(x, y);

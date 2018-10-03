@@ -24,26 +24,27 @@ class Player extends Objects
 	void update()
 	{
 
-		// xMovement = getAxisRaw("Horizontal") * playerSpeed;
-		//
-		// position.x += xMovement;
-		//
-		// yMovement = getAxisRaw("Vertical") * playerSpeed;
-		//
-		// position.y += yMovement;
 		playerRotation();
+ 		if(keyPressed && (key == 'w' || key == 's')){
+			if(playerSpeed > 3)
+				playerSpeed += getAxisRaw("Vertical") * 0.1;
+			if(playerSpeed < 3)
+				playerSpeed = 3.1;
+		}
 
+   // fix so you can start turn while shooting!!!!
 		if(keyPressed && (key == 'a' || key == 'd')){
 			dX = cos(direction) * playerSpeed;
 			dY = sin(direction) * playerSpeed;
 			direction += 0.05f * getAxisRaw("Horizontal");
 		}
 
-			position.x += dX;
-			position.y += dY;
+		position.x += dX;
+		position.y += dY;
 
 		fire();
 		bulletDraw();
+		bounderies();
 		draw();
 
 	}
@@ -89,6 +90,21 @@ class Player extends Objects
 				b[i].setBulletDirection(rotation);
 				b[i].update();
 			}
+		}
+	}
+
+	void bounderies(){
+		if(position.x < 0 - size / 2){
+			position.x = width;
+		}
+		if(position.x > width + size / 2){
+			position.x = 0;
+		}
+		if(position.y < 0 - size / 2){
+			position.y = height;
+		}
+		if(position.y > height + size / 2){
+			position.y = 0;
 		}
 	}
 }
