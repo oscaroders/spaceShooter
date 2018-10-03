@@ -50,4 +50,9 @@ class Enemy extends Objects
 	PVector getDirection(){
 		return direction;
 	}
+
+	PVector getPosition()
+	{
+		return position;
+	}
 }

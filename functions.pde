@@ -17,15 +17,18 @@ int bulletSpray;
 
 	void enemyBulletDraw()
 	{
-		b = new Bullet[maxBullet];
+		
 
 		for(int i = 0; i < maxBullet; i++)
 		{
-
-			if(b[i] instanceof Bullet)
+			for (int j = 0; j < 10; ++j) 
 			{
-				b[i].setBulletDirection(gameManager.getEnemyList().getDirection());
-				b[i].update();
+				
+				if(b[i] instanceof Bullet)
+				{
+					b[i].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
+					b[i].update();
+				}
 			}
 
 		}
@@ -35,13 +38,18 @@ int bulletSpray;
 	{	
 		if (shootCounter % 100 == 0)
 		{
-			b[bulletCounter] = new BulletEnemy(position.x, position.y);
-			bulletCounter++;
-
-			if (bulletCounter == maxBullet - 1)
+			for (int j = 0; j < 10; ++j) 
 			{
-				bulletCounter = 0;
+				b[bulletCounter] = new BulletEnemy(gameManager.getEnemyList()[j].getPosition().x, gameManager.getEnemyList()[j].getPosition().y);
+				bulletCounter++;
+
+				if (bulletCounter == maxBullet - 1)
+				{
+					bulletCounter = 0;
+				}
 			}
+			
+			
 		}
 
 		shootCounter++;

@@ -27,6 +27,7 @@ class GameManager
 
 		drawBackground();
 
+
 		if (gameOverScreen == false)
 		{
 			if (millis() > 5000)
@@ -34,6 +35,7 @@ class GameManager
 
 				if(firstSpawn)
 				{
+					b = new Bullet[maxBullet];
 					spawnEnemy(10);
 					firstSpawn = false;
 				}
@@ -72,17 +74,17 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				gameOverScreen = true;
+				//gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
 			{
-				if(enemies[i].b[j] instanceof Bullet)
+				if(b[j] instanceof Bullet)
 				{
 
-				 	if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
+				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size))
 				 	{
-				 		gameOverScreen = true;
+				 		//gameOverScreen = true;
 				 	}
 				}
 			}

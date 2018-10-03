@@ -91,6 +91,13 @@ class BulletEnemy extends Bullet{
 			draw();
 	}
 
+  public void draw()
+  {
+    fill(0, 0, 255);
+    ellipseMode(CENTER);
+    ellipse(position.x, position.y, size / 2, size / 2);
+  }
+
   public void setBulletDirection(PVector direction){
     if(firstItt){
       directionX += direction.x;
@@ -174,6 +181,11 @@ class Enemy extends Objects
 
 	public PVector getDirection(){
 		return direction;
+	}
+
+	public PVector getPosition()
+	{
+		return position;
 	}
 }
 class EnemyEasy extends Enemy{
@@ -273,15 +285,18 @@ int bulletSpray;
 
 	public void enemyBulletDraw()
 	{
-		b = new Bullet[maxBullet];
+		
 
 		for(int i = 0; i < maxBullet; i++)
 		{
-
-			if(b[i] instanceof Bullet)
+			for (int j = 0; j < 10; ++j) 
 			{
-				b[i].setBulletDirection(gameManager.getEnemyList().getDirection());
-				b[i].update();
+				
+				if(b[i] instanceof Bullet)
+				{
+					b[i].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
+					b[i].update();
+				}
 			}
 
 		}
@@ -291,13 +306,18 @@ int bulletSpray;
 	{	
 		if (shootCounter % 100 == 0)
 		{
-			b[bulletCounter] = new BulletEnemy(position.x, position.y);
-			bulletCounter++;
-
-			if (bulletCounter == maxBullet - 1)
+			for (int j = 0; j < 10; ++j) 
 			{
-				bulletCounter = 0;
+				b[bulletCounter] = new BulletEnemy(gameManager.getEnemyList()[j].getPosition().x, gameManager.getEnemyList()[j].getPosition().y);
+				bulletCounter++;
+
+				if (bulletCounter == maxBullet - 1)
+				{
+					bulletCounter = 0;
+				}
 			}
+			
+			
 		}
 
 		shootCounter++;
@@ -334,6 +354,7 @@ class GameManager
 
 		drawBackground();
 
+
 		if (gameOverScreen == false)
 		{
 			if (millis() > 5000)
@@ -341,6 +362,7 @@ class GameManager
 
 				if(firstSpawn)
 				{
+					b = new Bullet[maxBullet];
 					spawnEnemy(10);
 					firstSpawn = false;
 				}
@@ -384,10 +406,10 @@ class GameManager
 
 			for (int j = 0; j < 100; j++)
 			{
-				if(enemies[i].b[j] instanceof Bullet)
+				if(b[j] instanceof Bullet)
 				{
 
-				 	if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
+				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size))
 				 	{
 				 		//gameOverScreen = true;
 				 	}
@@ -461,7 +483,7 @@ class GameManager
 	public void gameOver()
 	{
 
-		//gameOverScreen = true;
+
 		currentTime = millis() / 1000;
 
 		if (gameOverCounter == 0)
@@ -743,7 +765,7 @@ class Player extends Objects
  		if(keyPressed && (key == 'w' || key == 's')){
 			if(playerSpeed > 3)
 				playerSpeed += getAxisRaw("Vertical") * 0.1f;
-			if(playerSpeed < 3)
+			if(playerSpeed <= 3)
 				playerSpeed = 3.1f;
 		}
 
