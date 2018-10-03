@@ -167,18 +167,13 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
-<<<<<<< HEAD
+
 		text("Time: " + endTime + " seconds", width/2, height/2 + height/10);
 		gameOverCounter++;
 
-=======
-		text("Time: " + endTime + " seconds", width/2, height/2 + height/10); 
-		gameOverCounter++;		
-
 		textAlign(CENTER);
 		text("Score: " + score, width/2, height/2 + height/20);
-		         
->>>>>>> 473ac77764afa7c4b96986f4752fab441dd4e663
+
 
 	}
 
