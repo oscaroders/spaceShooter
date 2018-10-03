@@ -16,6 +16,13 @@ class BulletEnemy extends Bullet{
 			draw();
 	}
 
+  void draw()
+  {
+    fill(0, 0, 255);
+    ellipseMode(CENTER);
+    ellipse(position.x, position.y, size / 2, size / 2);
+  }
+
   void setBulletDirection(PVector direction){
     if(firstItt){
       directionX += direction.x;
