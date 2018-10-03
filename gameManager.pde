@@ -153,6 +153,7 @@ class GameManager
 	void gameOver()
 	{
 
+
 		currentTime = millis() / 1000;
 
 		if (gameOverCounter == 0)
