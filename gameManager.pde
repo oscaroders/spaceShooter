@@ -52,6 +52,7 @@ class GameManager
 			}
 
 			lars.update();
+			checkAndWriteScore();
 		}
 
 		if (gameOverScreen == true)
@@ -126,6 +127,7 @@ class GameManager
 			if ((enemies[w] instanceof Enemy))
 			{
 				enemies[w] = new EnemyEasy();
+				score++;
 			}
 		}
 
@@ -134,14 +136,16 @@ class GameManager
 			if ((enemies[w] instanceof Enemy))
 			{
 				enemies[w] = new EnemyMedium();
+				score += 2;
 			}
 		}
 
-		if(w > 8)
+		if(w == 9)
 		{
 				if ((enemies[maxNumberOfEnemies - 1] instanceof Enemy))
 				{
 					enemies[maxNumberOfEnemies - 1] = new EnemyHard();
+					score += 3;
 				}
 		}
 	}
@@ -165,6 +169,9 @@ class GameManager
 		textAlign(CENTER);
 		text("Time: " + endTime + " seconds", width/2, height/2 + height/10); 
 		gameOverCounter++;		
+
+		textAlign(CENTER);
+		text("Score: " + score, width/2, height/2 + height/20);
 		         
 
 	}

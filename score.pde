@@ -1,24 +1,7 @@
-class Score
-{
-
-	int score;
-
-	public Score()
-	{
-
-	}
-
-	void draw() 
-	{
-		checkAndWriteScore();	
-	}
+int score;
 
 	void checkAndWriteScore()
 	{
-		if () 
-		{
-			
-		}
 
 		textSize(20);
 		textAlign(LEFT);
@@ -27,5 +10,3 @@ class Score
 
 	}
 
-
-}
