@@ -62,7 +62,7 @@ class Bullet extends Objects
 	{
 		fill(0, 0, 255);
 		ellipseMode(CENTER);
-		ellipse(position.x, position.y, size, size);
+		ellipse(position.x, position.y, size / 2, size / 2);
 	}
 
 	public void setBulletDirection(PVector direction){
@@ -148,7 +148,7 @@ class Enemy extends Objects
 	{
 
 		fill(0, 255, 0);
-		ellipseMode(CENTER);
+		//ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
 
 	}
@@ -200,15 +200,15 @@ class EnemyEasy extends Enemy{
 
   EnemyEasy(){
     super();
-    size = 25;
+    size = 50;
   }
 
   public void draw()
   {
 
-    fill(255, 255, 0);
+    fill(0, 0, 255);
     ellipseMode(CENTER);
-    ellipse(position.x, position.y, size, size);
+    ellipse(position.x, position.y, size , size );
 
   }
 
@@ -232,7 +232,7 @@ class EnemyHard extends Enemy{
   public void draw()
   {
 
-    fill(255, 255, 0);
+    fill(255, 0, 0);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
 
@@ -243,7 +243,7 @@ class EnemyHard extends Enemy{
 
         direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
         direction.normalize();
-        direction.mult(1);
+        direction.mult(0.5f);
         position.add(direction);
 
   }
@@ -252,13 +252,13 @@ class EnemyMedium extends Enemy{
 
   EnemyMedium(){
     super();
-    size = 50;
+    size = 60;
   }
 
   public void draw()
   {
 
-    fill(255, 255, 0);
+    fill(0, 255, 0);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
 
@@ -283,6 +283,8 @@ class GameManager
 	int numberOfStars;
 	PVector[] starPos;
 	int backgcount = 0;
+ 	static final long FPS = 10;
+ 		Long sleep;
 
 
 	public GameManager()
@@ -297,8 +299,12 @@ class GameManager
 	public void update()
 	{
 		drawBackground();
-		spawnEnemy();
-		checkCollision();
+		if(firstItt){
+			spawnEnemy(10);
+			firstItt = false;
+		}
+		checkPlayerCollision();
+		checkEnemyCollision();
 
 		for(int i = 0; i < maxNumberOfEnemies; i++){
 			enemies[i].update();
@@ -309,11 +315,11 @@ class GameManager
 	}
 
 
-	public void checkCollision()
+	public void checkPlayerCollision()
 	{
 		for (int i = 0; i < maxNumberOfEnemies; i++)
 		{
-			boolean colider = collision(lars.position.x, lars.position.y, lars.size, enemies[i].position.x, enemies[i].position.y, enemies[i].size);
+			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
 				gameOver();
@@ -327,13 +333,27 @@ class GameManager
 				 	gameOver();
 				 }
 			 }
+			}
 		}
 	}
-}
 
-	public void spawnEnemy()
+	public void checkEnemyCollision(){
+		for(int i = 0; i < maxNumberOfEnemies; i++){
+			if(enemies[i] instanceof Enemy){
+				for(int j = 0; j < 100; j++){
+					if(lars.b[j] instanceof Bullet){
+						if(collision(enemies[i].position.x, enemies[i].position.y, enemies[i].size, lars.b[j].position.x, lars.b[j].position.y, lars.b[j].size)){
+							spawnEnemy(i);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public void spawnEnemy(int w)
 	{
-		if(firstItt){
+		if(w == 10){
 			for (int i = 0; i < maxNumberOfEnemies; i++)
 			{
 				if (i < 6)
@@ -349,37 +369,40 @@ class GameManager
 					enemies[i] = new EnemyHard();
 				}
 			}
-			firstItt = false;
 		}
 
-		for (int i = 0; i < 6; ++i)
+		if(w < 7)
 		{
-			if (!(enemies[i] instanceof Enemy))
+			if ((enemies[w] instanceof Enemy))
 			{
-				enemies[i] = new EnemyEasy();
+				enemies[w] = new EnemyEasy();
 			}
 		}
 
-		for (int i = 6; i < 9; ++i)
+		if(w > 5 && w < 9)
 		{
-			if (!(enemies[i] instanceof Enemy))
+			if ((enemies[w] instanceof Enemy))
 			{
-				enemies[i] = new EnemyMedium();
+				enemies[w] = new EnemyMedium();
 			}
 		}
 
-		if (!(enemies[maxNumberOfEnemies - 1] instanceof Enemy))
-			{
-				enemies[maxNumberOfEnemies - 1] = new EnemyHard();
-			}
-
-
+		if(w > 8)
+		{
+				if ((enemies[maxNumberOfEnemies - 1] instanceof Enemy))
+				{
+					enemies[maxNumberOfEnemies - 1] = new EnemyHard();
+				}
+		}
 	}
 
 	public void gameOver()
 	{
-
+		long ticksPS = 1000 / FPS;
+		long startTime;
+		long sleepTime;
 		currentTime = millis() / 1000;
+		startTime = System.currentTimeMillis();
 
 		textSize(50);
 		textAlign(CENTER);
@@ -388,6 +411,17 @@ class GameManager
 
 		textAlign(CENTER);
 		text("Time: " + currentTime + " seconds", width/2, height/2 + height/10);
+		sleepTime = ticksPS-(System.currentTimeMillis() - startTime);
+
+		if (sleepTime > 0)
+		{
+        	sleep(sleepTime);
+		}
+		else
+		{
+			sleep(10);
+		}
+                              
 	}
 
 	public void drawBackground(){
@@ -418,7 +452,6 @@ public void generateBackground(){
 }
 
 }
-
 boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
@@ -626,7 +659,7 @@ class Player extends Objects
 	public Player(float x, float y)
 	{
 		super(x,y);
-		playerSpeed = 5f;
+		playerSpeed = 3f;
 		b = new Bullet[maxBullet];
 		size = 50;
 	}
@@ -663,7 +696,7 @@ class Player extends Objects
 
 		rotation.set(xMovement, yMovement);
 		rotation.normalize();
-		position.add(rotation % 360);
+		position.add(rotation);
 
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
