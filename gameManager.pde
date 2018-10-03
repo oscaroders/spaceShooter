@@ -41,6 +41,7 @@ class GameManager
 
 
 				checkPlayerCollision();
+					enemyBulletDraw();
 				checkEnemyCollision();
 
 				for(int i = 0; i < maxNumberOfEnemies; i++)
@@ -204,5 +205,11 @@ void generateBackground(){
                              random(0, height));
   }
 }
+
+
+	Enemy[] getEnemyList()
+	{
+		return enemies;
+	}
 
 }

@@ -40,19 +40,19 @@ class Bullet extends Objects
 	boolean firstItt;
 	float directionX;
 	float directionY;
-	float speed = 20;
-	float size = 5;
+	float speed;
+	float size;
 
 	public Bullet(float x,float y)
 	{
-
 		super(x,y);
 		firstItt = true;
+		speed = 20;
+		size = 5;
 	}
 
 	public void update()
 	{
-		//setBulletDirection();
 		position.set(position.x + directionX * speed, position.y + directionY * speed);
 		if(!(directionX == 0 && directionY == 0))
 			draw();
@@ -75,11 +75,21 @@ class Bullet extends Objects
 }
 class BulletEnemy extends Bullet{
 
-  float speed = 5;
+  float speed;
+  float size;
 
   public BulletEnemy(float x, float y){
     super(x, y);
+    speed = 2;
+    size = 10;
   }
+
+  public void update()
+	{
+		position.set(position.x + directionX * speed, position.y + directionY * speed);
+		if(!(directionX == 0 && directionY == 0))
+			draw();
+	}
 
   public void setBulletDirection(PVector direction){
     if(firstItt){
@@ -117,10 +127,6 @@ class Enemy extends Objects
 {
 	PVector direction;
 	float size;
-	Bullet[] b;
-	int bulletCounter;
-	int maxBullet = 100;
-	int shootCounter;
 
 
 	public Enemy()
@@ -128,7 +134,7 @@ class Enemy extends Objects
 		super();
 		direction = new PVector();
 		size = 50;
-		b = new Bullet[maxBullet];
+
 	}
 
 	public void update()
@@ -140,7 +146,6 @@ class Enemy extends Objects
 			enemyfire();
 		}
 
-		bulletDraw();
 		draw();
 	}
 
@@ -164,32 +169,7 @@ class Enemy extends Objects
 
 	public void enemyfire()
 	{
-		if (shootCounter % 100 == 0)
-		{
-			b[bulletCounter] = new Bullet(position.x, position.y);
-			bulletCounter++;
-
-			if (bulletCounter == maxBullet - 1)
-			{
-				bulletCounter = 0;
-			}
-		}
-		shootCounter++;
-	}
-
-	public void bulletDraw()
-	{
-
-		for(int i = 0; i < maxBullet; i++)
-		{
-
-			if(b[i] instanceof Bullet)
-			{
-				b[i].setBulletDirection(direction);
-				b[i].update();
-			}
-
-		}
+		enemySpawnBullet();
 	}
 
 	public PVector getDirection(){
@@ -274,6 +254,57 @@ class EnemyMedium extends Enemy{
 
   }
 }
+int score;
+Bullet[] b;
+int bulletCounter;
+int maxBullet = 100;
+int shootCounter;
+int bulletSpray;	
+
+	public void checkAndWriteScore()
+	{
+
+		textSize(20);
+		textAlign(LEFT);
+		fill(255, 255, 255);
+		text("Score: " + score, 100, 100);
+
+	}
+
+	public void enemyBulletDraw()
+	{
+		b = new Bullet[maxBullet];
+
+		for(int i = 0; i < maxBullet; i++)
+		{
+
+			if(b[i] instanceof Bullet)
+			{
+				b[i].setBulletDirection(gameManager.getEnemyList().getDirection());
+				b[i].update();
+			}
+
+		}
+	}
+
+	public void enemySpawnBullet()
+	{	
+		if (shootCounter % 100 == 0)
+		{
+			b[bulletCounter] = new BulletEnemy(position.x, position.y);
+			bulletCounter++;
+
+			if (bulletCounter == maxBullet - 1)
+			{
+				bulletCounter = 0;
+			}
+		}
+
+		shootCounter++;
+	}
+
+
+
 class GameManager
 {
 	Player lars;
@@ -303,20 +334,21 @@ class GameManager
 
 		drawBackground();
 
-		if (gameOverScreen == false) 
+		if (gameOverScreen == false)
 		{
-			if (millis() > 5000) 
+			if (millis() > 5000)
 			{
-						
+
 				if(firstSpawn)
 				{
 					spawnEnemy(10);
 					firstSpawn = false;
 				}
 
-			
+
 
 				checkPlayerCollision();
+					enemyBulletDraw();
 				checkEnemyCollision();
 
 				for(int i = 0; i < maxNumberOfEnemies; i++)
@@ -324,7 +356,7 @@ class GameManager
 					enemies[i].update();
 				}
 
-				
+
 			}
 
 			lars.update();
@@ -347,7 +379,7 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				gameOverScreen = true;
+				//gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
@@ -357,7 +389,7 @@ class GameManager
 
 				 	if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
 				 	{
-				 		gameOverScreen = true;
+				 		//gameOverScreen = true;
 				 	}
 				}
 			}
@@ -429,12 +461,12 @@ class GameManager
 	public void gameOver()
 	{
 
-		gameOverScreen = true;
+		//gameOverScreen = true;
 		currentTime = millis() / 1000;
 
-		if (gameOverCounter == 0) 
+		if (gameOverCounter == 0)
 		{
-		 	endTime = currentTime;	
+		 	endTime = currentTime;
 		}
 
 		textSize(50);
@@ -443,12 +475,13 @@ class GameManager
 		text("Game Over", width/2, height/2);
 
 		textAlign(CENTER);
-		text("Time: " + endTime + " seconds", width/2, height/2 + height/10); 
-		gameOverCounter++;		
+
+		text("Time: " + endTime + " seconds", width/2, height/2 + height/10);
+		gameOverCounter++;
 
 		textAlign(CENTER);
 		text("Score: " + score, width/2, height/2 + height/20);
-		         
+
 
 	}
 
@@ -479,6 +512,12 @@ public void generateBackground(){
                              random(0, height));
   }
 }
+
+
+	public Enemy[] getEnemyList()
+	{
+		return enemies;
+	}
 
 }
 boolean moveLeft;
@@ -617,12 +656,12 @@ public float getAxisRaw(String axis)
 	{
 		if (moveDown)
 		{
-			return 1;
+			return -1;
 		}
 		if (moveUp)
 		{
 
-			return -1;
+			return 1;
 		}
 	}
 
@@ -700,26 +739,27 @@ class Player extends Objects
 	public void update()
 	{
 
-		// xMovement = getAxisRaw("Horizontal") * playerSpeed;
-		//
-		// position.x += xMovement;
-		//
-		// yMovement = getAxisRaw("Vertical") * playerSpeed;
-		//
-		// position.y += yMovement;
 		playerRotation();
+ 		if(keyPressed && (key == 'w' || key == 's')){
+			if(playerSpeed > 3)
+				playerSpeed += getAxisRaw("Vertical") * 0.1f;
+			if(playerSpeed < 3)
+				playerSpeed = 3.1f;
+		}
 
+   // fix so you can start turn while shooting!!!!
 		if(keyPressed && (key == 'a' || key == 'd')){
 			dX = cos(direction) * playerSpeed;
 			dY = sin(direction) * playerSpeed;
 			direction += 0.05f * getAxisRaw("Horizontal");
 		}
 
-			position.x += dX;
-			position.y += dY;
+		position.x += dX;
+		position.y += dY;
 
 		fire();
 		bulletDraw();
+		bounderies();
 		draw();
 
 	}
@@ -767,19 +807,22 @@ class Player extends Objects
 			}
 		}
 	}
-}
-int score;
 
-	public void checkAndWriteScore()
-	{
-
-		textSize(20);
-		textAlign(LEFT);
-		fill(255, 255, 255);
-		text("Score: " + score, 100, 100);
-
+	public void bounderies(){
+		if(position.x < 0 - size / 2){
+			position.x = width;
+		}
+		if(position.x > width + size / 2){
+			position.x = 0;
+		}
+		if(position.y < 0 - size / 2){
+			position.y = height;
+		}
+		if(position.y > height + size / 2){
+			position.y = 0;
+		}
 	}
-
+}
   public void settings() { 	size(1920, 1080); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "spaceShooter" };
