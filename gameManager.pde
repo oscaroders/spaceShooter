@@ -26,47 +26,57 @@ class GameManager
 
 	void update()
 	{
-
-		drawBackground();
-
-
-		if (gameOverScreen == false)
+		if (!play) 
 		{
-			if (millis() > 5000)
-			{
+			startScreen();
 
-				if(firstSpawn)
-				{
-					b = new Bullet[maxBullet];
-					spawnEnemy(10);
-					firstSpawn = false;
-				}
-
-
-
-				checkPlayerCollision();
-
-				checkEnemyCollision();
-				enemyBulletDraw();
-				for(int i = 0; i < maxNumberOfEnemies; i++)
-				{
-					enemies[i].update();
-				}
-
-
-
-
-			}
-
-			lars.update();
-			checkAndWriteScore();
 		}
 
-		if (gameOverScreen == true)
+		else
 		{
-			gameOver();
-			if(keyPressed && key == 'r')
+
+			drawBackground();
+
+
+			if (gameOverScreen == false)
+			{
+				if (millis() > 5000)
+				{
+
+					if(firstSpawn)
+					{
+						b = new Bullet[maxBullet];
+						spawnEnemy(10);
+						firstSpawn = false;
+					}
+
+
+
+					checkPlayerCollision();
+
+					checkEnemyCollision();
+					enemyBulletDraw();
+					for(int i = 0; i < maxNumberOfEnemies; i++)
+					{
+						enemies[i].update();
+					}
+
+
+
+
+				}
+
+					lars.update();
+					checkAndWriteScore();
+			}
+
+			if (gameOverScreen == true)
+			{
+				gameOver();
+				if(keyPressed && key == 'r')
 				setup();
+			}
+
 		}
 
 
@@ -223,6 +233,25 @@ void generateBackground(){
 	Enemy[] getEnemyList()
 	{
 		return enemies;
+	}
+
+
+	void startScreen()
+	{
+		background(0);
+
+		textSize(50);
+		textAlign(CENTER);
+		fill(255, 100, 255);
+		text("Space Shooter 1.0", width/2, height/5);
+
+		textAlign(CENTER);
+		fill(255, 100, 255);
+		text("-----------------", width/2, height/4.5);
+
+		textAlign(CENTER);
+		fill(255, 150, 0);
+		text("PRESS P TO START THE GAME!", width/2, height/2 + height/20);
 	}
 
 }
