@@ -24,7 +24,7 @@ class Bullet extends Objects
 	void draw()
 	{
 		noStroke();
-		fill(0, 0, 255);
+		fill(255, 100, 50);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size / 2, size / 2);
 	}

@@ -114,7 +114,7 @@ class Bullet extends Objects
 	public void draw()
 	{
 		noStroke();
-		fill(0, 0, 255);
+		fill(255, 100, 50);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size / 2, size / 2);
 	}
@@ -137,7 +137,7 @@ class BulletEnemy extends Bullet{
   public BulletEnemy(float x, float y){
     super(x, y);
     speed = 2;
-    size = 10;
+    size = 20;
   }
 
   public void update()
@@ -150,7 +150,7 @@ class BulletEnemy extends Bullet{
   public void draw()
   {
     noStroke();
-    fill(255);
+    fill(255, 105, 180);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size / 2, size / 2);
   }
@@ -954,7 +954,6 @@ class Player extends Objects
 		noStroke();
 		fill(255, 0, 0);
 		text(life, position.x, position.y);
-
 	}
 
 	public void playerRotation()

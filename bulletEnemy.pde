@@ -8,7 +8,7 @@ class BulletEnemy extends Bullet{
   public BulletEnemy(float x, float y){
     super(x, y);
     speed = 2;
-    size = 10;
+    size = 20;
   }
 
   void update()
@@ -21,7 +21,7 @@ class BulletEnemy extends Bullet{
   void draw()
   {
     noStroke();
-    fill(255);
+    fill(255, 105, 180);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size / 2, size / 2);
   }
