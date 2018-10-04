@@ -13,7 +13,6 @@ class BulletEnemy extends Bullet{
 
   void update()
 	{
-    println("x: " + directionX + " y: " + directionY);
 		position.set(position.x + directionX * speed, position.y + directionY * speed);
 		if(!(directionX == 0 && directionY == 0))
 			draw();
