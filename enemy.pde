@@ -1,49 +1,36 @@
-class Enemy extends Objects
-{
+class Enemy extends Objects{
 	PVector direction;
 	float size;
 
-
-	public Enemy()
-	{
+	public Enemy(){
 		super();
 		direction = new PVector();
 		size = 50;
-
 	}
 
-	void update()
-	{
+	void update(){
 		moveToPlayerPosition();
 
-		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height))
-		{
+		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height)){
 			enemyfire();
 		}
 
 		draw();
 	}
 
-	void draw()
-	{
-
+	void draw(){
 		fill(0, 255, 0);
-		//ellipseMode(CENTER);
+		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
-
 	}
 
-	void moveToPlayerPosition()
-	{
-
-        direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
-        direction.normalize();
-        position.add(direction);
-
+	void moveToPlayerPosition(){
+    direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
+    direction.normalize();
+    position.add(direction);
 	}
 
-	void enemyfire()
-	{
+	void enemyfire(){
 		enemySpawnBullet();
 	}
 
@@ -51,8 +38,7 @@ class Enemy extends Objects
 		return direction;
 	}
 
-	PVector getPosition()
-	{
+	PVector getPosition(){
 		return position;
 	}
 

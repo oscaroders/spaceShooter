@@ -1,7 +1,7 @@
 int score;
 Bullet[] b;
 int bulletCounter;
-int maxBullet = 1000;
+int maxBullet = 100;
 int shootCounter;
 int bulletSpray;
 
@@ -30,7 +30,7 @@ int bulletSpray;
 
 	void enemySpawnBullet()
 	{
-		if (shootCounter % 100 == 0)
+		if (shootCounter % 500 == 0)
 		{
 			for (int j = 0; j < 10; j++)
 			{

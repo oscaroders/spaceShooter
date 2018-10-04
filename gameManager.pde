@@ -1,6 +1,7 @@
 class GameManager
 {
 	Player lars;
+	int life = 100;
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
 	boolean firstItt;
@@ -75,7 +76,7 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				//gameOverScreen = true;
+				gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
@@ -85,7 +86,11 @@ class GameManager
 
 				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size / 2))
 				 	{
-				 		//gameOverScreen = true;
+						if( gameManager.lars.life == 0){
+							gameOverScreen = true;
+						} else {
+							gameManager.lars.life -= 1;
+						}
 				 	}
 				}
 			}
