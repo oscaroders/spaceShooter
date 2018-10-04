@@ -373,7 +373,6 @@ int bulletSpray;
 class GameManager
 {
 	Player lars;
-	int life = 100;
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
 	boolean firstItt;
@@ -910,7 +909,7 @@ class Player extends Objects
 		playerSpeed = 6f;
 		b = new Bullet[maxBullet];
 		size = 50;
-		life = 1000;
+		life = 500;
 	}
 
 	public void update()
