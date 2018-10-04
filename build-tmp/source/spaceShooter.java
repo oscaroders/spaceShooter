@@ -16,6 +16,8 @@ public class spaceShooter extends PApplet {
 
 GameManager gameManager;
 
+PImage img1;
+PImage img2;
 float deltaTime;
 long currentTime;
 float time;
@@ -23,6 +25,8 @@ float time;
 public void setup()
 {
 	
+	img1 = loadImage("spaceShip.jpg");
+	img2 = loadImage("sun.jpg");
 	gameManager = new GameManager();
 }
 
@@ -135,6 +139,7 @@ int spaceBlue = color(12, 36, 39);
 int spaceDotPurple = color(102, 0, 102);
 int spaceAppleRed = color(255, 77, 77);
 int scoreTextGreen = color(0, 102, 0);
+
 class Enemy extends Objects{
 	PVector direction;
 	float size;
@@ -332,51 +337,62 @@ class GameManager
 		firstItt = true;
 		numberOfStars = 500;
 		starPos = new PVector[numberOfStars];
+		score = 0;
 	}
 
 	public void update()
 	{
-
-		drawBackground();
-
-
-		if (gameOverScreen == false)
+		if (!play) 
 		{
-			if (millis() > 5000)
-			{
+			startScreen();
 
-				if(firstSpawn)
-				{
-					b = new Bullet[maxBullet];
-					spawnEnemy(10);
-					firstSpawn = false;
-				}
-
-
-
-				checkPlayerCollision();
-
-				checkEnemyCollision();
-				enemyBulletDraw();
-				for(int i = 0; i < maxNumberOfEnemies; i++)
-				{
-					enemies[i].update();
-				}
-
-
-
-
-			}
-
-			lars.update();
-			checkAndWriteScore();
 		}
 
-		if (gameOverScreen == true)
+		else
 		{
-			gameOver();
-			if(keyPressed && key == 'r')
+
+			drawBackground();
+
+
+			if (gameOverScreen == false)
+			{
+				if (millis() > 5000)
+				{
+
+					if(firstSpawn)
+					{
+						b = new Bullet[maxBullet];
+						spawnEnemy(10);
+						firstSpawn = false;
+					}
+
+
+
+					checkPlayerCollision();
+
+					checkEnemyCollision();
+					enemyBulletDraw();
+					for(int i = 0; i < maxNumberOfEnemies; i++)
+					{
+						enemies[i].update();
+					}
+
+
+
+
+				}
+
+					lars.update();
+					checkAndWriteScore();
+			}
+
+			if (gameOverScreen == true)
+			{
+				gameOver();
+				if(keyPressed && key == 'r')
 				setup();
+			}
+
 		}
 
 
@@ -498,7 +514,7 @@ class GameManager
 		text("Score: " + score, width/2, height/2 + height/20);
 
 		textAlign(CENTER);
-		text("Press r to reset the game", width/2, height/2 + height/5);
+		text("Press r to reset the game!", width/2, height/2 + height/5);
 	}
 
 	public void drawBackground(){
@@ -535,13 +551,45 @@ public void generateBackground(){
 		return enemies;
 	}
 
+
+	public void startScreen()
+	{
+		background(0);
+
+  		image(img1, 50, 500, width/2, height/2);
+
+  		image(img2, 900, 100, width/2, height/2);
+
+		textSize(50);
+		textAlign(CENTER);
+		fill(255, 100, 255);
+		text("Space Shooter 1.0", width/2, height/5);
+
+		textAlign(CENTER);
+		fill(255, 100, 255);
+		text("-----------------", width/2, height/4.5f);
+
+		textAlign(CENTER);
+		fill(255, 150, 0);
+		text("PRESS P TO START THE GAME!", width/2, height/2 + height/20);
+	}
+
 }
+// void saveHighScore(){
+//   string[] highScore = new string[3];
+//   hight
+// }
+//
+// int[] getHighScore(){
+//
+// }
 boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
 boolean moveDown;
 boolean fire;
 boolean enter;
+boolean play;
 
 public void keyPressed()
 {
@@ -574,6 +622,11 @@ public void keyPressed()
 	if (key == 't')
 	{
 		fire = true;
+	}
+
+	if (key == 'p' || key == 'P')
+	{
+		play = true;
 	}
 
 
@@ -840,7 +893,6 @@ class Player extends Objects
 		}
 	}
 }
-
   public void settings() { 	size(1920, 1080); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "spaceShooter" };

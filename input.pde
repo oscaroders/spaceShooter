@@ -4,6 +4,7 @@ boolean moveUp;
 boolean moveDown;
 boolean fire;
 boolean enter;
+boolean play;
 
 void keyPressed()
 {
@@ -36,6 +37,11 @@ void keyPressed()
 	if (key == 't')
 	{
 		fire = true;
+	}
+
+	if (key == 'p' || key == 'P')
+	{
+		play = true;
 	}
 
 
