@@ -726,7 +726,7 @@ public void keyPressed()
 		moveLeft = true;
 	}
 
-	if (key == 't')
+	if (key == 'n')
 	{
 		fire = true;
 	}
@@ -799,7 +799,7 @@ public void keyReleased()
 	{
 		moveDown = false;
 	}
-	if (key == 't')
+	if (key == 'n')
 	{
 		fire = false;
 	}
