@@ -773,7 +773,6 @@ class Player extends Objects
 				playerSpeed = 3.1f;
 		}
 
-   // fix so you can start turn while shooting!!!!
 		if(moveLeft || moveRight){
 			dX = cos(direction) * playerSpeed;
 			dY = sin(direction) * playerSpeed;
@@ -787,7 +786,6 @@ class Player extends Objects
 		bulletDraw();
 		bounderies();
 		draw();
-
 	}
 
 	public void draw()

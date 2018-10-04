@@ -47,7 +47,6 @@ class Player extends Objects
 		bulletDraw();
 		bounderies();
 		draw();
-
 	}
 
 	void draw()
