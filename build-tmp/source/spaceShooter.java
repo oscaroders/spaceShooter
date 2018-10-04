@@ -401,7 +401,7 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				//gameOverScreen = true;
+				gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
@@ -409,9 +409,9 @@ class GameManager
 				if(b[j] instanceof Bullet)
 				{
 
-				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size))
+				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size/2))
 				 	{
-				 		//gameOverScreen = true;
+				 		gameOverScreen = true;
 				 	}
 				}
 			}
