@@ -17,24 +17,7 @@ int bulletSpray;
 
 	void enemyBulletDraw()
 	{
-<<<<<<< HEAD
-		
 
-		// for(int i = 0; i < maxBullet; i++)
-		// {
-		// 	for (int j = 0; j < 10; ++j) 
-		// 	{
-				
-		// 		if(b[i] instanceof Bullet)
-		// 		{
-		// 			b[i].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
-		// 			b[i].update();
-		// 		}
-		// 	}
-
-		// }
-	}
-=======
 			for(int i = 0; i < maxBullet; i++)
 			{
 				if(b[i] instanceof Bullet)
@@ -43,7 +26,7 @@ int bulletSpray;
 				}
 			}
 		}
->>>>>>> 6f09e2594564bfb7aaf38cc90448eb9c79f71d02
+
 
 	void enemySpawnBullet()
 	{
