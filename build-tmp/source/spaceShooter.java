@@ -61,7 +61,7 @@ class Asteroid extends Objects
 		bounderies();
 		position.x += speedX;
 		position.y += speedY;
-		image(imgA, position.x, position.y, 250, 250);
+		image(imgA, position.x - size / 2, position.y - size / 2, 250, 250);
 	}
 
 	public void bounderies()
@@ -420,6 +420,13 @@ class GameManager
 
 			if (gameOverScreen == false)
 			{
+				if(collision(lars.position.x, lars.position.y, lars.size / 2, asteroid.position.x, asteroid.position.y, asteroid.size / 2))
+					gameOverScreen = true;
+				if(collision(lars.position.x, lars.position.y, lars.size / 2, asteroid2.position.x, asteroid2.position.y, asteroid2.size / 2))
+					gameOverScreen = true;
+				if(collision(lars.position.x, lars.position.y, lars.size / 2, asteroid3.position.x, asteroid3.position.y, asteroid3.size / 2))
+					gameOverScreen = true;
+
 				if (millis() > 5000)
 				{
 
@@ -429,8 +436,6 @@ class GameManager
 						spawnEnemy(10);
 						firstSpawn = false;
 					}
-
-
 
 					checkPlayerCollision();
 
@@ -501,6 +506,16 @@ class GameManager
 						}
 					}
 				}
+			}
+		}
+		for(int i = 0; i < maxNumberOfEnemies; i++){
+			if(enemies[i] instanceof Enemy){
+				if(collision(enemies[i].position.x, enemies[i].position.y, enemies[i].size, asteroid.position.x, asteroid.position.y, asteroid.size / 2))
+					spawnEnemy(i);
+				if(collision(enemies[i].position.x, enemies[i].position.y, enemies[i].size, asteroid2.position.x, asteroid2.position.y, asteroid2.size / 2))
+					spawnEnemy(i);
+			  if(collision(enemies[i].position.x, enemies[i].position.y, enemies[i].size, asteroid3.position.x, asteroid3.position.y, asteroid3.size / 2))
+					spawnEnemy(i);
 			}
 		}
 	}
