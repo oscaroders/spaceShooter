@@ -16,6 +16,8 @@ public class spaceShooter extends PApplet {
 
 GameManager gameManager;
 
+PImage img1;
+PImage img2;
 float deltaTime;
 long currentTime;
 float time;
@@ -23,6 +25,8 @@ float time;
 public void setup()
 {
 	
+	img1 = loadImage("spaceShip.jpg");
+	img2 = loadImage("sun.jpg");
 	gameManager = new GameManager();
 }
 
@@ -135,6 +139,7 @@ int spaceBlue = color(12, 36, 39);
 int spaceDotPurple = color(102, 0, 102);
 int spaceAppleRed = color(255, 77, 77);
 int scoreTextGreen = color(0, 102, 0);
+
 class Enemy extends Objects{
 	PVector direction;
 	float size;
@@ -550,6 +555,10 @@ public void generateBackground(){
 	public void startScreen()
 	{
 		background(0);
+
+  		image(img1, 50, 500, width/2, height/2);
+
+  		image(img2, 900, 100, width/2, height/2);
 
 		textSize(50);
 		textAlign(CENTER);

@@ -240,6 +240,10 @@ void generateBackground(){
 	{
 		background(0);
 
+  		image(img1, 50, 500, width/2, height/2);
+
+  		image(img2, 900, 100, width/2, height/2);
+
 		textSize(50);
 		textAlign(CENTER);
 		fill(255, 100, 255);
