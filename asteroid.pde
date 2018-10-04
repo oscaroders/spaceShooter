@@ -18,7 +18,7 @@ class Asteroid extends Objects
 		bounderies();
 		position.x += speedX;
 		position.y += speedY;
-		image(imgA, position.x, position.y, 250, 250);
+		image(imgA, position.x - size / 2, position.y - size / 2, 250, 250);
 	}
 
 	void bounderies()
