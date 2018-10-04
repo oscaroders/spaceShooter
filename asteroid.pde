@@ -24,16 +24,16 @@ class Asteroid extends Objects
 	void bounderies()
 	{
 		if(position.x < 0 - size){
-			position.x = width;
+			position.x = width + size;
 		}
 		if(position.x > width + size){
-			position.x = 0;
+			position.x = 0 - size;
 		}
 		if(position.y < 0 - size){
-			position.y = height;
+			position.y = height + size/2;
 		}
 		if(position.y > height + size){
-			position.y = 0;
+			position.y = 0 - size;
 		}
 	}
 
