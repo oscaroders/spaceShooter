@@ -165,30 +165,33 @@ class GameManager
 
 	void gameOver()
 	{
-
+		int[] highScore;
+		highScore = new int[3];
+		highScore = getHighScore();
 
 		currentTime = millis() / 1000;
 
 		if (gameOverCounter == 0)
 		{
 		 	endTime = currentTime;
+			saveHighScore();
 		}
 
 		textSize(50);
 		textAlign(CENTER);
 		fill(255, 255, 255);
-		text("Game Over", width/2, height/2);
+		text("Game Over", width/2, height/10);
 
 		textAlign(CENTER);
 
-		text("Time: " + endTime + " seconds", width/2, height/2 + height/10);
+		text("Time: " + endTime + " seconds", width/2,  height/6);
 		gameOverCounter++;
 
 		textAlign(CENTER);
-		text("Score: " + score, width/2, height/2 + height/20);
+		text("Score: " + score + "\n" + highScore[0] + "\n" + highScore[1] + "\n" + highScore[2], width/2,  height/4);
 
 		textAlign(CENTER);
-		text("Press r to reset the game!", width/2, height/2 + height/5);
+		text("Press r to reset the game!", width/2,  height/2 + height /5);
 	}
 
 	void drawBackground(){

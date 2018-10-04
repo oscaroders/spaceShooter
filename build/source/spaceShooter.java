@@ -32,7 +32,7 @@ public void draw()
 	deltaTime = (currentTime - time) * 0.001f;
 
 	gameManager.update();
-
+	
 	time = currentTime;
 }
 class Bullet extends Objects
@@ -476,30 +476,33 @@ class GameManager
 
 	public void gameOver()
 	{
-
+		int[] highScore;
+		highScore = new int[3];
+		highScore = getHighScore();
 
 		currentTime = millis() / 1000;
 
 		if (gameOverCounter == 0)
 		{
 		 	endTime = currentTime;
+			saveHighScore();
 		}
 
 		textSize(50);
 		textAlign(CENTER);
 		fill(255, 255, 255);
-		text("Game Over", width/2, height/2);
+		text("Game Over", width/2, height/10);
 
 		textAlign(CENTER);
 
-		text("Time: " + endTime + " seconds", width/2, height/2 + height/10);
+		text("Time: " + endTime + " seconds", width/2,  height/6);
 		gameOverCounter++;
 
 		textAlign(CENTER);
-		text("Score: " + score, width/2, height/2 + height/20);
+		text("Score: " + score + "\n" + highScore[0] + "\n" + highScore[1] + "\n" + highScore[2], width/2,  height/4);
 
 		textAlign(CENTER);
-		text("Press r to reset the game!", width/2, height/2 + height/5);
+		text("Press r to reset the game!", width/2,  height/2 + height /5);
 	}
 
 	public void drawBackground(){
@@ -537,14 +540,38 @@ public void generateBackground(){
 	}
 
 }
-// void saveHighScore(){
-//   string[] highScore = new string[3];
-//   hight
-// }
-//
-// int[] getHighScore(){
-//
-// }
+int s1, s2, s3;
+
+public void saveHighScore(){
+
+  int[] temp = new int[3];
+  temp = getHighScore();
+  if(score >= temp[0]){
+    temp[2] = temp[1];
+    temp[1] = temp[0];
+    temp[0] = score;
+  } else if(score >= temp[1]){
+    temp[2] = temp[1];
+    temp[1] = score;
+  } else if (score >= temp[2]){
+    temp[2] = score;
+  }
+
+  String[] highScore = new String[3];
+  highScore[0] = Integer.toString(temp[0]);
+  highScore[1] = Integer.toString(temp[1]);
+  highScore[2] = Integer.toString(temp[2]);
+  saveStrings("score.txt", highScore);
+}
+
+public int[] getHighScore(){
+  int[] temp = new int[3];
+  String[] highScore = loadStrings("score.txt");
+  temp[0] = Integer.valueOf(highScore[0]);
+  temp[1] = Integer.valueOf(highScore[1]);
+  temp[2] = Integer.valueOf(highScore[2]);
+  return temp;
+}
 boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
