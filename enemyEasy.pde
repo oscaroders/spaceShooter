@@ -8,10 +8,9 @@ class EnemyEasy extends Enemy{
   void draw()
   {
 
-    fill(0, 0, 255);
-    ellipseMode(CENTER);
-    ellipse(position.x, position.y, size , size );
-
+     fill(0, 0, 255);
+     ellipseMode(CENTER);
+     ellipse(position.x, position.y, size , size );
   }
 
   void moveToPlayerPosition()
