@@ -8,7 +8,7 @@ class EnemyHard extends Enemy{
   void draw()
   {
     noStroke();
-    fill(255, 0, 0);
+    fill(0, 255, 154);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
 

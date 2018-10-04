@@ -8,7 +8,7 @@ class EnemyMedium extends Enemy{
   void draw()
   {
     noStroke();
-    fill(0, 255, 0);
+    fill(0, 191, 255);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
 

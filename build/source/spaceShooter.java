@@ -246,7 +246,7 @@ class EnemyEasy extends Enemy{
   public void draw()
   {
     noStroke();
-     fill(0, 0, 255);
+     fill(218, 165, 32);
      ellipseMode(CENTER);
      ellipse(position.x, position.y, size , size );
   }
@@ -271,7 +271,7 @@ class EnemyHard extends Enemy{
   public void draw()
   {
     noStroke();
-    fill(255, 0, 0);
+    fill(0, 255, 154);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
 
@@ -297,7 +297,7 @@ class EnemyMedium extends Enemy{
   public void draw()
   {
     noStroke();
-    fill(0, 255, 0);
+    fill(0, 191, 255);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
 
