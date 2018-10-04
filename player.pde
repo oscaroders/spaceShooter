@@ -34,7 +34,6 @@ class Player extends Objects
 				playerSpeed = 3.1;
 		}
 
-   // fix so you can start turn while shooting!!!!
 		if(moveLeft || moveRight){
 			dX = cos(direction) * playerSpeed;
 			dY = sin(direction) * playerSpeed;
