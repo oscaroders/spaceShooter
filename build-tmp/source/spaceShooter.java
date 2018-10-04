@@ -22,6 +22,7 @@ float time;
 
 public void setup()
 {
+	//size(500, 500);
 	
 	gameManager = new GameManager();
 }
@@ -37,7 +38,7 @@ public void draw()
 }
 class Bullet extends Objects
 {
-	boolean firstItt;
+	boolean first;
 	float directionX;
 	float directionY;
 	float speed;
@@ -46,7 +47,7 @@ class Bullet extends Objects
 	public Bullet(float x,float y)
 	{
 		super(x,y);
-		firstItt = true;
+		first = true;
 		speed = 20;
 		size = 5;
 	}
@@ -66,15 +67,17 @@ class Bullet extends Objects
 	}
 
 	public void setBulletDirection(PVector direction){
-		if(firstItt){
+		if(first){
 			directionX += direction.x;
 			directionY += direction.y;
-			firstItt = false;
+			first = false;
 		}
 	}
 }
 class BulletEnemy extends Bullet{
 
+  float directionX;
+	float directionY;
   float speed;
   float size;
 
@@ -99,10 +102,10 @@ class BulletEnemy extends Bullet{
   }
 
   public void setBulletDirection(PVector direction){
-    if(firstItt){
+    if(first){
       directionX += direction.x;
       directionY += direction.y;
-      firstItt = false;
+      first = false;
     }
   }
 }
@@ -187,6 +190,24 @@ class Enemy extends Objects
 	{
 		return position;
 	}
+
+
+	public void avoidEnemies(Enemy enmy)
+	{
+		int minDist = ((int)size/2) * 3;
+		float d = dist(this.position.x, this.position.y, enmy.position.x, enmy.position.y);
+		if (d < minDist) 
+		{
+			
+			this.direction.x = this.direction.x * -1;
+			this.direction.y = this.direction.y * -1;
+			enmy.direction.x = enmy.direction.x * -1;
+			enmy.direction.y = enmy.direction.y * -1;
+
+
+		}
+}
+
 }
 class EnemyEasy extends Enemy{
 
@@ -269,9 +290,9 @@ class EnemyMedium extends Enemy{
 int score;
 Bullet[] b;
 int bulletCounter;
-int maxBullet = 100;
+int maxBullet = 1000;
 int shootCounter;
-int bulletSpray;	
+int bulletSpray;
 
 	public void checkAndWriteScore()
 	{
@@ -285,30 +306,25 @@ int bulletSpray;
 
 	public void enemyBulletDraw()
 	{
-		
 
-		// for(int i = 0; i < maxBullet; i++)
-		// {
-		// 	for (int j = 0; j < 10; ++j) 
-		// 	{
-				
-		// 		if(b[i] instanceof Bullet)
-		// 		{
-		// 			b[i].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
-		// 			b[i].update();
-		// 		}
-		// 	}
+			for(int i = 0; i < maxBullet; i++)
+			{
+				if(b[i] instanceof Bullet)
+				{
+					b[i].update();
+				}
+			}
+		}
 
-		// }
-	}
 
 	public void enemySpawnBullet()
-	{	
+	{
 		if (shootCounter % 100 == 0)
 		{
-			for (int j = 0; j < 10; ++j) 
+			for (int j = 0; j < 10; j++)
 			{
 				b[bulletCounter] = new BulletEnemy(gameManager.getEnemyList()[j].getPosition().x, gameManager.getEnemyList()[j].getPosition().y);
+				b[bulletCounter].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
 				bulletCounter++;
 
 				if (bulletCounter == maxBullet - 1)
@@ -316,15 +332,12 @@ int bulletSpray;
 					bulletCounter = 0;
 				}
 			}
-			
-			
+
+
 		}
 
 		shootCounter++;
 	}
-
-
-
 class GameManager
 {
 	Player lars;
@@ -370,13 +383,15 @@ class GameManager
 
 
 				checkPlayerCollision();
-					enemyBulletDraw();
+
 				checkEnemyCollision();
 
 				for(int i = 0; i < maxNumberOfEnemies; i++)
 				{
 					enemies[i].update();
 				}
+
+				enemyBulletDraw();
 
 
 			}
@@ -390,7 +405,7 @@ class GameManager
 			gameOver();
 		}
 
-
+		draw();
 	}
 
 
@@ -540,6 +555,27 @@ public void generateBackground(){
 	{
 		return enemies;
 	}
+
+	public void draw()
+	{
+
+		for (int i = 0; i < maxNumberOfEnemies; i++) 
+		{
+ 
+    		Enemy currentEnemy = enemies[i];
+ 
+    		for (int j = i+1; j < maxNumberOfEnemies; j++) 
+    		{
+    			if (enemies[j] instanceof Enemy) 
+    			{
+    				currentEnemy.avoidEnemies(enemies[j]);
+    			}
+      			
+    		}
+  		}
+
+	}
+
 
 }
 boolean moveLeft;
@@ -770,7 +806,7 @@ class Player extends Objects
 		}
 
    // fix so you can start turn while shooting!!!!
-		if(keyPressed && (key == 'a' || key == 'd')){
+		if(moveLeft || moveRight){
 			dX = cos(direction) * playerSpeed;
 			dY = sin(direction) * playerSpeed;
 			direction += 0.05f * getAxisRaw("Horizontal");
@@ -845,6 +881,7 @@ class Player extends Objects
 		}
 	}
 }
+
   public void settings() { 	size(1920, 1080); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "spaceShooter" };

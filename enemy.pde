@@ -55,4 +55,5 @@ class Enemy extends Objects
 	{
 		return position;
 	}
+
 }
