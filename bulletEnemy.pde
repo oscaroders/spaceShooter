@@ -1,5 +1,7 @@
 class BulletEnemy extends Bullet{
 
+  float directionX;
+	float directionY;
   float speed;
   float size;
 
@@ -11,6 +13,7 @@ class BulletEnemy extends Bullet{
 
   void update()
 	{
+    println("x: " + directionX + " y: " + directionY);
 		position.set(position.x + directionX * speed, position.y + directionY * speed);
 		if(!(directionX == 0 && directionY == 0))
 			draw();
@@ -24,10 +27,10 @@ class BulletEnemy extends Bullet{
   }
 
   void setBulletDirection(PVector direction){
-    if(firstItt){
+    if(first){
       directionX += direction.x;
       directionY += direction.y;
-      firstItt = false;
+      first = false;
     }
   }
 }

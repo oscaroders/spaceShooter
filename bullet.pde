@@ -1,6 +1,6 @@
 class Bullet extends Objects
 {
-	boolean firstItt;
+	boolean first;
 	float directionX;
 	float directionY;
 	float speed;
@@ -9,7 +9,7 @@ class Bullet extends Objects
 	public Bullet(float x,float y)
 	{
 		super(x,y);
-		firstItt = true;
+		first = true;
 		speed = 20;
 		size = 5;
 	}
@@ -29,10 +29,10 @@ class Bullet extends Objects
 	}
 
 	void setBulletDirection(PVector direction){
-		if(firstItt){
+		if(first){
 			directionX += direction.x;
 			directionY += direction.y;
-			firstItt = false;
+			first = false;
 		}
 	}
 }

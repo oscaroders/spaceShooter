@@ -22,6 +22,7 @@ float time;
 
 public void setup()
 {
+	//size(500, 500);
 	
 	gameManager = new GameManager();
 }
@@ -37,7 +38,7 @@ public void draw()
 }
 class Bullet extends Objects
 {
-	boolean firstItt;
+	boolean first;
 	float directionX;
 	float directionY;
 	float speed;
@@ -46,7 +47,7 @@ class Bullet extends Objects
 	public Bullet(float x,float y)
 	{
 		super(x,y);
-		firstItt = true;
+		first = true;
 		speed = 20;
 		size = 5;
 	}
@@ -66,15 +67,17 @@ class Bullet extends Objects
 	}
 
 	public void setBulletDirection(PVector direction){
-		if(firstItt){
+		if(first){
 			directionX += direction.x;
 			directionY += direction.y;
-			firstItt = false;
+			first = false;
 		}
 	}
 }
 class BulletEnemy extends Bullet{
 
+  float directionX;
+	float directionY;
   float speed;
   float size;
 
@@ -86,6 +89,7 @@ class BulletEnemy extends Bullet{
 
   public void update()
 	{
+    println("x: " + directionX + " y: " + directionY);
 		position.set(position.x + directionX * speed, position.y + directionY * speed);
 		if(!(directionX == 0 && directionY == 0))
 			draw();
@@ -99,10 +103,10 @@ class BulletEnemy extends Bullet{
   }
 
   public void setBulletDirection(PVector direction){
-    if(firstItt){
+    if(first){
       directionX += direction.x;
       directionY += direction.y;
-      firstItt = false;
+      first = false;
     }
   }
 }
@@ -134,10 +138,6 @@ class Enemy extends Objects
 {
 	PVector direction;
 	float size;
-	Bullet[] b;
-	int bulletCounter;
-	int maxBullet = 100;
-	int shootCounter;
 
 
 	public Enemy()
@@ -145,7 +145,7 @@ class Enemy extends Objects
 		super();
 		direction = new PVector();
 		size = 50;
-		b = new Bullet[maxBullet];
+
 	}
 
 	public void update()
@@ -157,7 +157,6 @@ class Enemy extends Objects
 			enemyfire();
 		}
 
-		bulletDraw();
 		draw();
 	}
 
@@ -181,36 +180,16 @@ class Enemy extends Objects
 
 	public void enemyfire()
 	{
-		if (shootCounter % 100 == 0)
-		{
-			b[bulletCounter] = new BulletEnemy(position.x, position.y);
-			bulletCounter++;
-
-			if (bulletCounter == maxBullet - 1)
-			{
-				bulletCounter = 0;
-			}
-		}
-		shootCounter++;
-	}
-
-	public void bulletDraw()
-	{
-
-		for(int i = 0; i < maxBullet; i++)
-		{
-
-			if(b[i] instanceof Bullet)
-			{
-				b[i].setBulletDirection(direction);
-				b[i].update();
-			}
-
-		}
+		enemySpawnBullet();
 	}
 
 	public PVector getDirection(){
 		return direction;
+	}
+
+	public PVector getPosition()
+	{
+		return position;
 	}
 }
 class EnemyEasy extends Enemy{
@@ -291,6 +270,55 @@ class EnemyMedium extends Enemy{
 
   }
 }
+int score;
+Bullet[] b;
+int bulletCounter;
+int maxBullet = 1000;
+int shootCounter;
+int bulletSpray;
+
+	public void checkAndWriteScore()
+	{
+
+		textSize(20);
+		textAlign(LEFT);
+		fill(255, 255, 255);
+		text("Score: " + score, 100, 100);
+
+	}
+
+	public void enemyBulletDraw()
+	{
+			for(int i = 0; i < maxBullet; i++)
+			{
+				if(b[i] instanceof Bullet)
+				{
+					b[i].update();
+				}
+			}
+		}
+
+	public void enemySpawnBullet()
+	{
+		if (shootCounter % 100 == 0)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				b[bulletCounter] = new BulletEnemy(gameManager.getEnemyList()[j].getPosition().x, gameManager.getEnemyList()[j].getPosition().y);
+				b[bulletCounter].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
+				bulletCounter++;
+
+				if (bulletCounter == maxBullet - 1)
+				{
+					bulletCounter = 0;
+				}
+			}
+
+
+		}
+
+		shootCounter++;
+	}
 class GameManager
 {
 	Player lars;
@@ -320,6 +348,7 @@ class GameManager
 
 		drawBackground();
 
+
 		if (gameOverScreen == false)
 		{
 			if (millis() > 5000)
@@ -327,6 +356,7 @@ class GameManager
 
 				if(firstSpawn)
 				{
+					b = new Bullet[maxBullet];
 					spawnEnemy(10);
 					firstSpawn = false;
 				}
@@ -334,12 +364,15 @@ class GameManager
 
 
 				checkPlayerCollision();
+
 				checkEnemyCollision();
 
 				for(int i = 0; i < maxNumberOfEnemies; i++)
 				{
 					enemies[i].update();
 				}
+
+				enemyBulletDraw();
 
 
 			}
@@ -364,17 +397,17 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				gameOverScreen = true;
+				//gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
 			{
-				if(enemies[i].b[j] instanceof Bullet)
+				if(b[j] instanceof Bullet)
 				{
 
-				 	if (collision(lars.position.x, lars.position.y, lars.size, enemies[i].b[j].position.x, enemies[i].b[j].position.y, enemies[i].b[j].size))
+				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size))
 				 	{
-				 		gameOverScreen = true;
+				 		//gameOverScreen = true;
 				 	}
 				}
 			}
@@ -497,6 +530,12 @@ public void generateBackground(){
                              random(0, height));
   }
 }
+
+
+	public Enemy[] getEnemyList()
+	{
+		return enemies;
+	}
 
 }
 boolean moveLeft;
@@ -802,17 +841,6 @@ class Player extends Objects
 		}
 	}
 }
-int score;
-
-	public void checkAndWriteScore()
-	{
-
-		textSize(20);
-		textAlign(LEFT);
-		fill(255, 255, 255);
-		text("Score: " + score, 100, 100);
-
-	}
 
   public void settings() { 	size(1920, 1080); }
   static public void main(String[] passedArgs) {

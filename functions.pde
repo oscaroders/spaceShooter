@@ -1,9 +1,9 @@
 int score;
 Bullet[] b;
 int bulletCounter;
-int maxBullet = 100;
+int maxBullet = 1000;
 int shootCounter;
-int bulletSpray;	
+int bulletSpray;
 
 	void checkAndWriteScore()
 	{
@@ -17,30 +17,23 @@ int bulletSpray;
 
 	void enemyBulletDraw()
 	{
-		
-
-		for(int i = 0; i < maxBullet; i++)
-		{
-			for (int j = 0; j < 10; ++j) 
+			for(int i = 0; i < maxBullet; i++)
 			{
-				
 				if(b[i] instanceof Bullet)
 				{
-					b[i].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
 					b[i].update();
 				}
 			}
-
 		}
-	}
 
 	void enemySpawnBullet()
-	{	
+	{
 		if (shootCounter % 100 == 0)
 		{
-			for (int j = 0; j < 10; ++j) 
+			for (int j = 0; j < 10; j++)
 			{
 				b[bulletCounter] = new BulletEnemy(gameManager.getEnemyList()[j].getPosition().x, gameManager.getEnemyList()[j].getPosition().y);
+				b[bulletCounter].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
 				bulletCounter++;
 
 				if (bulletCounter == maxBullet - 1)
@@ -48,12 +41,9 @@ int bulletSpray;
 					bulletCounter = 0;
 				}
 			}
-			
-			
+
+
 		}
 
 		shootCounter++;
 	}
-
-
-

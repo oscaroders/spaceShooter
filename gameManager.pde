@@ -43,13 +43,15 @@ class GameManager
 
 
 				checkPlayerCollision();
-					enemyBulletDraw();
+
 				checkEnemyCollision();
 
 				for(int i = 0; i < maxNumberOfEnemies; i++)
 				{
 					enemies[i].update();
 				}
+
+				enemyBulletDraw();
 
 
 			}
