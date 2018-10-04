@@ -7,11 +7,21 @@ int bulletSpray;
 
 	void checkAndWriteScore()
 	{
+		int[] highScore;
+		highScore = new int[3];
+		highScore = getHighScore();
+
+		if(highScore[0] < score){
+			 highScore[0] = score;
+		}
 
 		textSize(20);
 		textAlign(LEFT);
 		fill(255, 255, 255);
-		text("Score: " + score, 100, 100);
+		text(" Score: " + score +
+				"\n" + " High Score:" +
+				"\n 1st: " + highScore[0], 100, 100);
+
 
 	}
 

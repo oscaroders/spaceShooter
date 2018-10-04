@@ -26,7 +26,7 @@ class GameManager
 
 	void update()
 	{
-		if (!play) 
+		if (!play)
 		{
 			startScreen();
 
@@ -198,8 +198,9 @@ class GameManager
 		gameOverCounter++;
 
 		textAlign(CENTER);
-		text("Score: " + score + "\n" + highScore[0] + "\n" + highScore[1] + "\n" + highScore[2], width/2,  height/4);
+		text("Score: " + score + "\n High Score: \n 1st: " + highScore[0] + "\n 2nd: " + highScore[1] + "\n 3rd: " + highScore[2], width/2,  height/4);
 
+		fill(255, 0, 0);
 		textAlign(CENTER);
 		text("Press r to reset the game!", width/2,  height/2 + height /5);
 	}
