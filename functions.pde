@@ -19,19 +19,19 @@ int bulletSpray;
 	{
 		
 
-		for(int i = 0; i < maxBullet; i++)
-		{
-			for (int j = 0; j < 10; ++j) 
-			{
+		// for(int i = 0; i < maxBullet; i++)
+		// {
+		// 	for (int j = 0; j < 10; ++j) 
+		// 	{
 				
-				if(b[i] instanceof Bullet)
-				{
-					b[i].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
-					b[i].update();
-				}
-			}
+		// 		if(b[i] instanceof Bullet)
+		// 		{
+		// 			b[i].setBulletDirection(gameManager.getEnemyList()[j].getDirection());
+		// 			b[i].update();
+		// 		}
+		// 	}
 
-		}
+		// }
 	}
 
 	void enemySpawnBullet()
