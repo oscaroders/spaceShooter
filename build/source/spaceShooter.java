@@ -19,6 +19,7 @@ GameManager gameManager;
 PImage img1;
 PImage img2;
 PImage imgA;
+
 float deltaTime;
 long currentTime;
 float time;
@@ -29,6 +30,8 @@ public void setup()
 	img1 = loadImage("spaceShip.jpg");
 	img2 = loadImage("sun.jpg");
 	imgA = loadImage("asteroid.png");
+
+
 	gameManager = new GameManager();
 }
 
@@ -38,7 +41,7 @@ public void draw()
 	deltaTime = (currentTime - time) * 0.001f;
 
 	gameManager.update();
-	
+
 	time = currentTime;
 }
 class Asteroid extends Objects
@@ -110,6 +113,7 @@ class Bullet extends Objects
 
 	public void draw()
 	{
+		noStroke();
 		fill(0, 0, 255);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size / 2, size / 2);
@@ -145,7 +149,8 @@ class BulletEnemy extends Bullet{
 
   public void draw()
   {
-    fill(0, 0, 255);
+    noStroke();
+    fill(255);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size / 2, size / 2);
   }
@@ -240,11 +245,10 @@ class EnemyEasy extends Enemy{
 
   public void draw()
   {
-
-    fill(0, 0, 255);
-    ellipseMode(CENTER);
-    ellipse(position.x, position.y, size , size );
-
+    noStroke();
+     fill(0, 0, 255);
+     ellipseMode(CENTER);
+     ellipse(position.x, position.y, size , size );
   }
 
   public void moveToPlayerPosition()
@@ -266,7 +270,7 @@ class EnemyHard extends Enemy{
 
   public void draw()
   {
-
+    noStroke();
     fill(255, 0, 0);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
@@ -292,10 +296,11 @@ class EnemyMedium extends Enemy{
 
   public void draw()
   {
-
+    noStroke();
     fill(0, 255, 0);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
+
 
   }
 
@@ -940,12 +945,16 @@ class Player extends Objects
 
 	public void draw()
 	{
-
-		fill(255, 100, 50, 30);
+		noStroke();
+		fill(255, 100, 50);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
+		stroke(0);
+		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
+		noStroke();
 		fill(255, 0, 0);
 		text(life, position.x, position.y);
+
 	}
 
 	public void playerRotation()
@@ -953,7 +962,6 @@ class Player extends Objects
 		rotation.set(dX, dY);
 		rotation.normalize();
 		position.add(rotation);
-		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
 
     public PVector getPlayerPosition()

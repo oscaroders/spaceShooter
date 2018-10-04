@@ -20,7 +20,8 @@ class BulletEnemy extends Bullet{
 
   void draw()
   {
-    fill(0, 0, 255);
+    noStroke();
+    fill(255);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size / 2, size / 2);
   }

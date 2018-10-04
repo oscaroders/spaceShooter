@@ -25,6 +25,6 @@ void draw()
 	deltaTime = (currentTime - time) * 0.001f;
 
 	gameManager.update();
-	
+
 	time = currentTime;
 }

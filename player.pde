@@ -51,10 +51,13 @@ class Player extends Objects
 
 	void draw()
 	{
-
-		fill(255, 100, 50, 30);
+		noStroke();
+		fill(255, 100, 50);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
+		stroke(0);
+		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
+		noStroke();
 		fill(255, 0, 0);
 		text(life, position.x, position.y);
 	}
@@ -64,7 +67,6 @@ class Player extends Objects
 		rotation.set(dX, dY);
 		rotation.normalize();
 		position.add(rotation);
-		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
 
     PVector getPlayerPosition()
