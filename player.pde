@@ -20,7 +20,7 @@ class Player extends Objects
 		playerSpeed = 6f;
 		b = new Bullet[maxBullet];
 		size = 50;
-		life = 1000;
+		life = 500;
 	}
 
 	void update()

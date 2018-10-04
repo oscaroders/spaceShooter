@@ -1,7 +1,6 @@
 class GameManager
 {
 	Player lars;
-	int life = 100;
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
 	boolean firstItt;
