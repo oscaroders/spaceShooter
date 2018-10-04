@@ -21,6 +21,7 @@ class GameManager
 		firstItt = true;
 		numberOfStars = 500;
 		starPos = new PVector[numberOfStars];
+		score = 0;
 	}
 
 	void update()

@@ -332,6 +332,7 @@ class GameManager
 		firstItt = true;
 		numberOfStars = 500;
 		starPos = new PVector[numberOfStars];
+		score = 0;
 	}
 
 	public void update()
@@ -375,7 +376,7 @@ class GameManager
 		if (gameOverScreen == true)
 		{
 			gameOver();
-			if(keyPressed && keyCode == ENTER)
+			if(keyPressed && key == 'r')
 				setup();
 		}
 
@@ -496,6 +497,9 @@ class GameManager
 
 		textAlign(CENTER);
 		text("Score: " + score, width/2, height/2 + height/20);
+
+		textAlign(CENTER);
+		text("Press r to reset the game!", width/2, height/2 + height/5);
 	}
 
 	public void drawBackground(){
@@ -533,6 +537,14 @@ public void generateBackground(){
 	}
 
 }
+// void saveHighScore(){
+//   string[] highScore = new string[3];
+//   hight
+// }
+//
+// int[] getHighScore(){
+//
+// }
 boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
