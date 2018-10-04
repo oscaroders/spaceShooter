@@ -66,16 +66,16 @@ class Asteroid extends Objects
 
 	public void bounderies()
 	{
-		if(position.x < 0 - size / 2){
+		if(position.x < 0 - size){
 			position.x = width;
 		}
-		if(position.x > width + size / 2){
+		if(position.x > width + size){
 			position.x = 0;
 		}
-		if(position.y < 0 - size / 2){
+		if(position.y < 0 - size){
 			position.y = height;
 		}
-		if(position.y > height + size / 2){
+		if(position.y > height + size){
 			position.y = 0;
 		}
 	}
