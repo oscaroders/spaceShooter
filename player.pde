@@ -33,7 +33,7 @@ class Player extends Objects
 		}
 
    // fix so you can start turn while shooting!!!!
-		if(keyPressed && (key == 'a' || key == 'd')){
+		if(moveLeft || moveRight){
 			dX = cos(direction) * playerSpeed;
 			dY = sin(direction) * playerSpeed;
 			direction += 0.05f * getAxisRaw("Horizontal");

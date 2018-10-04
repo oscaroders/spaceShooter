@@ -89,7 +89,6 @@ class BulletEnemy extends Bullet{
 
   public void update()
 	{
-    println("x: " + directionX + " y: " + directionY);
 		position.set(position.x + directionX * speed, position.y + directionY * speed);
 		if(!(directionX == 0 && directionY == 0))
 			draw();
@@ -289,6 +288,7 @@ int bulletSpray;
 
 	public void enemyBulletDraw()
 	{
+
 			for(int i = 0; i < maxBullet; i++)
 			{
 				if(b[i] instanceof Bullet)
@@ -297,6 +297,7 @@ int bulletSpray;
 				}
 			}
 		}
+
 
 	public void enemySpawnBullet()
 	{
@@ -405,7 +406,7 @@ class GameManager
 				if(b[j] instanceof Bullet)
 				{
 
-				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size))
+				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size / 2))
 				 	{
 				 		//gameOverScreen = true;
 				 	}
@@ -766,7 +767,7 @@ class Player extends Objects
 		}
 
    // fix so you can start turn while shooting!!!!
-		if(keyPressed && (key == 'a' || key == 'd')){
+		if(moveLeft || moveRight){
 			dX = cos(direction) * playerSpeed;
 			dY = sin(direction) * playerSpeed;
 			direction += 0.05f * getAxisRaw("Horizontal");
