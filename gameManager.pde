@@ -46,13 +46,13 @@ class GameManager
 				checkPlayerCollision();
 
 				checkEnemyCollision();
-
+				enemyBulletDraw();
 				for(int i = 0; i < maxNumberOfEnemies; i++)
 				{
 					enemies[i].update();
 				}
 
-				enemyBulletDraw();
+
 
 
 			}
@@ -64,7 +64,10 @@ class GameManager
 		if (gameOverScreen == true)
 		{
 			gameOver();
+			if(keyPressed && key == 'r')
+				setup();
 		}
+
 
 	}
 
@@ -84,7 +87,7 @@ class GameManager
 				if(b[j] instanceof Bullet)
 				{
 
-				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size / 2))
+				 	if (collision(lars.position.x, lars.position.y, lars.size / 2, b[j].position.x, b[j].position.y, b[j].size / 2))
 				 	{
 						if( gameManager.lars.life == 0){
 							gameOverScreen = true;
@@ -182,8 +185,6 @@ class GameManager
 
 		textAlign(CENTER);
 		text("Score: " + score, width/2, height/2 + height/20);
-
-
 	}
 
 	void drawBackground(){

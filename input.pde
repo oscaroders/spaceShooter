@@ -3,6 +3,7 @@ boolean moveRight;
 boolean moveUp;
 boolean moveDown;
 boolean fire;
+boolean enter;
 
 void keyPressed()
 {
@@ -16,6 +17,9 @@ void keyPressed()
 		else if (keyCode == LEFT)
 		{
 			moveLeft = true;
+		}
+		if(keyCode == ENTER){
+			enter = true;
 		}
 
 	}
@@ -44,6 +48,9 @@ void keyPressed()
 		else if (keyCode == DOWN)
 		{
 			moveDown = true;
+		}
+		if(keyCode == ENTER){
+			enter = false;
 		}
 	}
 

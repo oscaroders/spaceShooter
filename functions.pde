@@ -30,7 +30,7 @@ int bulletSpray;
 
 	void enemySpawnBullet()
 	{
-		if (shootCounter % 500 == 0)
+		if (shootCounter % 1000 == 0)
 		{
 			for (int j = 0; j < 10; j++)
 			{

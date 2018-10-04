@@ -22,7 +22,6 @@ float time;
 
 public void setup()
 {
-	//size(500, 500);
 	
 	gameManager = new GameManager();
 }
@@ -121,6 +120,9 @@ public boolean collision(float x1, float y1, float size1, float x2, float y2, fl
 	{
 		return false;
 	}
+	else if(dist(x1, y1, x2, y2) < size1){
+		return false;
+	}
 	else
 	{
 		return true;
@@ -133,52 +135,39 @@ int spaceBlue = color(12, 36, 39);
 int spaceDotPurple = color(102, 0, 102);
 int spaceAppleRed = color(255, 77, 77);
 int scoreTextGreen = color(0, 102, 0);
-class Enemy extends Objects
-{
+class Enemy extends Objects{
 	PVector direction;
 	float size;
 
-
-	public Enemy()
-	{
+	public Enemy(){
 		super();
 		direction = new PVector();
 		size = 50;
-
 	}
 
-	public void update()
-	{
+	public void update(){
 		moveToPlayerPosition();
 
-		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height))
-		{
+		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height)){
 			enemyfire();
 		}
 
 		draw();
 	}
 
-	public void draw()
-	{
-
+	public void draw(){
 		fill(0, 255, 0);
-		//ellipseMode(CENTER);
+		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
-
 	}
 
-	public void moveToPlayerPosition()
-	{
-
-        direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
-        direction.normalize();
-        position.add(direction);
-
+	public void moveToPlayerPosition(){
+    direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
+    direction.normalize();
+    position.add(direction);
 	}
 
-	public void enemyfire()
-	{
+	public void enemyfire(){
 		enemySpawnBullet();
 	}
 
@@ -186,10 +175,10 @@ class Enemy extends Objects
 		return direction;
 	}
 
-	public PVector getPosition()
-	{
+	public PVector getPosition(){
 		return position;
 	}
+
 }
 class EnemyEasy extends Enemy{
 
@@ -301,7 +290,7 @@ int bulletSpray;
 
 	public void enemySpawnBullet()
 	{
-		if (shootCounter % 500 == 0)
+		if (shootCounter % 1000 == 0)
 		{
 			for (int j = 0; j < 10; j++)
 			{
@@ -368,13 +357,13 @@ class GameManager
 				checkPlayerCollision();
 
 				checkEnemyCollision();
-
+				enemyBulletDraw();
 				for(int i = 0; i < maxNumberOfEnemies; i++)
 				{
 					enemies[i].update();
 				}
 
-				enemyBulletDraw();
+
 
 
 			}
@@ -386,6 +375,8 @@ class GameManager
 		if (gameOverScreen == true)
 		{
 			gameOver();
+			if(keyPressed && keyCode == ENTER)
+				setup();
 		}
 
 
@@ -407,7 +398,7 @@ class GameManager
 				if(b[j] instanceof Bullet)
 				{
 
-				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size / 2))
+				 	if (collision(lars.position.x, lars.position.y, lars.size / 2, b[j].position.x, b[j].position.y, b[j].size / 2))
 				 	{
 						if( gameManager.lars.life == 0){
 							gameOverScreen = true;
@@ -505,8 +496,6 @@ class GameManager
 
 		textAlign(CENTER);
 		text("Score: " + score, width/2, height/2 + height/20);
-
-
 	}
 
 	public void drawBackground(){
@@ -549,6 +538,7 @@ boolean moveRight;
 boolean moveUp;
 boolean moveDown;
 boolean fire;
+boolean enter;
 
 public void keyPressed()
 {
@@ -562,6 +552,9 @@ public void keyPressed()
 		else if (keyCode == LEFT)
 		{
 			moveLeft = true;
+		}
+		if(keyCode == ENTER){
+			enter = true;
 		}
 
 	}
@@ -590,6 +583,9 @@ public void keyPressed()
 		else if (keyCode == DOWN)
 		{
 			moveDown = true;
+		}
+		if(keyCode == ENTER){
+			enter = false;
 		}
 	}
 
@@ -692,43 +688,35 @@ public float getAxisRaw(String axis)
 	return 0;
 
 }
-class Objects
-{
+class Objects{
 
 	  PVector rotation;
    	PVector velocity;
    	PVector position;
 
-  public Objects()
-{
+  public Objects(){
     position = new PVector();
 
     int side2side = (int)random(1, 4.99f);
-    if (side2side == 1)
-    {
+    if (side2side == 1){
     	position.x = random(-50, -5);
     	position.y = random(0, height);
     }
-    if (side2side == 2)
-    {
+    if (side2side == 2){
     	position.x = random(0, width);
     	position.y = random(-50, -5);
     }
-    if (side2side == 3)
-    {
+    if (side2side == 3){
     	position.x = random(width + 5, width + 50);
     	position.y = random(0, height);
     }
-    if (side2side == 4)
-    {
+    if (side2side == 4){
     	position.x = random(0, width);
     	position.y = random(height + 5, height + 50);
     }
-
   }
 
-  public Objects(float x, float y)
-  {
+  public Objects(float x, float y){
     position = new PVector(x, y);
     rotation = new PVector(x, y);
   }
