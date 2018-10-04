@@ -11,7 +11,7 @@ class EnemyHard extends Enemy{
     fill(255, 0, 0);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
-
+    
   }
 
   void moveToPlayerPosition()

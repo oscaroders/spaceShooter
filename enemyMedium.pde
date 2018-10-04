@@ -11,6 +11,7 @@ class EnemyMedium extends Enemy{
     fill(0, 255, 0);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size, size);
+    
 
   }
 

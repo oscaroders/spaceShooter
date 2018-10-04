@@ -19,6 +19,10 @@ GameManager gameManager;
 PImage img1;
 PImage img2;
 PImage imgA;
+PImage imgEnemy1;
+PImage imgEnemy2;
+PImage imgEnemy3;
+
 float deltaTime;
 long currentTime;
 float time;
@@ -29,6 +33,11 @@ public void setup()
 	img1 = loadImage("spaceShip.jpg");
 	img2 = loadImage("sun.jpg");
 	imgA = loadImage("asteroid.png");
+	imgEnemy1 = loadImage("easyEnemy.png");
+	imgEnemy2 = loadImage("mediumEnemy.png");
+	imgEnemy3 = loadImage("hardEnemy.png");
+
+
 	gameManager = new GameManager();
 }
 
@@ -67,16 +76,16 @@ class Asteroid extends Objects
 	public void bounderies()
 	{
 		if(position.x < 0 - size){
-			position.x = width;
+			position.x = width + size;
 		}
 		if(position.x > width + size){
-			position.x = 0;
+			position.x = 0 - size;
 		}
 		if(position.y < 0 - size){
-			position.y = height;
+			position.y = height + size/2;
 		}
 		if(position.y > height + size){
-			position.y = 0;
+			position.y = 0 - size;
 		}
 	}
 
@@ -241,9 +250,11 @@ class EnemyEasy extends Enemy{
   public void draw()
   {
 
-    fill(0, 0, 255);
-    ellipseMode(CENTER);
-    ellipse(position.x, position.y, size , size );
+    // fill(0, 0, 255);
+    // ellipseMode(CENTER);
+    // ellipse(position.x, position.y, size , size );
+    imageMode(CENTER);
+    image(imgEnemy1, position.x - size / 2, position.y - size / 2, 100, 100);
 
   }
 
@@ -267,9 +278,11 @@ class EnemyHard extends Enemy{
   public void draw()
   {
 
-    fill(255, 0, 0);
-    ellipseMode(CENTER);
-    ellipse(position.x, position.y, size, size);
+    // fill(255, 0, 0);
+    // ellipseMode(CENTER);
+    // ellipse(position.x, position.y, size, size);
+    imageMode(CENTER);
+    image(imgEnemy3, position.x - size / 2, position.y - size / 2, 200, 200);
 
   }
 
@@ -293,9 +306,11 @@ class EnemyMedium extends Enemy{
   public void draw()
   {
 
-    fill(0, 255, 0);
-    ellipseMode(CENTER);
-    ellipse(position.x, position.y, size, size);
+    // fill(0, 255, 0);
+    // ellipseMode(CENTER);
+    // ellipse(position.x, position.y, size, size);
+    imageMode(CENTER);
+    image(imgEnemy2, position.x - size / 2, position.y - size / 2, 150, 150);
 
   }
 
