@@ -6,6 +6,7 @@ float time;
 
 void setup()
 {
+	//size(500, 500);
 	size(1920, 1080);
 	gameManager = new GameManager();
 }
