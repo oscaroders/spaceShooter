@@ -12,6 +12,9 @@ class GameManager
 	float endTime;
 	int gameOverCounter = 0;
 	boolean firstSpawn = true;
+	Asteroid asteroid;
+	Asteroid asteroid2;
+	Asteroid asteroid3;
 
 
 	public GameManager()
@@ -22,6 +25,9 @@ class GameManager
 		numberOfStars = 500;
 		starPos = new PVector[numberOfStars];
 		score = 0;
+		asteroid = new Asteroid();
+		asteroid2 = new Asteroid();
+		asteroid3 = new Asteroid();
 	}
 
 	void update()
@@ -36,7 +42,9 @@ class GameManager
 		{
 
 			drawBackground();
-
+			asteroid.draw();
+			asteroid2.draw();
+			asteroid3.draw();
 
 			if (gameOverScreen == false)
 			{

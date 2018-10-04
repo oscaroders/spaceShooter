@@ -18,6 +18,7 @@ GameManager gameManager;
 
 PImage img1;
 PImage img2;
+PImage imgA;
 float deltaTime;
 long currentTime;
 float time;
@@ -27,6 +28,7 @@ public void setup()
 	
 	img1 = loadImage("spaceShip.jpg");
 	img2 = loadImage("sun.jpg");
+	imgA = loadImage("asteroid.png");
 	gameManager = new GameManager();
 }
 
@@ -36,8 +38,52 @@ public void draw()
 	deltaTime = (currentTime - time) * 0.001f;
 
 	gameManager.update();
-
+	
 	time = currentTime;
+}
+class Asteroid extends Objects
+{
+
+	float speedX;
+	float speedY;
+	int size = 250;
+
+	public Asteroid()
+	{
+		position = new PVector(random(width), random(height));
+		speedX += random(-1 , 1);
+		speedY += random(-1, 1);
+	}
+
+
+	public void draw()
+	{
+		bounderies();
+		position.x += speedX;
+		position.y += speedY;
+		image(imgA, position.x, position.y, 250, 250);
+	}
+
+	public void bounderies()
+	{
+		if(position.x < 0 - size / 2){
+			position.x = width;
+		}
+		if(position.x > width + size / 2){
+			position.x = 0;
+		}
+		if(position.y < 0 - size / 2){
+			position.y = height;
+		}
+		if(position.y > height + size / 2){
+			position.y = 0;
+		}
+	}
+
+
+
+
+
 }
 class Bullet extends Objects
 {
@@ -272,11 +318,21 @@ int bulletSpray;
 
 	public void checkAndWriteScore()
 	{
+		int[] highScore;
+		highScore = new int[3];
+		highScore = getHighScore();
+
+		if(highScore[0] < score){
+			 highScore[0] = score;
+		}
 
 		textSize(20);
 		textAlign(LEFT);
 		fill(255, 255, 255);
-		text("Score: " + score, 100, 100);
+		text(" Score: " + score +
+				"\n" + " High Score:" +
+				"\n 1st: " + highScore[0], 100, 100);
+
 
 	}
 
@@ -328,6 +384,9 @@ class GameManager
 	float endTime;
 	int gameOverCounter = 0;
 	boolean firstSpawn = true;
+	Asteroid asteroid;
+	Asteroid asteroid2;
+	Asteroid asteroid3;
 
 
 	public GameManager()
@@ -338,11 +397,14 @@ class GameManager
 		numberOfStars = 500;
 		starPos = new PVector[numberOfStars];
 		score = 0;
+		asteroid = new Asteroid();
+		asteroid2 = new Asteroid();
+		asteroid3 = new Asteroid();
 	}
 
 	public void update()
 	{
-		if (!play) 
+		if (!play)
 		{
 			startScreen();
 
@@ -352,7 +414,9 @@ class GameManager
 		{
 
 			drawBackground();
-
+			asteroid.draw();
+			asteroid2.draw();
+			asteroid3.draw();
 
 			if (gameOverScreen == false)
 			{
@@ -491,30 +555,34 @@ class GameManager
 
 	public void gameOver()
 	{
-
+		int[] highScore;
+		highScore = new int[3];
+		highScore = getHighScore();
 
 		currentTime = millis() / 1000;
 
 		if (gameOverCounter == 0)
 		{
 		 	endTime = currentTime;
+			saveHighScore();
 		}
 
 		textSize(50);
 		textAlign(CENTER);
 		fill(255, 255, 255);
-		text("Game Over", width/2, height/2);
+		text("Game Over", width/2, height/10);
 
 		textAlign(CENTER);
 
-		text("Time: " + endTime + " seconds", width/2, height/2 + height/10);
+		text("Time: " + endTime + " seconds", width/2,  height/6);
 		gameOverCounter++;
 
 		textAlign(CENTER);
-		text("Score: " + score, width/2, height/2 + height/20);
+		text("Score: " + score + "\n High Score: \n 1st: " + highScore[0] + "\n 2nd: " + highScore[1] + "\n 3rd: " + highScore[2], width/2,  height/4);
 
+		fill(255, 0, 0);
 		textAlign(CENTER);
-		text("Press r to reset the game!", width/2, height/2 + height/5);
+		text("Press r to reset the game!", width/2,  height/2 + height /5);
 	}
 
 	public void drawBackground(){
@@ -575,14 +643,38 @@ public void generateBackground(){
 	}
 
 }
-// void saveHighScore(){
-//   string[] highScore = new string[3];
-//   hight
-// }
-//
-// int[] getHighScore(){
-//
-// }
+int s1, s2, s3;
+
+public void saveHighScore(){
+
+  int[] temp = new int[3];
+  temp = getHighScore();
+  if(score >= temp[0]){
+    temp[2] = temp[1];
+    temp[1] = temp[0];
+    temp[0] = score;
+  } else if(score >= temp[1]){
+    temp[2] = temp[1];
+    temp[1] = score;
+  } else if (score >= temp[2]){
+    temp[2] = score;
+  }
+
+  String[] highScore = new String[3];
+  highScore[0] = Integer.toString(temp[0]);
+  highScore[1] = Integer.toString(temp[1]);
+  highScore[2] = Integer.toString(temp[2]);
+  saveStrings("score.txt", highScore);
+}
+
+public int[] getHighScore(){
+  int[] temp = new int[3];
+  String[] highScore = loadStrings("score.txt");
+  temp[0] = Integer.valueOf(highScore[0]);
+  temp[1] = Integer.valueOf(highScore[1]);
+  temp[2] = Integer.valueOf(highScore[2]);
+  return temp;
+}
 boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
