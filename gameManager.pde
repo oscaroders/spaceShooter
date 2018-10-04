@@ -56,6 +56,7 @@ class GameManager
 
 				if (millis() > 5000)
 				{
+					
 
 					if(firstSpawn)
 					{
@@ -86,7 +87,8 @@ class GameManager
 			{
 				gameOver();
 				if(keyPressed && key == 'r')
-				setup();
+					setup();
+
 			}
 
 		}

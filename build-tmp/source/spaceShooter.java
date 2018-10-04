@@ -19,9 +19,6 @@ GameManager gameManager;
 PImage img1;
 PImage img2;
 PImage imgA;
-PImage imgEnemy1;
-PImage imgEnemy2;
-PImage imgEnemy3;
 
 float deltaTime;
 long currentTime;
@@ -33,9 +30,6 @@ public void setup()
 	img1 = loadImage("spaceShip.jpg");
 	img2 = loadImage("sun.jpg");
 	imgA = loadImage("asteroid.png");
-	imgEnemy1 = loadImage("easyEnemy.png");
-	imgEnemy2 = loadImage("mediumEnemy.png");
-	imgEnemy3 = loadImage("hardEnemy.png");
 
 
 	gameManager = new GameManager();
@@ -47,7 +41,7 @@ public void draw()
 	deltaTime = (currentTime - time) * 0.001f;
 
 	gameManager.update();
-	
+
 	time = currentTime;
 }
 class Asteroid extends Objects
@@ -119,7 +113,8 @@ class Bullet extends Objects
 
 	public void draw()
 	{
-		fill(0, 0, 255);
+		noStroke();
+		fill(255, 100, 50);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size / 2, size / 2);
 	}
@@ -142,7 +137,7 @@ class BulletEnemy extends Bullet{
   public BulletEnemy(float x, float y){
     super(x, y);
     speed = 2;
-    size = 10;
+    size = 20;
   }
 
   public void update()
@@ -154,7 +149,8 @@ class BulletEnemy extends Bullet{
 
   public void draw()
   {
-    fill(0, 0, 255);
+    noStroke();
+    fill(255, 105, 180);
     ellipseMode(CENTER);
     ellipse(position.x, position.y, size / 2, size / 2);
   }
@@ -249,13 +245,10 @@ class EnemyEasy extends Enemy{
 
   public void draw()
   {
-
-    // fill(0, 0, 255);
-    // ellipseMode(CENTER);
-    // ellipse(position.x, position.y, size , size );
-    imageMode(CENTER);
-    image(imgEnemy1, position.x - size / 2, position.y - size / 2, 100, 100);
-
+    noStroke();
+     fill(218, 165, 32);
+     ellipseMode(CENTER);
+     ellipse(position.x, position.y, size , size );
   }
 
   public void moveToPlayerPosition()
@@ -277,12 +270,10 @@ class EnemyHard extends Enemy{
 
   public void draw()
   {
-
-    // fill(255, 0, 0);
-    // ellipseMode(CENTER);
-    // ellipse(position.x, position.y, size, size);
-    imageMode(CENTER);
-    image(imgEnemy3, position.x - size / 2, position.y - size / 2, 200, 200);
+    noStroke();
+    fill(0, 255, 154);
+    ellipseMode(CENTER);
+    ellipse(position.x, position.y, size, size);
 
   }
 
@@ -305,12 +296,11 @@ class EnemyMedium extends Enemy{
 
   public void draw()
   {
+    noStroke();
+    fill(0, 191, 255);
+    ellipseMode(CENTER);
+    ellipse(position.x, position.y, size, size);
 
-    // fill(0, 255, 0);
-    // ellipseMode(CENTER);
-    // ellipse(position.x, position.y, size, size);
-    imageMode(CENTER);
-    image(imgEnemy2, position.x - size / 2, position.y - size / 2, 150, 150);
 
   }
 
@@ -443,6 +433,7 @@ class GameManager
 
 				if (millis() > 5000)
 				{
+					
 
 					if(firstSpawn)
 					{
@@ -473,7 +464,8 @@ class GameManager
 			{
 				gameOver();
 				if(keyPressed && key == 'r')
-				setup();
+					setup();
+
 			}
 
 		}
@@ -921,7 +913,7 @@ class Player extends Objects
 	public Player(float x, float y)
 	{
 		super(x,y);
-		playerSpeed = 6f;
+		playerSpeed = 3f;
 		b = new Bullet[maxBullet];
 		size = 50;
 		life = 500;
@@ -955,10 +947,13 @@ class Player extends Objects
 
 	public void draw()
 	{
-
-		fill(255, 100, 50, 30);
+		noStroke();
+		fill(255, 100, 50);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
+		stroke(0);
+		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
+		noStroke();
 		fill(255, 0, 0);
 		text(life, position.x, position.y);
 	}
@@ -968,7 +963,6 @@ class Player extends Objects
 		rotation.set(dX, dY);
 		rotation.normalize();
 		position.add(rotation);
-		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 	}
 
     public PVector getPlayerPosition()
