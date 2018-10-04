@@ -185,6 +185,9 @@ class GameManager
 
 		textAlign(CENTER);
 		text("Score: " + score, width/2, height/2 + height/20);
+
+		textAlign(CENTER);
+		text("Press r to reset the game!", width/2, height/2 + height/5);
 	}
 
 	void drawBackground(){

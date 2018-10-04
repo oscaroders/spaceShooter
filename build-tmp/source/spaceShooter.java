@@ -22,7 +22,6 @@ float time;
 
 public void setup()
 {
-	//size(500, 500);
 	
 	gameManager = new GameManager();
 }
@@ -121,6 +120,9 @@ public boolean collision(float x1, float y1, float size1, float x2, float y2, fl
 	{
 		return false;
 	}
+	else if(dist(x1, y1, x2, y2) < size1){
+		return false;
+	}
 	else
 	{
 		return true;
@@ -133,52 +135,39 @@ int spaceBlue = color(12, 36, 39);
 int spaceDotPurple = color(102, 0, 102);
 int spaceAppleRed = color(255, 77, 77);
 int scoreTextGreen = color(0, 102, 0);
-class Enemy extends Objects
-{
+class Enemy extends Objects{
 	PVector direction;
 	float size;
 
-
-	public Enemy()
-	{
+	public Enemy(){
 		super();
 		direction = new PVector();
 		size = 50;
-
 	}
 
-	public void update()
-	{
+	public void update(){
 		moveToPlayerPosition();
 
-		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height))
-		{
+		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height)){
 			enemyfire();
 		}
 
 		draw();
 	}
 
-	public void draw()
-	{
-
+	public void draw(){
 		fill(0, 255, 0);
-		//ellipseMode(CENTER);
+		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
-
 	}
 
-	public void moveToPlayerPosition()
-	{
-
-        direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
-        direction.normalize();
-        position.add(direction);
-
+	public void moveToPlayerPosition(){
+    direction.set(gameManager.lars.getPlayerPosition().x - position.x, gameManager.lars.getPlayerPosition().y - position.y);
+    direction.normalize();
+    position.add(direction);
 	}
 
-	public void enemyfire()
-	{
+	public void enemyfire(){
 		enemySpawnBullet();
 	}
 
@@ -186,27 +175,9 @@ class Enemy extends Objects
 		return direction;
 	}
 
-	public PVector getPosition()
-	{
+	public PVector getPosition(){
 		return position;
 	}
-
-
-	public void avoidEnemies(Enemy enmy)
-	{
-		int minDist = ((int)size/2) * 3;
-		float d = dist(this.position.x, this.position.y, enmy.position.x, enmy.position.y);
-		if (d < minDist) 
-		{
-			
-			this.direction.x = this.direction.x * -1;
-			this.direction.y = this.direction.y * -1;
-			enmy.direction.x = enmy.direction.x * -1;
-			enmy.direction.y = enmy.direction.y * -1;
-
-
-		}
-}
 
 }
 class EnemyEasy extends Enemy{
@@ -290,7 +261,7 @@ class EnemyMedium extends Enemy{
 int score;
 Bullet[] b;
 int bulletCounter;
-int maxBullet = 1000;
+int maxBullet = 100;
 int shootCounter;
 int bulletSpray;
 
@@ -319,7 +290,7 @@ int bulletSpray;
 
 	public void enemySpawnBullet()
 	{
-		if (shootCounter % 100 == 0)
+		if (shootCounter % 1000 == 0)
 		{
 			for (int j = 0; j < 10; j++)
 			{
@@ -341,6 +312,7 @@ int bulletSpray;
 class GameManager
 {
 	Player lars;
+	int life = 100;
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
 	boolean firstItt;
@@ -385,13 +357,13 @@ class GameManager
 				checkPlayerCollision();
 
 				checkEnemyCollision();
-
+				enemyBulletDraw();
 				for(int i = 0; i < maxNumberOfEnemies; i++)
 				{
 					enemies[i].update();
 				}
 
-				enemyBulletDraw();
+
 
 
 			}
@@ -403,9 +375,11 @@ class GameManager
 		if (gameOverScreen == true)
 		{
 			gameOver();
+			if(keyPressed && key == 'r')
+				setup();
 		}
 
-		draw();
+
 	}
 
 
@@ -416,7 +390,7 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				//gameOverScreen = true;
+				gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
@@ -424,9 +398,13 @@ class GameManager
 				if(b[j] instanceof Bullet)
 				{
 
-				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size / 2))
+				 	if (collision(lars.position.x, lars.position.y, lars.size / 2, b[j].position.x, b[j].position.y, b[j].size / 2))
 				 	{
-				 		//gameOverScreen = true;
+						if( gameManager.lars.life == 0){
+							gameOverScreen = true;
+						} else {
+							gameManager.lars.life -= 1;
+						}
 				 	}
 				}
 			}
@@ -519,7 +497,8 @@ class GameManager
 		textAlign(CENTER);
 		text("Score: " + score, width/2, height/2 + height/20);
 
-
+		textAlign(CENTER);
+		text("Press r to reset the game", width/2, height/2 + height/5);
 	}
 
 	public void drawBackground(){
@@ -556,33 +535,13 @@ public void generateBackground(){
 		return enemies;
 	}
 
-	public void draw()
-	{
-
-		for (int i = 0; i < maxNumberOfEnemies; i++) 
-		{
- 
-    		Enemy currentEnemy = enemies[i];
- 
-    		for (int j = i+1; j < maxNumberOfEnemies; j++) 
-    		{
-    			if (enemies[j] instanceof Enemy) 
-    			{
-    				currentEnemy.avoidEnemies(enemies[j]);
-    			}
-      			
-    		}
-  		}
-
-	}
-
-
 }
 boolean moveLeft;
 boolean moveRight;
 boolean moveUp;
 boolean moveDown;
 boolean fire;
+boolean enter;
 
 public void keyPressed()
 {
@@ -596,6 +555,9 @@ public void keyPressed()
 		else if (keyCode == LEFT)
 		{
 			moveLeft = true;
+		}
+		if(keyCode == ENTER){
+			enter = true;
 		}
 
 	}
@@ -624,6 +586,9 @@ public void keyPressed()
 		else if (keyCode == DOWN)
 		{
 			moveDown = true;
+		}
+		if(keyCode == ENTER){
+			enter = false;
 		}
 	}
 
@@ -726,43 +691,35 @@ public float getAxisRaw(String axis)
 	return 0;
 
 }
-class Objects
-{
+class Objects{
 
 	  PVector rotation;
    	PVector velocity;
    	PVector position;
 
-  public Objects()
-{
+  public Objects(){
     position = new PVector();
 
     int side2side = (int)random(1, 4.99f);
-    if (side2side == 1)
-    {
+    if (side2side == 1){
     	position.x = random(-50, -5);
     	position.y = random(0, height);
     }
-    if (side2side == 2)
-    {
+    if (side2side == 2){
     	position.x = random(0, width);
     	position.y = random(-50, -5);
     }
-    if (side2side == 3)
-    {
+    if (side2side == 3){
     	position.x = random(width + 5, width + 50);
     	position.y = random(0, height);
     }
-    if (side2side == 4)
-    {
+    if (side2side == 4){
     	position.x = random(0, width);
     	position.y = random(height + 5, height + 50);
     }
-
   }
 
-  public Objects(float x, float y)
-  {
+  public Objects(float x, float y){
     position = new PVector(x, y);
     rotation = new PVector(x, y);
   }
@@ -776,6 +733,7 @@ class Player extends Objects
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
+	int life;
 
 	Bullet[] b;
 	int bulletCounter;
@@ -792,20 +750,20 @@ class Player extends Objects
 		playerSpeed = 6f;
 		b = new Bullet[maxBullet];
 		size = 50;
+		life = 1000;
 	}
 
 	public void update()
 	{
 
 		playerRotation();
- 		if(keyPressed && (key == 'w' || key == 's')){
+ 		if(moveUp || moveDown){
 			if(playerSpeed > 3)
 				playerSpeed += getAxisRaw("Vertical") * 0.1f;
 			if(playerSpeed <= 3)
 				playerSpeed = 3.1f;
 		}
 
-   // fix so you can start turn while shooting!!!!
 		if(moveLeft || moveRight){
 			dX = cos(direction) * playerSpeed;
 			dY = sin(direction) * playerSpeed;
@@ -819,7 +777,6 @@ class Player extends Objects
 		bulletDraw();
 		bounderies();
 		draw();
-
 	}
 
 	public void draw()
@@ -828,6 +785,8 @@ class Player extends Objects
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
+		fill(255, 0, 0);
+		text(life, position.x, position.y);
 	}
 
 	public void playerRotation()
