@@ -272,7 +272,7 @@ class EnemyMedium extends Enemy{
 int score;
 Bullet[] b;
 int bulletCounter;
-int maxBullet = 1000;
+int maxBullet = 100;
 int shootCounter;
 int bulletSpray;
 
@@ -301,7 +301,7 @@ int bulletSpray;
 
 	public void enemySpawnBullet()
 	{
-		if (shootCounter % 100 == 0)
+		if (shootCounter % 500 == 0)
 		{
 			for (int j = 0; j < 10; j++)
 			{
@@ -759,7 +759,7 @@ class Player extends Objects
 	{
 
 		playerRotation();
- 		if(keyPressed && (key == 'w' || key == 's')){
+ 		if(moveUp || moveDown){
 			if(playerSpeed > 3)
 				playerSpeed += getAxisRaw("Vertical") * 0.1f;
 			if(playerSpeed <= 3)

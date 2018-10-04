@@ -25,7 +25,7 @@ class Player extends Objects
 	{
 
 		playerRotation();
- 		if(keyPressed && (key == 'w' || key == 's')){
+ 		if(moveUp || moveDown){
 			if(playerSpeed > 3)
 				playerSpeed += getAxisRaw("Vertical") * 0.1;
 			if(playerSpeed <= 3)
