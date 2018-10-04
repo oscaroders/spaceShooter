@@ -18,6 +18,7 @@ GameManager gameManager;
 
 PImage img1;
 PImage img2;
+PImage imgA;
 float deltaTime;
 long currentTime;
 float time;
@@ -27,6 +28,7 @@ public void setup()
 	
 	img1 = loadImage("spaceShip.jpg");
 	img2 = loadImage("sun.jpg");
+	imgA = loadImage("asteroid.png");
 	gameManager = new GameManager();
 }
 
@@ -38,6 +40,50 @@ public void draw()
 	gameManager.update();
 	
 	time = currentTime;
+}
+class Asteroid extends Objects
+{
+
+	float speedX;
+	float speedY;
+	int size = 250;
+
+	public Asteroid()
+	{
+		position = new PVector(random(width), random(height));
+		speedX += random(-1 , 1);
+		speedY += random(-1, 1);
+	}
+
+
+	public void draw()
+	{
+		bounderies();
+		position.x += speedX;
+		position.y += speedY;
+		image(imgA, position.x, position.y, 250, 250);
+	}
+
+	public void bounderies()
+	{
+		if(position.x < 0 - size){
+			position.x = width;
+		}
+		if(position.x > width + size){
+			position.x = 0;
+		}
+		if(position.y < 0 - size){
+			position.y = height;
+		}
+		if(position.y > height + size){
+			position.y = 0;
+		}
+	}
+
+
+
+
+
 }
 class Bullet extends Objects
 {
@@ -338,6 +384,9 @@ class GameManager
 	float endTime;
 	int gameOverCounter = 0;
 	boolean firstSpawn = true;
+	Asteroid asteroid;
+	Asteroid asteroid2;
+	Asteroid asteroid3;
 
 
 	public GameManager()
@@ -348,6 +397,9 @@ class GameManager
 		numberOfStars = 500;
 		starPos = new PVector[numberOfStars];
 		score = 0;
+		asteroid = new Asteroid();
+		asteroid2 = new Asteroid();
+		asteroid3 = new Asteroid();
 	}
 
 	public void update()
@@ -362,7 +414,9 @@ class GameManager
 		{
 
 			drawBackground();
-
+			asteroid.draw();
+			asteroid2.draw();
+			asteroid3.draw();
 
 			if (gameOverScreen == false)
 			{
