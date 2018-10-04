@@ -323,6 +323,7 @@ int bulletSpray;
 class GameManager
 {
 	Player lars;
+	int life = 100;
 	Enemy[] enemies;
 	int maxNumberOfEnemies = 10;
 	boolean firstItt;
@@ -398,7 +399,7 @@ class GameManager
 			boolean colider = collision(lars.position.x, lars.position.y, lars.size / 2, enemies[i].position.x, enemies[i].position.y, enemies[i].size / 2);
 			if (colider)
 			{
-				//gameOverScreen = true;
+				gameOverScreen = true;
 			}
 
 			for (int j = 0; j < 100; j++)
@@ -408,7 +409,11 @@ class GameManager
 
 				 	if (collision(lars.position.x, lars.position.y, lars.size, b[j].position.x, b[j].position.y, b[j].size / 2))
 				 	{
-				 		//gameOverScreen = true;
+						if( gameManager.lars.life == 0){
+							gameOverScreen = true;
+						} else {
+							gameManager.lars.life -= 1;
+						}
 				 	}
 				}
 			}
@@ -737,6 +742,7 @@ class Player extends Objects
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
+	int life;
 
 	Bullet[] b;
 	int bulletCounter;
@@ -753,6 +759,7 @@ class Player extends Objects
 		playerSpeed = 6f;
 		b = new Bullet[maxBullet];
 		size = 50;
+		life = 1000;
 	}
 
 	public void update()
@@ -789,6 +796,8 @@ class Player extends Objects
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
+		fill(255, 0, 0);
+		text(life, position.x, position.y);
 	}
 
 	public void playerRotation()

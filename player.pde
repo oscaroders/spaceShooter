@@ -3,6 +3,7 @@ class Player extends Objects
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
+	int life;
 
 	Bullet[] b;
 	int bulletCounter;
@@ -19,6 +20,7 @@ class Player extends Objects
 		playerSpeed = 6f;
 		b = new Bullet[maxBullet];
 		size = 50;
+		life = 1000;
 	}
 
 	void update()
@@ -55,6 +57,8 @@ class Player extends Objects
 		fill(255, 100, 50, 30);
 		ellipseMode(CENTER);
 		ellipse(position.x, position.y, size, size);
+		fill(255, 0, 0);
+		text(life, position.x, position.y);
 	}
 
 	void playerRotation()
