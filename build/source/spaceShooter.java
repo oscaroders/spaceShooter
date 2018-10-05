@@ -295,6 +295,28 @@ float endTime;
 int maxBullet = 100;
 int gameOverCounter = 0;
 
+public void startScreen()
+{
+	background(0);
+
+	image(img1, 50, 500, width/2, height/2);
+
+	image(img2, 900, 100, width/2, height/2);
+
+	textSize(50);
+	textAlign(CENTER);
+	fill(255, 100, 255);
+	text("Space Shooter 1.0", width/2, height/5);
+
+	textAlign(CENTER);
+	fill(255, 100, 255);
+	text("-----------------", width/2, height/4.5f);
+
+	textAlign(CENTER);
+	fill(255, 150, 0);
+	text("PRESS P TO START THE GAME!", width/2, height/2 + height/20);
+}
+
 public void enemyBulletDraw()
 {
 	for(int i = 0; i < maxBullet; i++)
@@ -437,28 +459,6 @@ class GameManager
 					setup();
 			}
 		}
-	}
-
-	public void startScreen()
-	{
-		background(0);
-
-		image(img1, 50, 500, width/2, height/2);
-
-		image(img2, 900, 100, width/2, height/2);
-
-		textSize(50);
-		textAlign(CENTER);
-		fill(255, 100, 255);
-		text("Space Shooter 1.0", width/2, height/5);
-
-		textAlign(CENTER);
-		fill(255, 100, 255);
-		text("-----------------", width/2, height/4.5f);
-
-		textAlign(CENTER);
-		fill(255, 150, 0);
-		text("PRESS P TO START THE GAME!", width/2, height/2 + height/20);
 	}
 
 	public void drawBackground()
