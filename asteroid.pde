@@ -6,7 +6,6 @@ class Asteroid extends Objects
 
 	public Asteroid()
 	{
-		position = new PVector(random(width), random(height));
 		speedX += random(-1 , 1);
 		speedY += random(-1, 1);
 	}

@@ -48,7 +48,7 @@ class Asteroid extends Objects
 
 	public Asteroid()
 	{
-		position = new PVector(random(width), random(height));
+
 		speedX += random(-1 , 1);
 		speedY += random(-1, 1);
 	}
@@ -845,7 +845,6 @@ class Player extends Objects
 			dX = cos(direction) * playerSpeed * deltaTime * 50;
 			dY = sin(direction) * playerSpeed * deltaTime * 50;
 			direction += 0.05f * getAxisRaw("Horizontal");
-			println(playerSpeed);
 		}
 		position.x += dX;
 		position.y += dY;
