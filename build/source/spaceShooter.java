@@ -48,7 +48,6 @@ class Asteroid extends Objects
 
 	public Asteroid()
 	{
-
 		speedX += random(-1 , 1);
 		speedY += random(-1, 1);
 	}
@@ -296,6 +295,28 @@ float endTime;
 int maxBullet = 100;
 int gameOverCounter = 0;
 
+public void startScreen()
+{
+	background(0);
+
+	image(img1, 50, 500, width/2, height/2);
+
+	image(img2, 900, 100, width/2, height/2);
+
+	textSize(50);
+	textAlign(CENTER);
+	fill(255, 100, 255);
+	text("Space Shooter 1.0", width/2, height/5);
+
+	textAlign(CENTER);
+	fill(255, 100, 255);
+	text("-----------------", width/2, height/4.5f);
+
+	textAlign(CENTER);
+	fill(255, 150, 0);
+	text("PRESS P TO START THE GAME!", width/2, height/2 + height/20);
+}
+
 public void enemyBulletDraw()
 {
 	for(int i = 0; i < maxBullet; i++)
@@ -320,7 +341,7 @@ public void checkAndWriteScore()
 	fill(255, 255, 255);
 	text(" Score: " + score +
 		  	"\n" + " High Score:" +
-				"\n 1st: " + highScore[0], 100, 100);
+				"\n 1st: " + highScore[0], 62, 40);
 }
 
 public void enemySpawnBullet()
@@ -438,28 +459,6 @@ class GameManager
 					setup();
 			}
 		}
-	}
-
-	public void startScreen()
-	{
-		background(0);
-
-		image(img1, 50, 500, width/2, height/2);
-
-		image(img2, 900, 100, width/2, height/2);
-
-		textSize(50);
-		textAlign(CENTER);
-		fill(255, 100, 255);
-		text("Space Shooter 1.0", width/2, height/5);
-
-		textAlign(CENTER);
-		fill(255, 100, 255);
-		text("-----------------", width/2, height/4.5f);
-
-		textAlign(CENTER);
-		fill(255, 150, 0);
-		text("PRESS P TO START THE GAME!", width/2, height/2 + height/20);
 	}
 
 	public void drawBackground()
@@ -863,8 +862,16 @@ class Player extends Objects
 		stroke(0);
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 		noStroke();
-		fill(255, 0, 0);
-		text(life, position.x, position.y);
+		fill(255);
+		text("life: ", 50, height - 40);
+		rect(88, height - 60, 104, 24);
+		if(life < 50)	
+		{
+			fill(255, 0, 0);
+		} else {
+			fill(0, 255, 0);
+		}
+		rect(90, height - 58, life / 5, 20);
 	}
 
 	public void playerRotation()

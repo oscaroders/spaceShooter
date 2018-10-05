@@ -7,6 +7,28 @@ float endTime;
 int maxBullet = 100;
 int gameOverCounter = 0;
 
+void startScreen()
+{
+	background(0);
+
+	image(img1, 50, 500, width/2, height/2);
+
+	image(img2, 900, 100, width/2, height/2);
+
+	textSize(50);
+	textAlign(CENTER);
+	fill(255, 100, 255);
+	text("Space Shooter 1.0", width/2, height/5);
+
+	textAlign(CENTER);
+	fill(255, 100, 255);
+	text("-----------------", width/2, height/4.5);
+
+	textAlign(CENTER);
+	fill(255, 150, 0);
+	text("PRESS P TO START THE GAME!", width/2, height/2 + height/20);
+}
+
 void enemyBulletDraw()
 {
 	for(int i = 0; i < maxBullet; i++)
@@ -31,7 +53,7 @@ void checkAndWriteScore()
 	fill(255, 255, 255);
 	text(" Score: " + score +
 		  	"\n" + " High Score:" +
-				"\n 1st: " + highScore[0], 100, 100);
+				"\n 1st: " + highScore[0], 62, 40);
 }
 
 void enemySpawnBullet()
