@@ -34,7 +34,6 @@ class Player extends Objects
 			dX = cos(direction) * playerSpeed * deltaTime * 50;
 			dY = sin(direction) * playerSpeed * deltaTime * 50;
 			direction += 0.05f * getAxisRaw("Horizontal");
-			println(playerSpeed);
 		}
 		position.x += dX;
 		position.y += dY;
