@@ -1,48 +1,43 @@
 class Player extends Objects
 {
+	Bullet[] b;
 	float playerSpeed;
 	float xMovement;
 	float yMovement;
-	int life;
-
-	Bullet[] b;
-	int bulletCounter;
-	int maxBullet = 100;
 	float size;
-
 	float direction;
 	float dY;
 	float dX;
+	int bulletCounter;
+	int life;
+	int maxBullet = 100;
 
 	public Player(float x, float y)
 	{
 		super(x,y);
-		playerSpeed = 3f;
 		b = new Bullet[maxBullet];
+		playerSpeed = 3f;
 		size = 50;
 		life = 500;
 	}
 
 	void update()
 	{
-
 		playerRotation();
  		if(moveUp || moveDown){
 			if(playerSpeed > 3)
-				playerSpeed += getAxisRaw("Vertical") * 0.1;
+				playerSpeed += getAxisRaw("Vertical") * 0.5;
 			if(playerSpeed <= 3)
 				playerSpeed = 3.1;
 		}
-
 		if(moveLeft || moveRight){
-			dX = cos(direction) * playerSpeed;
-			dY = sin(direction) * playerSpeed;
+			dX = cos(direction) * playerSpeed * deltaTime * 50;
+			dY = sin(direction) * playerSpeed * deltaTime * 50;
 			direction += 0.05f * getAxisRaw("Horizontal");
+			println(playerSpeed);
 		}
-
 		position.x += dX;
 		position.y += dY;
-
 		fire();
 		bulletDraw();
 		bounderies();
@@ -69,11 +64,6 @@ class Player extends Objects
 		position.add(rotation);
 	}
 
-    PVector getPlayerPosition()
-	{
-		return position;
-	}
-
 	void fire()
 	{
 		if (fire)
@@ -87,8 +77,8 @@ class Player extends Objects
 		}
 	}
 
-	void bulletDraw(){
-
+	void bulletDraw()
+	{
 		for(int i = 0; i < maxBullet; i++){
 			if(b[i] instanceof Bullet){
 				b[i].setBulletDirection(rotation);
@@ -97,7 +87,8 @@ class Player extends Objects
 		}
 	}
 
-	void bounderies(){
+	void bounderies()
+	{
 		if(position.x < 0 - size / 2){
 			position.x = width;
 		}
@@ -110,5 +101,10 @@ class Player extends Objects
 		if(position.y > height + size / 2){
 			position.y = 0;
 		}
+	}
+
+  PVector getPlayerPosition()
+	{
+		return position;
 	}
 }

@@ -1,8 +1,6 @@
 GameManager gameManager;
 
-PImage img1;
-PImage img2;
-PImage imgA;
+PImage img1, img2, imgA;
 
 float deltaTime;
 long currentTime;
@@ -14,8 +12,6 @@ void setup()
 	img1 = loadImage("spaceShip.jpg");
 	img2 = loadImage("sun.jpg");
 	imgA = loadImage("asteroid.png");
-
-
 	gameManager = new GameManager();
 }
 

@@ -8,32 +8,36 @@ boolean play;
 
 void keyPressed()
 {
-
 	if (key == CODED)
 	{
 		if (keyCode == RIGHT)
 		{
 			moveRight = true;
-		}
-		else if (keyCode == LEFT)
+		} else if (keyCode == LEFT)
 		{
 			moveLeft = true;
-		}
-		if(keyCode == ENTER){
+		} if(keyCode == ENTER)
+		{
 			enter = true;
 		}
-
+		if (keyCode == UP)
+		{
+			moveUp = true;
+		} else if (keyCode == DOWN)
+		{
+			moveDown = true;
+		}
+		if(keyCode == ENTER){
+			enter = false;
+		}
 	}
-
 	if (key == 'd' || key == 'D')
 	{
 		moveRight = true;
-	}
-	else if (key == 'a' || key == 'A')
+	} else if (key == 'a' || key == 'A')
 	{
 		moveLeft = true;
 	}
-
 	if (key == 'n')
 	{
 		fire = true;
@@ -43,67 +47,45 @@ void keyPressed()
 	{
 		play = true;
 	}
-
-
-	if (key == CODED)
-	{
-		if (keyCode == UP)
-		{
-			moveUp = true;
-		}
-		else if (keyCode == DOWN)
-		{
-			moveDown = true;
-		}
-		if(keyCode == ENTER){
-			enter = false;
-		}
-	}
-
 	if (key == 'w' || key == 'W')
 	{
 		moveUp = true;
-	}
-	else if (key == 's' || key == 'S')
+	} else if (key == 's' || key == 'S')
 	{
 		moveDown = true;
 	}
-
-
-
 }
 
 void keyReleased()
 {
-	if (key == 'd' || key == 'D')
-	{
-		moveRight = false;
-	}
-	else if (key == 'a' || key == 'A')
-	{
-		moveLeft = false;
-	}
-
-
 	if (key == CODED)
 	{
 		if (keyCode == RIGHT)
 		{
 			moveRight = false;
-		}
-		else if (keyCode == LEFT)
+		} else if (keyCode == LEFT)
 		{
 			moveLeft = false;
 		}
+		if (keyCode == UP)
+		{
+			moveUp = false;
+		} else if (keyCode == DOWN)
+		{
+			moveDown = false;
+		}
 	}
-
-
-
+	if (key == 'd' || key == 'D')
+	{
+		moveRight = false;
+	} else if (key == 'a' || key == 'A')
+	{
+		moveLeft = false;
+	}
 	if (key == 'w' || key == 'W')
 	{
 		moveUp = false;
-	}
-	else if(key == 's' || key == 'S')
+	} else if(key == 's' || key == 'S')
 	{
 		moveDown = false;
 	}
@@ -111,25 +93,10 @@ void keyReleased()
 	{
 		fire = false;
 	}
-
-
-	if (key == CODED)
-	{
-		if (keyCode == UP)
-		{
-			moveUp = false;
-		}
-		else if (keyCode == DOWN)
-		{
-			moveDown = false;
-		}
-
-	}
 }
 
 float getAxisRaw(String axis)
 {
-
 	if (axis == "Horizontal")
 	{
 		if (moveLeft)
@@ -138,11 +105,9 @@ float getAxisRaw(String axis)
 		}
 		if (moveRight)
 		{
-
 			return 1;
 		}
 	}
-
 	if (axis == "Vertical")
 	{
 		if (moveDown)
@@ -151,11 +116,8 @@ float getAxisRaw(String axis)
 		}
 		if (moveUp)
 		{
-
 			return 1;
 		}
 	}
-
 	return 0;
-
 }

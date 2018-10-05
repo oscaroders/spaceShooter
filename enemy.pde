@@ -10,11 +10,9 @@ class Enemy extends Objects{
 
 	void update(){
 		moveToPlayerPosition();
-
 		if ((position.x > 0 && position.x < width) && (position.y > 0 && position.y < height)){
 			enemyfire();
 		}
-
 		draw();
 	}
 
@@ -41,5 +39,4 @@ class Enemy extends Objects{
 	PVector getPosition(){
 		return position;
 	}
-
 }

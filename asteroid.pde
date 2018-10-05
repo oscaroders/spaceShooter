@@ -1,6 +1,5 @@
 class Asteroid extends Objects
 {
-
 	float speedX;
 	float speedY;
 	int size = 250;
@@ -11,7 +10,6 @@ class Asteroid extends Objects
 		speedX += random(-1 , 1);
 		speedY += random(-1, 1);
 	}
-
 
 	void draw()
 	{
@@ -36,9 +34,4 @@ class Asteroid extends Objects
 			position.y = 0 - size;
 		}
 	}
-
-
-
-
-
 }

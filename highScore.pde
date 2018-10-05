@@ -1,4 +1,11 @@
-int s1, s2, s3;
+int[] getHighScore(){
+  int[] temp = new int[3];
+  String[] highScore = loadStrings("score.txt");
+  temp[0] = Integer.valueOf(highScore[0]);
+  temp[1] = Integer.valueOf(highScore[1]);
+  temp[2] = Integer.valueOf(highScore[2]);
+  return temp;
+}
 
 void saveHighScore(){
 
@@ -20,13 +27,4 @@ void saveHighScore(){
   highScore[1] = Integer.toString(temp[1]);
   highScore[2] = Integer.toString(temp[2]);
   saveStrings("score.txt", highScore);
-}
-
-int[] getHighScore(){
-  int[] temp = new int[3];
-  String[] highScore = loadStrings("score.txt");
-  temp[0] = Integer.valueOf(highScore[0]);
-  temp[1] = Integer.valueOf(highScore[1]);
-  temp[2] = Integer.valueOf(highScore[2]);
-  return temp;
 }

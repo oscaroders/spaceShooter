@@ -1,11 +1,12 @@
-class BulletEnemy extends Bullet{
-
+class BulletEnemy extends Bullet
+{
   float directionX;
 	float directionY;
   float speed;
   float size;
 
-  public BulletEnemy(float x, float y){
+  public BulletEnemy(float x, float y)
+  {
     super(x, y);
     speed = 2;
     size = 20;
@@ -26,7 +27,8 @@ class BulletEnemy extends Bullet{
     ellipse(position.x, position.y, size / 2, size / 2);
   }
 
-  void setBulletDirection(PVector direction){
+  void setBulletDirection(PVector direction)
+  {
     if(first){
       directionX += direction.x;
       directionY += direction.y;
