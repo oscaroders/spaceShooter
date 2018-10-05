@@ -38,7 +38,7 @@ void keyPressed()
 	{
 		moveLeft = true;
 	}
-	if (key == 'n')
+	if (key == ' ')
 	{
 		fire = true;
 	}
@@ -89,7 +89,7 @@ void keyReleased()
 	{
 		moveDown = false;
 	}
-	if (key == 'n')
+	if (key == ' ')
 	{
 		fire = false;
 	}

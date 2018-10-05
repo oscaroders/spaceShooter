@@ -11,7 +11,7 @@ Perspective --------------------------
 
 Features -----------------------------
 
-The player has 3 lives.
+The player has (500) lives.
 There are 3 enemies of different difficulty.
 All enemies moves towards the player.
 Random falling astroids to avoid
