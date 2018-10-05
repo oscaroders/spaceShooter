@@ -31,7 +31,7 @@ void checkAndWriteScore()
 	fill(255, 255, 255);
 	text(" Score: " + score +
 		  	"\n" + " High Score:" +
-				"\n 1st: " + highScore[0], 100, 100);
+				"\n 1st: " + highScore[0], 62, 40);
 }
 
 void enemySpawnBullet()

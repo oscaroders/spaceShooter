@@ -319,7 +319,7 @@ public void checkAndWriteScore()
 	fill(255, 255, 255);
 	text(" Score: " + score +
 		  	"\n" + " High Score:" +
-				"\n 1st: " + highScore[0], 100, 100);
+				"\n 1st: " + highScore[0], 62, 40);
 }
 
 public void enemySpawnBullet()
@@ -865,7 +865,7 @@ class Player extends Objects
 		fill(255);
 		text("life: ", 50, height - 40);
 		rect(88, height - 60, 104, 24);
-		if(life < 50)
+		if(life < 50)	
 		{
 			fill(255, 0, 0);
 		} else {

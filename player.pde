@@ -55,7 +55,7 @@ class Player extends Objects
 		fill(255);
 		text("life: ", 50, height - 40);
 		rect(88, height - 60, 104, 24);
-		if(life < 50)
+		if(life < 50)	
 		{
 			fill(255, 0, 0);
 		} else {
