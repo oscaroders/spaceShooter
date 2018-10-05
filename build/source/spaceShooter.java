@@ -48,7 +48,6 @@ class Asteroid extends Objects
 
 	public Asteroid()
 	{
-
 		speedX += random(-1 , 1);
 		speedY += random(-1, 1);
 	}
@@ -863,8 +862,16 @@ class Player extends Objects
 		stroke(0);
 		line(position.x, position.y, position.x + rotation.x * 25, position.y + rotation.y * 25);
 		noStroke();
-		fill(255, 0, 0);
-		text(life, position.x, position.y);
+		fill(255);
+		text("life: ", 50, height - 40);
+		rect(88, height - 60, 104, 24);
+		if(life < 50)
+		{
+			fill(255, 0, 0);
+		} else {
+			fill(0, 255, 0);
+		}
+		rect(90, height - 58, life / 5, 20);
 	}
 
 	public void playerRotation()
