@@ -22,6 +22,7 @@ class GameManager
 		asteroid3 = new Asteroid();
 		starPos = new PVector[numberOfStars];
 		boolean gameOverScreen = false;
+		gameOverCounter = 0;
 		firstItt = true;
 		firstSpawn = true;
 		score = 0;
